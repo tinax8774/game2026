@@ -14,8 +14,21 @@ class StartScene extends Phaser.Scene {
             .setScale(0.75)
             .setInteractive()
             .on("pointerdown", () => {
-                this.scene.start("CreditsScene"); // Switch to CreditsScene
+                this.scene.start("CharacterScene"); // Switch to CharacterScene
             });
+    }
+}
+
+// Choose Character Scene
+class CharacterScene extends Phaser.Scene {
+    constructor() {
+        super({ key: "CharacterScene" });
+    }
+    preload() {
+        this.load.image("charactersBg", "assets/peach.png"); // Load characters background
+    }
+    create() {
+        this.add.image(100, 150, "charactersBg"); // Set background image
     }
 }
 
@@ -23,7 +36,7 @@ const config = {
     type: Phaser.AUTO,
     width: 800,
     height: 636,
-    scene: StartScene,
+    scene: [StartScene, CharacterScene],
 };
 
 const game = new Phaser.Game(config);
