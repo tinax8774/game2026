@@ -4,7 +4,7 @@ class StartScene extends Phaser.Scene {
         super("StartScene");
     }
     preload() {
-        this.load.image("startBg", "assets/startbackground.jpeg"); // Load home background
+        this.load.image("startBg", "assets/background.png"); // your border image
         this.load.image("button", "assets/playbutton.png"); // Load button
     }
     create() {
@@ -18,3 +18,13 @@ class StartScene extends Phaser.Scene {
             });
     }
 }
+
+const config = {
+    type: Phaser.AUTO,
+    width: 800,
+    height: 636,
+    scene: StartScene,
+};
+
+const game = new Phaser.Game(config);
+// game.global = { selectedCharacterKey: null };
