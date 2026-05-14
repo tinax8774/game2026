@@ -9,7 +9,7 @@
         <style>
             /* CSS */
 
-            }
+            
         </style>
 
         
@@ -52,6 +52,7 @@
                 correct_answer: "(a)10.25 amu", 
                 explanation: "Average atomic mass is calculated using a weighted "
             }
+            
         ]
         </script>
     </body>
