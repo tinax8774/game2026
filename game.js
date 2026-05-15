@@ -99,7 +99,7 @@ class CharacterScene extends Phaser.Scene {
             image.on('pointerdown', () => handleCharacterSelection(charInfo.key, image));
         });
 
-        const instructionsButton = this.add.image(300, 520, 'instructions')
+        const instructionsButton = this.add.image(500, 520, 'instructions')
             .setScale(0.350)
             .setInteractive()
             .on("pointerdown", () => {
