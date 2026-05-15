@@ -26,10 +26,117 @@ class CharacterScene extends Phaser.Scene {
     }
     preload() {
         this.load.image("charactersBg", "assets/peach.png"); // Load characters background
+
+        this.load.image("instructions", "assets/instructionsbutton.png"); // Load button
+
+        this.load.image("chick", "assets/baby_chick_3d.png");
+        this.load.image("blackcat", "assets/black_cat_3d.png");
+        this.load.image("lightcat", "assets/cat_3d.png");
+        this.load.image("chipmunk", "assets/chipmunk_3d.png");
+        this.load.image("cow", "assets/cow_3d.png");
+        this.load.image("dog", "assets/dog_3d.png");
+        this.load.image("poodle", "assets/poodle_3d.png");
+        this.load.image("gorilla", "assets/gorilla_3d.png");
+        this.load.image("hedgehog", "assets/hedgehog_3d.png");
+        this.load.image("honeybee", "assets/honeybee_3d.png");
+        this.load.image("monkey", "assets/monkey_3d.png");
+        this.load.image("pig", "assets/pig_3d.png");
+        this.load.image("rabbit", "assets/rabbit_3d.png");
+        this.load.image("tiger", "assets/tiger_3d.png");
     }
     create() {
-        this.add.image(100, 150, "charactersBg").scale(500); // Set background image
+        const bg = this.add.image(
+            this.scale.width / 2,
+            this.scale.height / 2,
+            "charactersBg"
+        );
+
+        // Auto-scale to fit screen
+        const scaleX = this.scale.width / bg.width;
+        const scaleY = this.scale.height / bg.height;
+        const scale = Math.max(scaleX, scaleY);
+        bg.setScale(scale);
+
+        bg.setDepth(0);
+
+        const characterPositions = [
+            { key: "chick", x: 100, y: 150 },
+            { key: "blackcat", x: 200, y: 150 },
+            { key: "lightcat", x: 300, y: 150 },
+            { key: "chipmunk", x: 400, y: 150 },
+            { key: "cow", x: 500, y: 150 },
+            { key: "dog", x: 100, y: 290 },
+            { key: "poodle", x: 200, y: 290 },
+            { key: "gorilla", x: 300, y: 290 },
+            { key: "hedgehog", x: 400, y: 290 },
+            { key: "honeybee", x: 500, y: 290 },
+            { key: "monkey", x: 150, y: 400 },
+            { key: "pig", x: 250, y: 400 },
+            { key: "rabbit", x: 350, y: 400 },
+            { key: "tiger", x: 450, y: 400 }
+        ];
+
+        this.add.text(300, 50, "Choose Your Character", {fontFamily: 'Nunito', stroke: '#000000', strokeThickness: 1.9, fontSize: "40px", fill: "#000000" }).setOrigin(0.5);
+
+        let selectedAnimalKey = null;
+        let greenOutline = this.add.graphics();
+        greenOutline.lineStyle(6, 0x00FF00);
+        greenOutline.strokeRect(0, 0, 90, 90);
+        greenOutline.setVisible(false);
+
+        const handleCharacterSelection = (characterKey, image) => {
+            greenOutline.x = image.x - image.width * 0.3 / 2 - 5; // Adjust x based on scale and outline width
+            greenOutline.y = image.y - image.height * 0.31 / 2 - 5; // Adjust y based on scale and outline width
+            greenOutline.setVisible(true);
+            selectedAnimalKey = characterKey;
+            this.game.global.selectedCharacterKey = characterKey; // Store the key globally
+            console.log('Selected character:', this.game.global.selectedCharacterKey);
+        };
+
+        characterPositions.forEach(charInfo => {
+            const image = this.add.image(charInfo.x, charInfo.y, charInfo.key).setScale(0.35);
+            image.setInteractive();
+            image.on('pointerdown', () => handleCharacterSelection(charInfo.key, image));
+        });
+
+        const instructionsButton = this.add.image(300, 520, 'instructions')
+            .setScale(0.350)
+            .setInteractive()
+            .on("pointerdown", () => {
+                this.scene.start("InstructionScene");
+            });
+    }
+}
+
+// Instruction Scene
+class InstructionScene extends Phaser.Scene {
+    constructor() {
+        super("InstructionScene");
+    }
+    preload() {
+        this.load.image("instructionsBg", "assets/peach.png"); // Load home background
+        this.load.image("start", "assets/start.jpg"); // Load button
+    }
+    create() {
+        this.add.image(612, 598, "instructionsBg").setScale(1); // Set background image
         this.add.text(25, 25, "Game Instructions", {fontFamily: 'Nunito',stroke: '#000000', strokeThickness: 1.5, fontSize: "35px", fill: "black" });
+        this.add.text(40, 80, "Use arrow keys to move (up arrow to jump)", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" });
+        this.add.text(40, 130, "Go to the Settings to change volume of the music", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" });
+        this.add.text(40, 180, "Match your commands to the beat of the music", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" });
+        this.add.text(40, 230, "Solve math problems to avoid obstacles", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" });
+        this.add.text(40, 280, "If you get the math question wrong, you can try again", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" });
+        this.add.text(40, 300, "by touching the obstacle again.", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" });
+        this.add.text(40, 350, "Get through all the obstacles", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" });
+        this.add.text(40, 400, "Match the beats to win the game!", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" });
+        this.add.text(40, 450, "Good luck & have fun!", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" });
+
+        const startButton = this.add.image(110, 530, 'start')
+        .setScale(0.20)
+            .setInteractive()
+            .on("pointerdown", () => {
+                this.scene.start("HomeScene");
+            });
+
     }
 }
 
@@ -37,7 +144,7 @@ const config = {
     type: Phaser.AUTO,
     width: 800,
     height: 636,
-    scene: [StartScene, CharacterScene],
+    scene: [StartScene, CharacterScene, InstructionScene],
 };
 
 const game = new Phaser.Game(config);
