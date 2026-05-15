@@ -76,7 +76,7 @@ class CharacterScene extends Phaser.Scene {
             { key: "tiger", x: 500, y: 400 }
         ];
 
-        this.add.text(350, 50, "Choose Your Character", {fontFamily: 'Nunito', stroke: '#000000', strokeThickness: 1.9, fontSize: "40px", fill: "#000000" }).setOrigin(0.5);
+        this.add.text(370, 50, "Choose Your Character", {fontFamily: 'Nunito', stroke: '#000000', strokeThickness: 1.9, fontSize: "40px", fill: "#000000" }).setOrigin(0.5);
 
         let selectedAnimalKey = null;
         let greenOutline = this.add.graphics();
