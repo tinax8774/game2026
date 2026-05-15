@@ -60,17 +60,17 @@ class CharacterScene extends Phaser.Scene {
         bg.setDepth(0);
 
         const characterPositions = [
-            { key: "chick", x: 150, y: 150 },
+            { key: "chick", x: 100, y: 150 },
             { key: "blackcat", x: 350, y: 150 },
             { key: "lightcat", x: 400, y: 150 },
             { key: "chipmunk", x: 500, y: 150 },
             { key: "cow", x: 600, y: 150 },
-            { key: "dog", x: 150, y: 290 },
+            { key: "dog", x: 100, y: 290 },
             { key: "poodle", x: 250, y: 290 },
             { key: "gorilla", x: 350, y: 290 },
             { key: "hedgehog", x: 450, y: 290 },
             { key: "honeybee", x: 550, y: 290 },
-            { key: "monkey", x: 200, y: 400 },
+            { key: "monkey", x: 150, y: 400 },
             { key: "pig", x: 300, y: 400 },
             { key: "rabbit", x: 400, y: 400 },
             { key: "tiger", x: 500, y: 400 }
