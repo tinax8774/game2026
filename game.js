@@ -61,22 +61,22 @@ class CharacterScene extends Phaser.Scene {
 
         const characterPositions = [
             { key: "chick", x: 100, y: 150 },
-            { key: "blackcat", x: 200, y: 150 },
-            { key: "lightcat", x: 300, y: 150 },
-            { key: "chipmunk", x: 400, y: 150 },
-            { key: "cow", x: 500, y: 150 },
+            { key: "blackcat", x: 350, y: 150 },
+            { key: "lightcat", x: 375, y: 150 },
+            { key: "chipmunk", x: 537.5, y: 150 },
+            { key: "cow", x: 700, y: 150 },
             { key: "dog", x: 100, y: 290 },
-            { key: "poodle", x: 200, y: 290 },
-            { key: "gorilla", x: 300, y: 290 },
-            { key: "hedgehog", x: 400, y: 290 },
-            { key: "honeybee", x: 500, y: 290 },
+            { key: "poodle", x: 250, y: 290 },
+            { key: "gorilla", x: 350, y: 290 },
+            { key: "hedgehog", x: 450, y: 290 },
+            { key: "honeybee", x: 700, y: 290 },
             { key: "monkey", x: 150, y: 400 },
-            { key: "pig", x: 250, y: 400 },
-            { key: "rabbit", x: 350, y: 400 },
-            { key: "tiger", x: 450, y: 400 }
+            { key: "pig", x: 300, y: 400 },
+            { key: "rabbit", x: 400, y: 400 },
+            { key: "tiger", x: 500, y: 400 }
         ];
 
-        this.add.text(300, 50, "Choose Your Character", {fontFamily: 'Nunito', stroke: '#000000', strokeThickness: 1.9, fontSize: "40px", fill: "#000000" }).setOrigin(0.5);
+        this.add.text(375, 50, "Choose Your Character", {fontFamily: 'Nunito', stroke: '#000000', strokeThickness: 1.9, fontSize: "40px", fill: "#000000" }).setOrigin(0.5);
 
         let selectedAnimalKey = null;
         let greenOutline = this.add.graphics();
@@ -118,13 +118,11 @@ class InstructionScene extends Phaser.Scene {
         this.load.image("start", "assets/start.jpg"); // Load button
     }
     create() {
-        this.add.image(612, 598, "instructionsBg").setScale(1); // Set background image
+        this.add.image(612, 598, "instructionsBg").setScale(1.5); // Set background image
         this.add.text(25, 25, "Game Instructions", {fontFamily: 'Nunito',stroke: '#000000', strokeThickness: 1.5, fontSize: "35px", fill: "black" });
         this.add.text(40, 80, "Use arrow keys to move (up arrow to jump)", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" });
-        this.add.text(40, 130, "Go to the Settings to change volume of the music", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" });
-        this.add.text(40, 180, "Match your commands to the beat of the music", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" });
         this.add.text(40, 230, "Solve math problems to avoid obstacles", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" });
-        this.add.text(40, 280, "If you get the math question wrong, you can try again", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" });
+        this.add.text(40, 280, "If you get the question wrong, you can try again", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" });
         this.add.text(40, 300, "by touching the obstacle again.", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" });
         this.add.text(40, 350, "Get through all the obstacles", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" });
         this.add.text(40, 400, "Match the beats to win the game!", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" });
@@ -148,4 +146,4 @@ const config = {
 };
 
 const game = new Phaser.Game(config);
-// game.global = { selectedCharacterKey: null };
+game.global = { selectedCharacterKey: null };
