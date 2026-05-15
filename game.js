@@ -62,18 +62,18 @@ class CharacterScene extends Phaser.Scene {
         const characterPositions = [
             { key: "chick", x: 100, y: 150 },
             { key: "blackcat", x: 250, y: 150 },
-            { key: "lightcat", x: 375, y: 150 },
+            { key: "lightcat", x: 395, y: 150 },
             { key: "chipmunk", x: 537.5, y: 150 },
             { key: "cow", x: 700, y: 150 },
             { key: "dog", x: 100, y: 290 },
             { key: "poodle", x: 250, y: 290 },
-            { key: "gorilla", x: 375, y: 290 },
+            { key: "gorilla", x: 395, y: 290 },
             { key: "hedgehog", x: 537.5, y: 290 },
             { key: "honeybee", x: 710, y: 290 },
-            { key: "monkey", x: 150, y: 400 },
-            { key: "pig", x: 300, y: 400 },
-            { key: "rabbit", x: 400, y: 400 },
-            { key: "tiger", x: 500, y: 400 }
+            { key: "monkey", x: 200, y: 400 },
+            { key: "pig", x: 350, y: 400 },
+            { key: "rabbit", x: 450, y: 400 },
+            { key: "tiger", x: 650, y: 400 }
         ];
 
         this.add.text(375, 50, "Choose Your Character", {fontFamily: 'Nunito', stroke: '#000000', strokeThickness: 1.9, fontSize: "40px", fill: "#000000" }).setOrigin(0.5);
