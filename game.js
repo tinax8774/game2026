@@ -139,11 +139,129 @@ class InstructionScene extends Phaser.Scene {
     }
 }
 
+// Home Scene (List of Levels)
+class HomeScene extends Phaser.Scene {
+    constructor() {
+        super("HomeScene");
+    }
+    preload() {
+        this.load.image("homeBg", "assets/peach.png"); // Load home background
+        this.load.image("button", "assets/creditbutton.png"); // Load button
+    }
+    create() {
+        this.add.image(612, 598, "homeBg").setScale(1); // Set background image
+        this.add.text(25, 25, "Select a Level", {stroke: '#000000', strokeThickness: 1.9, fontFamily: 'Nunito', fontSize: "40px", fill: "black" });
+
+        const levelData = [
+            { key: "Level1", x: 130, y: 180, label: "1" },
+            { key: "Level2", x: 290, y: 180, label: "2" },
+            { key: "Level3", x: 450, y: 180, label: "3" },
+            { key: "Level4", x: 130, y: 350, label: "4" },
+            { key: "Level5", x: 290, y: 350, label: "5" },
+            { key: "Level6", x: 450, y: 350, label: "6" },
+            { key: "Level7", x: 130, y: 500, label: "7" },
+            { key: "Level8", x: 290, y: 500, label: "8" },
+            { key: "Level9", x: 450, y: 500, label: "9" },
+        ];
+
+        levelData.forEach((level) => {
+            // Create a circle for the button
+            const circle = this.add.circle(level.x, level.y, 35, 0xF6CEFC); // Example fill color
+            circle.setInteractive(); // Make it clickable
+
+            // Style the circle to have a black stroke (border)
+            circle.setStrokeStyle(2, 0x000000); // 2 is the thickness, 0x000000 is black
+            circle.alpha = 0.8;
+
+            // Create text for the button label
+            const text = this.add.text(level.x, level.y, level.label, {
+                fontFamily: 'Nunito',
+                stroke: '#000000',
+                strokeThickness: 1.9,
+                fontSize: '40px',
+                fill: '#000000',
+                align: 'center',
+            }).setOrigin(0.5);
+
+            // Add a glow effect on hover (optional)
+            circle.on('pointerover', () => {
+                circle.setFillStyle(0x80ff75);
+                circle.alpha = 1;
+            });
+
+            circle.on('pointerout', () => {
+                circle.setFillStyle(0x80ff75);
+                circle.alpha = 0.8;
+            });
+
+            // Handle button click to start the level
+            circle.on('pointerdown', () => {
+                if (this.game.global.selectedCharacterKey) {
+                    this.scene.start(level.key);
+                } else {
+                    alert("Please choose a character before playing the game! Thank you.");
+                }
+            });
+
+        });
+
+        const instructionsButton = this.add.image(300, 500, 'instructions')
+        .setScale(0.350)
+            .setInteractive()
+            .on("pointerdown", () => {
+                this.scene.start("InstructionScene");
+            });
+
+        const CreditsButton = this.add.image(490, 50, 'button')
+            .setScale(0.75)
+            .setInteractive()
+            .on("pointerdown", () => {
+                this.scene.start("CreditsScene"); // Switch to CreditsScene
+            });
+    }
+}
+
+// Credits Scene
+class CreditsScene extends Phaser.Scene {
+    constructor() {
+        super("CreditsScene");
+    }
+    preload() {
+        this.load.image("creditsBg", "assets/peach.png"); // Load credits background
+        this.load.image("icon", "assets/atom_symbol_3d.png"); // Load button
+    }
+    create() {
+        this.add.image(612, 598, "creditsBg").setScale(1); // Set background image
+
+        this.add.image(180, 265, "icon").setScale(0.15);
+        this.add.image(420, 265, "icon").setScale(0.15);
+        this.add.image(160, 365, "icon").setScale(0.15);
+        this.add.image(440, 365, "icon").setScale(0.15);
+
+        this.add.text(225, 50, "Credits", {fontFamily: 'Nunito', stroke: '#000000', strokeThickness: 1.9, fontSize: '50px', fill: 'black'});
+        this.add.text(225, 150, "Made By", {fontFamily: 'Nunito', stroke: '#000000', strokeThickness: 1.9, fontSize: "40px", fill: "black" });
+        this.add.text(220, 250, "Nancy Chen", {fontFamily: 'Nunito', fontSize: "30px", fill: "black" });
+        this.add.text(200, 350, "Tina Xiao", {fontFamily: 'Nunito', fontSize: "30px", fill: "black" });
+
+        const button = this.add.text(125, 450, 'Character Options', {
+            fontFamily: 'Nunito',
+            fontSize: '40px',
+            color: 'black',
+            backgroundColor: '#51ff4b',
+            padding: { x: 10, y: 10 }
+        })
+        .setInteractive()
+        .on('pointerdown', () => {
+            this.scene.start("CharacterScene");
+        });
+    }
+}
+
 const config = {
     type: Phaser.AUTO,
     width: 800,
     height: 636,
-    scene: [StartScene, CharacterScene, InstructionScene],
+    scene: [StartScene, CharacterScene, InstructionScene, HomeScene, CreditsScene],
 };
 
 const game = new Phaser.Game(config);
