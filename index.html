@@ -1,315 +1,361 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <!-- Required meta tags -->
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="icon" type="image/x-icon" href="assets/chem_logo.png" />
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
-        <script src="//cdn.jsdelivr.net/npm/phaser@3.70.0/dist/phaser.min.js"></script>
-        <link href="style.css" rel="stylesheet" type="text/css" />
-        <link rel="stylesheet" href="./game.css" />
-        <script type="text/javascript" src="phaser.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
-        <script type="text/javascript" src="./game.js"></script>
-        <style>
-            /* CSS */
-            @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
-            body {
-                background: #78D6D7;
-                font-size: 28px;
-                font-family: 'Nunito', sans-serif;
-                font-weight: bold;
-                margin-top: 10px;
-                margin-bottom: 10px;
-                display: flex; /* Enable flexbox for the body */
-                flex-direction: column; /* Stack items vertically */
-                align-items: center; /* Center items horizontally */
-                justify-content: center; /* Center items vertically in the viewport */
-                min-height: 95vh; /* Ensure the body takes up at least the full viewport height */
-                text-decoration: none; /* Removed underline from body */
-            }
-            h1 {
-                background: #ffffff;
-                text-decoration-line: underline !important;
-                text-decoration-line: underline;
-                text-decoration-color: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet) !important;
-                text-decoration-color: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
-                text-decoration-style: wavy !important;
-                text-decoration-style: wavy;
-                border-radius: 25px !important;
-                border-radius: 25px;
-                font-size: 30px;
-                font-family: 'Nunito', sans-serif !important;
-                font-family: 'Nunito';
-                font-weight: bold !important;
-                font-weight: bold;
-                margin-top: 20px;
-                margin-bottom: 20px;
-                padding-left: 20px;
-                padding-right: 20px;
-                padding-bottom: 10px;
-                padding-top: 5px;
-            }
-        </style>
-
-        <title>AP Chemistry Review Game</title>
-    </head>
-    <body>
-        <!-- HTML -->
-
-        <h1>
-            <span style="text-decoration: underline wavy #63D2FF;">
-                Welcome,
-                <span id="name-placeholder"></span>!
-            </span>
-            <span style="text-decoration: underline wavy #63D2FF;">
-                To AP Chemistry Review!</span>
-        </h1>
-
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="//cdn.jsdelivr.net/npm/phaser@3.70.0/dist/phaser.min.js"></script>
-        <!-- <script src="script.js"></script> -->
-        <script>
-            // JS
-            var name = prompt("What's your name?");
-            var welcomeMessage = alert("Welcome " + name + "! " + "To This AP Chemistry Review Game!");
-            var namePlaceholder = document.getElementById('name-placeholder');
-            namePlaceholder.textContent = name;
-
-     // Unit 1 questions
-            var unitOneQuestions = [
-                "How many moles of calcium carbonate (CaCO_3) are present in 200.0g of the compound?",
-                "A sample contains 75% of an isotope with mass 10 amu and 25% of an isotope with mass 11 amu. What is the average atomic mass?",
-                "One mole of carbon-12 contains how many atoms?",
-                "Which sample contains the greatest amount of atoms?",
-                "How many moles are present in 36.0g of water (H_2O)?",
-                "Which particle contributes most to an atom's volume?",
-                "A neutral atom has 17 protons. How many electrons does it contain?",
-                "Which best describes the relationship between atomic mass and molar mass?",
-                "How many atoms are in 0.25 mol of neon?",
-                "Which statement best distinguishes a pure substance from a mixture?",
-                "A compound is 52.2% carbon, 13.0% hydrogen, and 34.8% oxygen by mass. What is the first step in determining the empirical formula?",
-                "What fundamental information does photoelectron spectroscopy provide about an atom?"
-            ];
-
-            var unitOneOptions = [
-                ["(a)1.00 mol", "(b)2.00 mol", "(c)2.50 mol", "(d)5.00 mol"],
-                ["(a)10.25 amu", "(b)10.50 amu", "(c)10.75 amu", "(d)11.00 amu"],
-                ["(a)6.02*10^22", "(b)6.02*10^23", "(c)12.0*10^23", "(d)1.0*10^23"],
-                ["(a)1 mol of He", "(b)1 mol of Ne", "(c)1 mole of Ar", "(d)All contain the same number"],
-                ["(a)1.0 mol", "(b)2.0 mol", "(c)18.0 mol", "(d)0.50 mol"],
-                ["(a)Proton", "(b)Neutron", "(c)Electron Cloud", "(d)Nucleus"],
-                ["(a)16", "(b)17", "(c)18", "(d)Cannot be determined"],
-                ["(a)They are unrelated", "(b)Atomic mass is larger", "(c)Molar mass is atomic mass in grams", "(d)Molar mass applies only to compounds"],
-                ["(a)1.51*10^23", "(b)6.02*10^23", "(c)2.41*10^23", "(d)0.25 atoms"],
-                ["(a)A pure substance contains only one element", "(b)A pure substance has fixed composition", "(c)A mixture has a chemical formula", "(d)A mixture cannot be separated"],
-                ["(a)Divide each percentage by atomic mass", "(b)Assume 100 g of the compound", "(c)Round percentages", "(d)Calculate molar mass"],
-                ["(a)Atomic mass and isotope ratios", "(b)Electron binding energies and subshell occupancy", "(c)Molecular geometry", "(d)Nuclear Stability"]
-            ];
-
-            var unitOneAnswers = [
-                "(b)2.00 mol",
-                "(a)10.25 amu",
-                "(b)6.02*10^23",
-                "(d)All contain the same number",
-                "(b)2.00 mol",
-                "(c)Electron Cloud",
-                "(b)17",
-                "(c)Molar mass is atomic mass in grams",
-                "(a)1.51*10^23",
-                "(b)A pure substance has fixed composition",
-                "(b)Assume 100 g of the compound",
-                "(b)Electron binding energies and subshell occupancy"
-            ];
-
-            var unitOneExplanations = [
-                "To calculate moles, divide the mass by the molar mass. Calcium carbonate has a molar mass of approximately 100.1 g/mol (40.1+12.0+3*16.0). 200.0g / 100.1 g/mol = 2.00 mol.",
-                "Average atomic mass is calculated using a weighted average, not a simple mean. Each isotope's mass is multiplied by its fractional abundance: (10 * 0.75) + (11 * 0.25) = 7.50 + 2.75 = 10.25 amu. This reflects the fact that the lighter isotope is more abundant, pulling the average closer to its mass.",
-                "Avogadro's number, 6.02*10^23 particles per mole, defines the mole. By definition, one mole of carbon-12 contains exactly this amount of atoms. This value provides the bridge between atomic-scale quantities and laboratory-scale measurements and is essential for all mole calculations in chemistry.",
-                "One mole of any substance contains the same number of particles (Avogadro's number). Even though helium, neon, and argon have different atomic masses, one mole of each contains 6.022*10^23 atoms. This highlights the importance of distinguishing between mass and number of particles.",
-                "The molar mass is approximately 18.0 g/mol. Dividing the given mass by the molar mass gives: 36.0 g / 18.0 g/mol = 2.0 mol.",
-                "Although the nucleus contains nearly all of an atom's mass, it occupies very little space. The electron cloud extends far from the nucleus and defines the atom's size and volume. This explains why atoms are mostly empty space and why electron interactions dominate chemical reactions.",
-                "In a neutral atom, the number of electrons equals the number of protons so that positive and negative charges balance. With 17 protons, the atom must also have 17 electrons. This principle is essential for understanding ion formation later in the course.",
-                "Atomic mass is expressed in atomic mass units for individual atoms, while molar mass represents the mass of one mole of those atoms in grams. Numerically, the values are the same. This relationship allows seamless conversion between atomic-scale and macroscopic quantities.",
-                "To find the number of atoms, multiply the number of moles by Avogadro's number: 0.25 mol * 6.02*10^23 atoms/mol = 1.51*10^23 atoms.",
-                "A pure substance (element or compound) has a fixed, constant composition and a definite set of properties. A mixture, in contrast, can have a variable composition depending on how much of each component is present. Elements are not the only pure substances—compounds are also pure if their composition is fixed.",
-                "Assuming a 100 g sample allows percent values to be treated directly as grams, simplifying conversion to moles.",
-                "PES measures the energy required to remove electrons from an atom. Each peak corresponds to electrons in a specific subshell; the peak position reflects binding energy, while the peak area reflects the number of electrons present."
-            ];
+   <head>
+       <!-- Required meta tags -->
+       <meta charset="utf-8">
+       <meta name="viewport" content="width=device-width, initial-scale=1">
+       <link rel="icon" type="image/x-icon" href="assets/chem_logo.png" />
+       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
+       <script src="//cdn.jsdelivr.net/npm/phaser@3.70.0/dist/phaser.min.js"></script>
+       <link href="style.css" rel="stylesheet" type="text/css" />
+       <link rel="stylesheet" href="./game.css" />
+       <script type="text/javascript" src="phaser.min.js"></script>
+       <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
+       <script type="text/javascript" src="./game.js"></script>
+       <style>
+           /* CSS */
+           @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+           body {
+               background: #78D6D7;
+               font-size: 28px;
+               font-family: 'Nunito', sans-serif;
+               font-weight: bold;
+               margin-top: 10px;
+               margin-bottom: 10px;
+               display: flex; /* Enable flexbox for the body */
+               flex-direction: column; /* Stack items vertically */
+               align-items: center; /* Center items horizontally */
+               justify-content: center; /* Center items vertically in the viewport */
+               min-height: 95vh; /* Ensure the body takes up at least the full viewport height */
+               text-decoration: none; /* Removed underline from body */
+           }
+           h1 {
+               background: #ffffff;
+               text-decoration-line: underline !important;
+               text-decoration-line: underline;
+               text-decoration-color: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet) !important;
+               text-decoration-color: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
+               text-decoration-style: wavy !important;
+               text-decoration-style: wavy;
+               border-radius: 25px !important;
+               border-radius: 25px;
+               font-size: 30px;
+               font-family: 'Nunito', sans-serif !important;
+               font-family: 'Nunito';
+               font-weight: bold !important;
+               font-weight: bold;
+               margin-top: 20px;
+               margin-bottom: 20px;
+               padding-left: 20px;
+               padding-right: 20px;
+               padding-bottom: 10px;
+               padding-top: 5px;
+           }
+       </style>
 
 
-        var unitTwoQuestions = [
-            "Which statement best explains why sodium chloride has a much higher melting point than water?", 
-            "Which compound is expected to have the greatest lattice energy?", 
-            "Which moledule has the strongest intermolecular forces?", 
-            "Why does iodine(I_2) have a higher boiling point than fluorine(F_2?)", 
-            "Which property best indicated the prescence of ionic bonding in a compound?",
-            "Which molecule is polar", 
-            "Which primarily determines the strength of London dispersion forces?",
-            "Which compound would be most soluble in water?", 
-            "Why do ionic solids not conduct electricity in the solid state?",
-            "Which factor increases lattice energy?", 
-            "Which molecule can form hydrogen bonds?",
-            "Which statment best explains why NaCl dissolves in water?", 
-            "Which compound has the greatest dipole-dipole attractions?", 
-            "Which substance would have the higher vapor pressure at room temperature?", 
-            "Which trend explains increasing boiling points down group 18?", 
-            "Why is CaF_2 less soluble in water than NaF?", 
-            "Which molecule is nonpolar despite having polar bonds?", 
-            "Which best explains why diamond is extremely hard?", 
-            "Which compound would have the highest boiling point?", 
-            "Which interaction occurs between water and Na+ ions?", 
-            "Why do molecular solids generally have low boiling points?", 
-            "Which compound has the strongest hydrogen bonding?", 
-            "Which substance is most likely to be brittle solid?", 
-            "Why does MgO have a higher boiling point than NaCl?", 
-            "Which molecule experiences only London dispersion forces?", 
-            "Which property best distinguishes ionic from molecular compounds?", 
-            "Which compound is most likely to conduct electricity when dissolved in water?", 
-            "Why is covalent network solids insoluble in water?", 
-            "Which factor most affects molecular polarity?", 
-            "Which compound would have the lowest boiling point", 
-            "Which factor explains why MgF_2 is far less soluble in water than NaF?",
-            "A salt dissolves in water with delta H>0 but still dissolbes readily at room temperature. Which factor most directly explains this behavior?",
-            "Rank the following ionic solids from highest to lowest lattice energy: NaCl, MgO, CaF_2, KBr"
-        ];
+       <title>AP Chemistry Review Game</title>
+   </head>
+   <body>
+       <!-- HTML -->
 
-        var unitTwoOptions = [
-            ["(a)NaCl has covalent bonds, while water has hydrogen bonds", "(b)NaCl forms a rigid ionic lattice with storng electrostatic forces", "(c)Water molecules are heavier than Na+ and Cl- ions", "(d)NaCl are nonpolar"],
-            ["(a)NaF", "(b)NaCl", "(c)MgO", "(d)KBr"],
-            ["(a)CH_4", "(b)NH_3", "(c)CO_2", "(d)H_2S"],
-            ["(a)I_2 i spolar while F_2 is nonpolar", "(b)I_2 has stronger London dispersion forces due to more electrons", "(c)I_2 has ionic charcater", "(d)F_2 forms hydrogen bonds"],
-            ["(a)Low melting point", "(b)Poor electrical conductivity when dissolved", "(c)High melting point and conductivity when molten", "(d)Insolubility in water"],
-            ["(a)CO_2", "(b)BF_3", "(c)SO_2", "(d)CCl_4"],
-            ["(a)Bond polarity", "(b)Molecular mass and surface area", "(c)Presence of hydrogen bonding", "(d)Ionic Charge"],
-            ["(a)C_6 H_6", "(b)CaCl_2", "(c)I_2", "(d)CO_2"],
-            ["(a)Ions are neutral", "(b)Electrons are tightly bound", "(c)Ions are fixed in place within the lattice", "(d)Ionic bonds prevent charge movement"],
-            ["(a)Larger ions", "(b)Lower ionic charge", "(c)Greater distance between ions", "(d)Higher ionic charge"],
-            ["(a)H_2S", "(b)HF", "(c)HCl", "(d)PH_3"],
-            ["(a)Water breaks covalent bonds", "(b)Ion-dipole forces overcome lattice energy", "(c)NaCl reacts chemically with water", "(d)Water molecules ionize NaCl"],
-            ["(a)CO_2", "(b)NH_3", "(c)O_2", "(d)N_2"],
-            ["(a)H_2O", "(b)NH_3", "(c)I_2", "(d)NaCl"],
-            ["(a)Increasing polarity", "(b)Increasing hydrogen bonding", "(c)Increasing London dispersion forces", "(d)Increasing ionic character"],
-            ["(a)CaF_2 is nonpolar", "(b)Ca^2+ has a higher charge, increasing lattice energy", "(c)F- is larger in CaF_2", "(d)NaF reacts with water"],
-            ["(a)H_2O", "(b)NH_3", "(c)CO_2", "(d)SO_2"],
-            ["(a)Strong intermolecular forces", "(b)High polarity", "(c)Extended covalent network source", "(d)Ionic bonding"],
-            ["(a)CH_4", "(b)C_2 H_6", "(c)C_3 H_8", "(d)C_4 H_10"],
-            ["(a)Hydrogen Bonding", "(b)Dipole-dipole forces", "(c)Ion-dipole forces", "(d)London dispersion forces"],
-            ["(a)Weak covalent bonds", "(b)Weak intermolecular forces", "(c)Large lattice energies", "(d)High polarity"],
-            ["(a)H_2S", "(b)HF", "(c)HCl", "(d)PH_3"],
-            ["(a)Copper", "(b)NaCl", "(c)Paraffin wax", "(d)Rubber"],
-            ["(a)MgO is heavier", "(b)MgO has covaletn character", "(c)Mg^2+ and O^2- have higher charges", "(d)MgO has hydrogen bonding"],
-            ["(a)NH_3", "(b)H_2O", "(c)CO_2", "(d)HF"],
-            ["(a)Color", "(b)Melting point", "(c)Molecular mass","(d)Density"],
-            ["(a)C_12 H_22 O_11", "(b)HCl", "(c)CO_2", "(d)CCl_4"],
-            ["(a)They are nonpolar molecules", "(b)They have strong covalent bonds through the structure", "(c)Water is nonpolar", "(d)They react with water"],
-            ["(a)Atomic mass", "(b)Bond Length", "(c)Molecular geometry", "(d)Number of atoms"],
-            ["(a)H_2O", "(b)NH_3", "(c)CH_4", "(d)HF"],
-            ["(a)Lower polarity of MgF_2", "Greater lattice energy of MgF_2", "(c)Lower hydration energy of F-", "(d)Covalent character of NaF"],
-            ["(a)Strong hydrogen bonding", "(b)High lattice energy", "(c)Large positive entropy change", "(d)Low hydration energy"],
-            ["(a)MgO>CaF_2>NaCl>KBr", "(b)CaF_2>MgO>NaCl>KBr", "(c)MgO>NaCl>CaF_2>KBr", "CaF_2>NaCl>MgO>KBr"],
-        ];
 
-        var unitTwoAnswers = [
-            "(b)NaCl forms a rigid ionic lattice with strong electrostatic force", 
-            "(c)MgO", 
-            "(b)NH_3", 
-            "(b)I_2 has stronger London dispersion forces due to more electrons", 
-            "(c)High melting point and conductivity when molten", 
-            "(c)SO_2", 
-            "(b)Molecular mass and surface area", 
-            "(b)CaCl_2", 
-            "(c)Ions are fixed in place within the lattice",
-            "(d)Higher ionic charge", 
-            "(b)HF", 
-            "(b)Ion-dipole forces overcome lattice energy", 
-            "(b)NH_3", 
-            "(b)NH_3", 
-            "(c)Increasing London dispersion forces", 
-            "(b)Ca^2+ has a higher charge, increasing lattice energy", 
-            "(c)CO_2", 
-            "(c)Extended covalent network structure", 
-            "(d)C_4 H_10", 
-            "(c)Ion-dipole forces", 
-            "(b)Weak intermolecular forces", 
-            "(b)HF", 
-            "(b)NaCl", 
-            "(c)Mg^2+ and O^2- have higher charges", 
-            "(c)CO_2", 
-            "(b)Melting point", 
-            "(b)HCl", 
-            "(b)They have strong covalent bonds throughout the structure", 
-            "(c)Molecular geometry", 
-            "(c)CH_4", 
-            "(b)Greater lattice enrgy of MgF_2", 
-            "(c)Larger positive entropy change", 
-            "(a)MgO>CaF_2>NaCl>KBr", 
-        ];
+       <h1>
+           <span style="text-decoration: underline wavy #63D2FF;">
+               Welcome,
+               <span id="name-placeholder"></span>!
+           </span>
+           <span style="text-decoration: underline wavy #63D2FF;">
+               To AP Chemistry Review!</span>
+       </h1>
 
-        var unitTwoExplanations = [
-            "Sodium chloride forms an extended ionic lattice where each Na+ ion is surrounded by Cl- ions and vice versa. The strong electrostatic attractions between oppositely charged ions require a large amount of energy to overcome, resulting in a high melting point. Water, by contrast, consists of discrete molecules held together by hydrogen bonding, which is significantly weaker than ionic attractions.", 
-            "Lattice energy increases with higher ionic charge and smaller ionic radius. Magnesium oxide consists of Mg^2+ and O^2- ions, both of which have higher charges than the ions in the other compounds listed. THis leads to much stronger electrostatic attractiosn within the lattice, making MgO's lattice energy significantly greater.", 
-            "Ammonia exhibits hydrogen bonding because hydrogen is bonded to a highly electronegative nitrogen atom. Hydrogen bonding is stronger than dipole-dipole forces and London dispersion forces. CH_4 and CO_2 are nonpolar, and H_2S lacks the electronegatively required for hydrogen bonding, making NH_3 the strongest.", 
-            "Both I_2 and F_2 are nonpolar diatomic molecules, so their intermolecular forces are limited to London dispersion forces. Iodine has a much larger electron cloud, which is more polarizable, leading to stronger temporary dipoles and stronger dispersion forces. This causes iodine to have a significantly hgiher boiling point.", 
-            "Ionic compounds typically have high melting points due to strong electrostatic attractions. When molten or dissolved in water, the ions become mobile and can conduct electricity. Covalent compounds generally lack these properties, making conductivity in the molten state a key indicator of ionic bonding.",
-            "Sulfur dioxide has a bent molecular geometry due to lone pairs on the sulfur atom. This shape prevents the dipoles from cancelling out, resulting in a net dipole moment. CO_2, BF_3 and CCl_4 are all symmetrical molecules where bond dipoles cancel, making them nonpolar.", 
-            "London dispersion forces arise from temporary fluctuations in electron density. Larger molecules with greater molecular mass and surface area have more electrons and are more easily polarized, resulting in stronger dispersion forces. These forces dominate intermolecular interactions in nonpolar substances.", 
-            "Calcium chloride is an ionic compound whose ions interact strongly with polar water molecules through ion-dipole forces. These interactions enough energy to overcome lattice energy, allowing CaCl_2 to dissolve readily. Nonpolar substances like benzene and iodine have limited solubility in water.", 
-            "In solid ionic compounds, ions are locked into a rigid lattice structure and cannot move freely. Electrical conductivity requires the movement of charges particles. When ionic compounds melt or dissolve, the ions become mobile, allowing electricity to flow.", 
-            "Lattice energy is directly proportional to the magnitude of the charges on the ions. Higher charges result in stronger electrostatic attraction. While ion size also matters, increasing ionic charge has the greatest effect on lattice energy when comparing compounds.", 
-            "Hydrogen bonding occurs when hydrogen is bonded to nitrogen, oxygen, or fluorine. Fluorine's high electronegativity creates a strong dipole, allowing significant intermolecular attraction. H_2S, HCl and PH_3 lack the required electronegativity difference.", 
-            "When NaCl dissolves, polar water molecules surround Na+ and Cl- ions. The ion-dipole attractions between water molecules and ions release enough energy to overcome the lattice energy holding the ions together. No chemical reaction occurs- only physical dissociation.",
-            "NH_3 is polar due to its trigonal pyramidal shape and electronegativity differences. This polarity allows dipole-dipole interactions in addition to hydrogen bonding. The other molecules listed are nonpolar and rely only on dispersion forces.", 
-            "Vapor pressure is inversely related to intermolecular force strength. NH_3 has weaker intermolecular forces than water(which hydrogen bonds strongly) and iodine (strong dispersion forces). NaCl has extremely strong ionic forces, resulting in negligible vapor pressure.", 
-            "Noble gases are nonpolar atoms, so their intermolecular attractions are solely due to London dispersion forces. As atomic size increases down the group, the electron London dispersion forces becomes more polarizable, strengthening disperion forces and increasing boiling points.",
-            "CaF_2 has a much higher lattice energy due to the +2 charge on Ca^2+. Although ion-dipole forces with water are strong, they are not sufficient to overcome the strong electrostatic attractions in the lattice, reducing solubility compared to NaF.", 
-            "CO_2 has polor C=O bonds, but its linear geometry causes the bond dipoles to cancel each other out. Molecular polarity depends on both bond polarity and molecular shape, making CO_2 nonpolar overall.", 
-            "Diamond consists of a three-dimensional covalent network where each carbon atom is covalently bonded to four others. These strong covalent bonds extend throughout the entire structure, making diamond extremely hard compared to substances held together by intermolecular forces.", 
-            "As molecular size increases, London dispersion forces become stronger due to increased electron count and surfacec area. Among these nonpolar hydrocarbons, C_4 H_10 has the largest molar mass and therefore the highest boiling point.", 
-            "Ion-dipole forces form where ions interact with polar molecules. The partially negative oxygen in water attracts Na+ ions, stabilizing them in solution. This interaction is stronger than dipole-dipole forces and is crucial for dissolving ionic compounds in water.", 
-            "Molecular solids consist of discrete molecules held together by intermolecular forces such as dispersion, dipole-dipole, or hydrogen bonding. These forces are much weaker than ionic or covalent network bonds, so less energy is required to melt molecular solids.", 
-            "Hydrogen fluoride forms very strong hydrogen bonds due to fluorine's extremely high electronegativity and small size. This creates a strong dipole and allows close approach of molecules, resulting in stronger intermolecular attraction than in other hydrogen-containing compounds.", 
-            "Ionic solids like NaCl are brittle because shifting the lattice under stress causes like charges to align, resulting in strong repulsion and fracture. Metals are malleable, and molecular solids are generally soft or flexible.", 
-            "MgO consists of doubly charged ions, leading to stronger electrostatic attractions in the lattice. Higher ionic charges dramatically increase lattice energy, requiring more normal energy to melt the solid compared to NaCl.", 
-            "CO_2 is nonpolar and has no hydrogen bonding or dipole-dipole interactions. As a result, its intermolecular attractions consist solely of London dispersion forces arising from temporary electron density fluctuations.",
-            "Ionic compounds typically have very high melting point due to strong electrostatic forces between ions, while molecular compounds melt at much lower temperatures because they are held together by weaker intermolecular forces.", 
-            "HCl ionizes completely in water to form H^+ and Cl^-, which are free to move and conduct electricity. The other substances remain as neutral molecules in solution and do not conduct.", 
-            "Covalent network solids consist of atoms bonded together by strong covalent bonds in an extended structure. Water molecules cannot break these bonds, making such substances insoluble despite water's polarity.", 
-            "Even if individual bonds are polar, the overall polarity of a molecule depends on its geometry. Symmetrical shapes can cancel dipoles, while asymmetrical arrangements produce a net dipole moment.", 
-            "CH_4 is nonpolar and experiences only weak London dispersion forces. The other compounds exhibit hydrogen bonding, which significantly raises boiling point. As a result, methane has the lowest boiling point among the options.",
-            "MgF_2 contains Mg^2+, producting much stronger electrostatic attraction within the lattice than NaF. Although hydration energy is high, it is insufficient to overcome the much larger lattice energy of MgF_2.", 
-            "When delta H is positive, dissolution absorbs heat and is enthalpically unfavorable. The process can still occur if the entropy increase (delta S) from dispersing solid ions into solution is large enough to make delta G= delta H-T(delta S) negative. This entropy-driven dissolution is common for salts like KNO_3.",
-            "Lattice energy increases with higher ionic charge and smaller ionic radii. MgO (2^+/2^-) has the strongest attraction. CaF_2 involves Ca^2+ with small F^- ions, giving high lattice energy but less than MgO. NaCl exceeds KBr due to smaller ions."
-        ];
 
-        var unitThreeQuestions = [
-            "Which intermolecular force is primarily responsible for the usually high boiling poiint of hydrogen fluoride(HF) compared with other hydrogen halidese?", 
-            "Two compounds, A and B, have equal molar mass. A is nonpolar and spherical;B is a long chain, nonpolar molecule. At the same temperature, which is expected to have the highest boiling point and why?", 
-            "Which of the following best explains why ionic solids typically have much higher melting points than molecular solids?", 
-            "At constant temperature, which change will increase the vapor pressure of a volatile liquid in a closed container?", 
-            "Which description of an ideal gas is consistent with the kinetic molecular theory?", 
-            "Which gas will deviate most from ideal behavior at high pressure and moderate temperature?", 
-            "Dalton's law of partial pressures states tha tin a mixture of nonreacting gases at constant volume and temperature, the toal pressure equals:", 
-            "Which experiment technique seperates a mixture based on differences in boiling point?",
-            "Which change will most directly increase the rate of diffusion of a gas at constant?", 
-            "Which condition will increase gas solubility in a liquid?", 
-            "Which statement best explains why water and ethanol are completely miscible, but water and hexane are not?",
-            "A liquid has a low vapor pressure, high viscosity, and large heat of vaporization. Which conclusion is most justified?", 
-            "A real gas shows Z < 1 at moderate pressure but Z > 1 at very high pressure. What does this reveal?",
-            "A student measures boling point of four liquids at 1 atm and observes the order: W > X > Y > Z?",
-            "Rank the following gases by increasing rate of effusion: CO_2, He, N_2",
-            "Which type of intermolecular force is present in all molecular substances?",
-            "What causes water to have a relatively high boiling point compared to similar-sized molecules", 
-            "Which of the following substances is most likely to be miscrible with water?", 
-            "Which compound will have the highest vapor pressure at 20 degree C?", 
-            "Which property would increase when a substance has stronger intermolecular forces?"
-        ];
+       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+       <script src="//cdn.jsdelivr.net/npm/phaser@3.70.0/dist/phaser.min.js"></script>
+       <!-- <script src="script.js"></script> -->
+       <script>
+           // JS
+           var name = prompt("What's your name?");
+           var welcomeMessage = alert("Welcome " + name + "! " + "To This AP Chemistry Review Game!");
+           var namePlaceholder = document.getElementById('name-placeholder');
+           namePlaceholder.textContent = name;
 
-        var unitThreeOptions = [
 
-        ]
-        </script>
-    </body>
+    // Unit 1 questions
+           var unitOneQuestions = [
+               "How many moles of calcium carbonate (CaCO_3) are present in 200.0g of the compound?",
+               "A sample contains 75% of an isotope with mass 10 amu and 25% of an isotope with mass 11 amu. What is the average atomic mass?",
+               "One mole of carbon-12 contains how many atoms?",
+               "Which sample contains the greatest amount of atoms?",
+               "How many moles are present in 36.0g of water (H_2O)?",
+               "Which particle contributes most to an atom's volume?",
+               "A neutral atom has 17 protons. How many electrons does it contain?",
+               "Which best describes the relationship between atomic mass and molar mass?",
+               "How many atoms are in 0.25 mol of neon?",
+               "Which statement best distinguishes a pure substance from a mixture?",
+               "A compound is 52.2% carbon, 13.0% hydrogen, and 34.8% oxygen by mass. What is the first step in determining the empirical formula?",
+               "What fundamental information does photoelectron spectroscopy provide about an atom?"
+           ];
+
+
+           var unitOneOptions = [
+               ["(a)1.00 mol", "(b)2.00 mol", "(c)2.50 mol", "(d)5.00 mol"],
+               ["(a)10.25 amu", "(b)10.50 amu", "(c)10.75 amu", "(d)11.00 amu"],
+               ["(a)6.02*10^22", "(b)6.02*10^23", "(c)12.0*10^23", "(d)1.0*10^23"],
+               ["(a)1 mol of He", "(b)1 mol of Ne", "(c)1 mole of Ar", "(d)All contain the same number"],
+               ["(a)1.0 mol", "(b)2.0 mol", "(c)18.0 mol", "(d)0.50 mol"],
+               ["(a)Proton", "(b)Neutron", "(c)Electron Cloud", "(d)Nucleus"],
+               ["(a)16", "(b)17", "(c)18", "(d)Cannot be determined"],
+               ["(a)They are unrelated", "(b)Atomic mass is larger", "(c)Molar mass is atomic mass in grams", "(d)Molar mass applies only to compounds"],
+               ["(a)1.51*10^23", "(b)6.02*10^23", "(c)2.41*10^23", "(d)0.25 atoms"],
+               ["(a)A pure substance contains only one element", "(b)A pure substance has fixed composition", "(c)A mixture has a chemical formula", "(d)A mixture cannot be separated"],
+               ["(a)Divide each percentage by atomic mass", "(b)Assume 100 g of the compound", "(c)Round percentages", "(d)Calculate molar mass"],
+               ["(a)Atomic mass and isotope ratios", "(b)Electron binding energies and subshell occupancy", "(c)Molecular geometry", "(d)Nuclear Stability"]
+           ];
+
+
+           var unitOneAnswers = [
+               "(b)2.00 mol",
+               "(a)10.25 amu",
+               "(b)6.02*10^23",
+               "(d)All contain the same number",
+               "(b)2.00 mol",
+               "(c)Electron Cloud",
+               "(b)17",
+               "(c)Molar mass is atomic mass in grams",
+               "(a)1.51*10^23",
+               "(b)A pure substance has fixed composition",
+               "(b)Assume 100 g of the compound",
+               "(b)Electron binding energies and subshell occupancy"
+           ];
+
+
+           var unitOneExplanations = [
+               "To calculate moles, divide the mass by the molar mass. Calcium carbonate has a molar mass of approximately 100.1 g/mol (40.1+12.0+3*16.0). 200.0g / 100.1 g/mol = 2.00 mol.",
+               "Average atomic mass is calculated using a weighted average, not a simple mean. Each isotope's mass is multiplied by its fractional abundance: (10 * 0.75) + (11 * 0.25) = 7.50 + 2.75 = 10.25 amu. This reflects the fact that the lighter isotope is more abundant, pulling the average closer to its mass.",
+               "Avogadro's number, 6.02*10^23 particles per mole, defines the mole. By definition, one mole of carbon-12 contains exactly this amount of atoms. This value provides the bridge between atomic-scale quantities and laboratory-scale measurements and is essential for all mole calculations in chemistry.",
+               "One mole of any substance contains the same number of particles (Avogadro's number). Even though helium, neon, and argon have different atomic masses, one mole of each contains 6.022*10^23 atoms. This highlights the importance of distinguishing between mass and number of particles.",
+               "The molar mass is approximately 18.0 g/mol. Dividing the given mass by the molar mass gives: 36.0 g / 18.0 g/mol = 2.0 mol.",
+               "Although the nucleus contains nearly all of an atom's mass, it occupies very little space. The electron cloud extends far from the nucleus and defines the atom's size and volume. This explains why atoms are mostly empty space and why electron interactions dominate chemical reactions.",
+               "In a neutral atom, the number of electrons equals the number of protons so that positive and negative charges balance. With 17 protons, the atom must also have 17 electrons. This principle is essential for understanding ion formation later in the course.",
+               "Atomic mass is expressed in atomic mass units for individual atoms, while molar mass represents the mass of one mole of those atoms in grams. Numerically, the values are the same. This relationship allows seamless conversion between atomic-scale and macroscopic quantities.",
+               "To find the number of atoms, multiply the number of moles by Avogadro's number: 0.25 mol * 6.02*10^23 atoms/mol = 1.51*10^23 atoms.",
+               "A pure substance (element or compound) has a fixed, constant composition and a definite set of properties. A mixture, in contrast, can have a variable composition depending on how much of each component is present. Elements are not the only pure substances—compounds are also pure if their composition is fixed.",
+               "Assuming a 100 g sample allows percent values to be treated directly as grams, simplifying conversion to moles.",
+               "PES measures the energy required to remove electrons from an atom. Each peak corresponds to electrons in a specific subshell; the peak position reflects binding energy, while the peak area reflects the number of electrons present."
+           ];
+
+
+
+
+       var unitTwoQuestions = [
+           "Which statement best explains why sodium chloride has a much higher melting point than water?",
+           "Which compound is expected to have the greatest lattice energy?",
+           "Which molecule has the strongest intermolecular forces?",
+           "Why does iodine(I_2) have a higher boiling point than fluorine(F_2?)",
+           "Which property best indicated the presence of ionic bonding in a compound?",
+           "Which molecule is polar",
+           "Which primarily determines the strength of London dispersion forces?",
+           "Which compound would be most soluble in water?",
+           "Why do ionic solids not conduct electricity in the solid state?",
+           "Which factor increases lattice energy?",
+           "Which molecule can form hydrogen bonds?",
+           "Which statement best explains why NaCl dissolves in water?",
+           "Which compound has the greatest dipole-dipole attractions?",
+           "Which substance would have the higher vapor pressure at room temperature?",
+           "Which trend explains increasing boiling points down group 18?",
+           "Why is CaF_2 less soluble in water than NaF?",
+           "Which molecule is nonpolar despite having polar bonds?",
+           "Which best explains why diamond is extremely hard?",
+           "Which compound would have the highest boiling point?",
+           "Which interaction occurs between water and Na+ ions?",
+           "Why do molecular solids generally have low boiling points?",
+           "Which compound has the strongest hydrogen bonding?",
+           "Which substance is most likely to be brittle solid?",
+           "Why does MgO have a higher boiling point than NaCl?",
+           "Which molecule experiences only London dispersion forces?",
+           "Which property best distinguishes ionic from molecular compounds?",
+           "Which compound is most likely to conduct electricity when dissolved in water?",
+           "Why is covalent network solids insoluble in water?",
+           "Which factor most affects molecular polarity?",
+           "Which compound would have the lowest boiling point",
+           "Which factor explains why MgF_2 is far less soluble in water than NaF?",
+           "A salt dissolves in water with delta H>0 but still dissolves readily at room temperature. Which factor most directly explains this behavior?",
+           "Rank the following ionic solids from highest to lowest lattice energy: NaCl, MgO, CaF_2, KBr"
+       ];
+
+
+       var unitTwoOptions = [
+           ["(a)NaCl has covalent bonds, while water has hydrogen bonds", "(b)NaCl forms a rigid ionic lattice with strong electrostatic forces", "(c)Water molecules are heavier than Na+ and Cl- ions", "(d)NaCl are nonpolar"],
+           ["(a)NaF", "(b)NaCl", "(c)MgO", "(d)KBr"],
+           ["(a)CH_4", "(b)NH_3", "(c)CO_2", "(d)H_2S"],
+           ["(a)I_2 is polar while F_2 is nonpolar", "(b)I_2 has stronger London dispersion forces due to more electrons", "(c)I_2 has ionic character", "(d)F_2 forms hydrogen bonds"],
+           ["(a)Low melting point", "(b)Poor electrical conductivity when dissolved", "(c)High melting point and conductivity when molten", "(d)Insolubility in water"],
+           ["(a)CO_2", "(b)BF_3", "(c)SO_2", "(d)CCl_4"],
+           ["(a)Bond polarity", "(b)Molecular mass and surface area", "(c)Presence of hydrogen bonding", "(d)Ionic Charge"],
+           ["(a)C_6 H_6", "(b)CaCl_2", "(c)I_2", "(d)CO_2"],
+           ["(a)Ions are neutral", "(b)Electrons are tightly bound", "(c)Ions are fixed in place within the lattice", "(d)Ionic bonds prevent charge movement"],
+           ["(a)Larger ions", "(b)Lower ionic charge", "(c)Greater distance between ions", "(d)Higher ionic charge"],
+           ["(a)H_2S", "(b)HF", "(c)HCl", "(d)PH_3"],
+           ["(a)Water breaks covalent bonds", "(b)Ion-dipole forces overcome lattice energy", "(c)NaCl reacts chemically with water", "(d)Water molecules ionize NaCl"],
+           ["(a)CO_2", "(b)NH_3", "(c)O_2", "(d)N_2"],
+           ["(a)H_2O", "(b)NH_3", "(c)I_2", "(d)NaCl"],
+           ["(a)Increasing polarity", "(b)Increasing hydrogen bonding", "(c)Increasing London dispersion forces", "(d)Increasing ionic character"],
+           ["(a)CaF_2 is nonpolar", "(b)Ca^2+ has a higher charge, increasing lattice energy", "(c)F- is larger in CaF_2", "(d)NaF reacts with water"],
+           ["(a)H_2O", "(b)NH_3", "(c)CO_2", "(d)SO_2"],
+           ["(a)Strong intermolecular forces", "(b)High polarity", "(c)Extended covalent network source", "(d)Ionic bonding"],
+           ["(a)CH_4", "(b)C_2 H_6", "(c)C_3 H_8", "(d)C_4 H_10"],
+           ["(a)Hydrogen Bonding", "(b)Dipole-dipole forces", "(c)Ion-dipole forces", "(d)London dispersion forces"],
+           ["(a)Weak covalent bonds", "(b)Weak intermolecular forces", "(c)Large lattice energies", "(d)High polarity"],
+           ["(a)H_2S", "(b)HF", "(c)HCl", "(d)PH_3"],
+           ["(a)Copper", "(b)NaCl", "(c)Paraffin wax", "(d)Rubber"],
+           ["(a)MgO is heavier", "(b)MgO has covalent character", "(c)Mg^2+ and O^2- have higher charges", "(d)MgO has hydrogen bonding"],
+           ["(a)NH_3", "(b)H_2O", "(c)CO_2", "(d)HF"],
+           ["(a)Color", "(b)Melting point", "(c)Molecular mass","(d)Density"],
+           ["(a)C_12 H_22 O_11", "(b)HCl", "(c)CO_2", "(d)CCl_4"],
+           ["(a)They are nonpolar molecules", "(b)They have strong covalent bonds through the structure", "(c)Water is nonpolar", "(d)They react with water"],
+           ["(a)Atomic mass", "(b)Bond Length", "(c)Molecular geometry", "(d)Number of atoms"],
+           ["(a)H_2O", "(b)NH_3", "(c)CH_4", "(d)HF"],
+           ["(a)Lower polarity of MgF_2", "Greater lattice energy of MgF_2", "(c)Lower hydration energy of F-", "(d)Covalent character of NaF"],
+           ["(a)Strong hydrogen bonding", "(b)High lattice energy", "(c)Large positive entropy change", "(d)Low hydration energy"],
+           ["(a)MgO>CaF_2>NaCl>KBr", "(b)CaF_2>MgO>NaCl>KBr", "(c)MgO>NaCl>CaF_2>KBr", "CaF_2>NaCl>MgO>KBr"],
+       ];
+
+
+       var unitTwoAnswers = [
+           "(b)NaCl forms a rigid ionic lattice with strong electrostatic force",
+           "(c)MgO",
+           "(b)NH_3",
+           "(b)I_2 has stronger London dispersion forces due to more electrons",
+           "(c)High melting point and conductivity when molten",
+           "(c)SO_2",
+           "(b)Molecular mass and surface area",
+           "(b)CaCl_2",
+           "(c)Ions are fixed in place within the lattice",
+           "(d)Higher ionic charge",
+           "(b)HF",
+           "(b)Ion-dipole forces overcome lattice energy",
+           "(b)NH_3",
+           "(b)NH_3",
+           "(c)Increasing London dispersion forces",
+           "(b)Ca^2+ has a higher charge, increasing lattice energy",
+           "(c)CO_2",
+           "(c)Extended covalent network structure",
+           "(d)C_4 H_10",
+           "(c)Ion-dipole forces",
+           "(b)Weak intermolecular forces",
+           "(b)HF",
+           "(b)NaCl",
+           "(c)Mg^2+ and O^2- have higher charges",
+           "(c)CO_2",
+           "(b)Melting point",
+           "(b)HCl",
+           "(b)They have strong covalent bonds throughout the structure",
+           "(c)Molecular geometry",
+           "(c)CH_4",
+           "(b)Greater lattice energy of MgF_2",
+           "(c)Larger positive entropy change",
+           "(a)MgO>CaF_2>NaCl>KBr",
+       ];
+
+
+       var unitTwoExplanations = [
+           "Sodium chloride forms an extended ionic lattice where each Na+ ion is surrounded by Cl- ions and vice versa. The strong electrostatic attractions between oppositely charged ions require a large amount of energy to overcome, resulting in a high melting point. Water, by contrast, consists of discrete molecules held together by hydrogen bonding, which is significantly weaker than ionic attractions.",
+           "Lattice energy increases with higher ionic charge and smaller ionic radius. Magnesium oxide consists of Mg^2+ and O^2- ions, both of which have higher charges than the ions in the other compounds listed. THis leads to much stronger electrostatic attractions within the lattice, making MgO's lattice energy significantly greater.",
+           "Ammonia exhibits hydrogen bonding because hydrogen is bonded to a highly electronegative nitrogen atom. Hydrogen bonding is stronger than dipole-dipole forces and London dispersion forces. CH_4 and CO_2 are nonpolar, and H_2S lacks the electronegativity required for hydrogen bonding, making NH_3 the strongest.",
+           "Both I_2 and F_2 are nonpolar diatomic molecules, so their intermolecular forces are limited to London dispersion forces. Iodine has a much larger electron cloud, which is more polarizable, leading to stronger temporary dipoles and stronger dispersion forces. This causes iodine to have a significantly higher boiling point.",
+           "Ionic compounds typically have high melting points due to strong electrostatic attractions. When molten or dissolved in water, the ions become mobile and can conduct electricity. Covalent compounds generally lack these properties, making conductivity in the molten state a key indicator of ionic bonding.",
+           "Sulfur dioxide has a bent molecular geometry due to lone pairs on the sulfur atom. This shape prevents the dipoles from cancelling out, resulting in a net dipole moment. CO_2, BF_3 and CCl_4 are all symmetrical molecules where bond dipoles cancel, making them nonpolar.",
+           "London dispersion forces arise from temporary fluctuations in electron density. Larger molecules with greater molecular mass and surface area have more electrons and are more easily polarized, resulting in stronger dispersion forces. These forces dominate intermolecular interactions in nonpolar substances.",
+           "Calcium chloride is an ionic compound whose ions interact strongly with polar water molecules through ion-dipole forces. These interactions have enough energy to overcome lattice energy, allowing CaCl_2 to dissolve readily. Nonpolar substances like benzene and iodine have limited solubility in water.",
+           "In solid ionic compounds, ions are locked into a rigid lattice structure and cannot move freely. Electrical conductivity requires the movement of charged particles. When ionic compounds melt or dissolve, the ions become mobile, allowing electricity to flow.",
+           "Lattice energy is directly proportional to the magnitude of the charges on the ions. Higher charges result in stronger electrostatic attraction. While ion size also matters, increasing ionic charge has the greatest effect on lattice energy when comparing compounds.",
+           "Hydrogen bonding occurs when hydrogen is bonded to nitrogen, oxygen, or fluorine. Fluorine's high electronegativity creates a strong dipole, allowing significant intermolecular attraction. H_2S, HCl and PH_3 lack the required electronegativity difference.",
+           "When NaCl dissolves, polar water molecules surround Na+ and Cl- ions. The ion-dipole attractions between water molecules and ions release enough energy to overcome the lattice energy holding the ions together. No chemical reaction occurs- only physical dissociation.",
+           "NH_3 is polar due to its trigonal pyramidal shape and electronegativity differences. This polarity allows dipole-dipole interactions in addition to hydrogen bonding. The other molecules listed are nonpolar and rely only on dispersion forces.",
+           "Vapor pressure is inversely related to intermolecular force strength. NH_3 has weaker intermolecular forces than water(which hydrogen bonds strongly) and iodine (strong dispersion forces). NaCl has extremely strong ionic forces, resulting in negligible vapor pressure.",
+           "Noble gases are nonpolar atoms, so their intermolecular attractions are solely due to London dispersion forces. As atomic size increases down the group, the electron London dispersion forces becomes more polarizable, strengthening dispersion forces and increasing boiling points.",
+           "CaF_2 has a much higher lattice energy due to the +2 charge on Ca^2+. Although ion-dipole forces with water are strong, they are not sufficient to overcome the strong electrostatic attractions in the lattice, reducing solubility compared to NaF.",
+           "CO_2 has polar C=O bonds, but its linear geometry causes the bond dipoles to cancel each other out. Molecular polarity depends on both bond polarity and molecular shape, making CO_2 nonpolar overall.",
+           "Diamond consists of a three-dimensional covalent network where each carbon atom is covalently bonded to four others. These strong covalent bonds extend throughout the entire structure, making diamond extremely hard compared to substances held together by intermolecular forces.",
+           "As molecular size increases, London dispersion forces become stronger due to increased electron count and surface area. Among these nonpolar hydrocarbons, C_4 H_10 has the largest molar mass and therefore the highest boiling point.",
+           "Ion-dipole forces form where ions interact with polar molecules. The partially negative oxygen in water attracts Na+ ions, stabilizing them in solution. This interaction is stronger than dipole-dipole forces and is crucial for dissolving ionic compounds in water.",
+           "Molecular solids consist of discrete molecules held together by intermolecular forces such as dispersion, dipole-dipole, or hydrogen bonding. These forces are much weaker than ionic or covalent network bonds, so less energy is required to melt molecular solids.",
+           "Hydrogen fluoride forms very strong hydrogen bonds due to fluorine's extremely high electronegativity and small size. This creates a strong dipole and allows close approach of molecules, resulting in stronger intermolecular attraction than in other hydrogen-containing compounds.",
+           "Ionic solids like NaCl are brittle because shifting the lattice under stress causes charges to align, resulting in strong repulsion and fracture. Metals are malleable, and molecular solids are generally soft or flexible.",
+           "MgO consists of doubly charged ions, leading to stronger electrostatic attractions in the lattice. Higher ionic charges dramatically increase lattice energy, requiring more normal energy to melt the solid compared to NaCl.",
+           "CO_2 is nonpolar and has no hydrogen bonding or dipole-dipole interactions. As a result, its intermolecular attractions consist solely of London dispersion forces arising from temporary electron density fluctuations.",
+           "Ionic compounds typically have very high melting point due to strong electrostatic forces between ions, while molecular compounds melt at much lower temperatures because they are held together by weaker intermolecular forces.",
+           "HCl ionizes completely in water to form H^+ and Cl^-, which are free to move and conduct electricity. The other substances remain as neutral molecules in solution and do not conduct.",
+           "Covalent network solids consist of atoms bonded together by strong covalent bonds in an extended structure. Water molecules cannot break these bonds, making such substances insoluble despite water's polarity.",
+           "Even if individual bonds are polar, the overall polarity of a molecule depends on its geometry. Symmetrical shapes can cancel dipoles, while asymmetrical arrangements produce a net dipole moment.",
+           "CH_4 is nonpolar and experiences only weak London dispersion forces. The other compounds exhibit hydrogen bonding, which significantly raises boiling point. As a result, methane has the lowest boiling point among the options.",
+           "MgF_2 contains Mg^2+, producing much stronger electrostatic attraction within the lattice than NaF. Although hydration energy is high, it is insufficient to overcome the much larger lattice energy of MgF_2.",
+           "When delta H is positive, dissolution absorbs heat and is enthalpically unfavorable. The process can still occur if the entropy increase (delta S) from dispersing solid ions into solution is large enough to make delta G= delta H-T(delta S) negative. This entropy-driven dissolution is common for salts like KNO_3.",
+           "Lattice energy increases with higher ionic charge and smaller ionic radii. MgO (2^+/2^-) has the strongest attraction. CaF_2 involves Ca^2+ with small F^- ions, giving high lattice energy but less than MgO. NaCl exceeds KBr due to smaller ions."
+       ];
+
+
+       var unitThreeQuestions = [
+           "Which intermolecular force is primarily responsible for the usually high boiling point of hydrogen fluoride(HF) compared with other hydrogen halides?",
+           "Two compounds, A and B, have equal molar mass. A is nonpolar and spherical;B is a long chain, nonpolar molecule. At the same temperature, which is expected to have the highest boiling point and why?",
+           "Which of the following best explains why ionic solids typically have much higher melting points than molecular solids?",
+           "At constant temperature, which change will increase the vapor pressure of a volatile liquid in a closed container?",
+           "Which description of an ideal gas is consistent with the kinetic molecular theory?",
+           "Which gas will deviate most from ideal behavior at high pressure and moderate temperature?",
+           "Dalton's law of partial pressures states that tin a mixture of nonreacting gases at constant volume and temperature, the total pressure equals:",
+           "Which experiment technique separates a mixture based on differences in boiling point?",
+           "Which change will most directly increase the rate of diffusion of a gas at constant?",
+           "Which condition will increase gas solubility in a liquid?",
+           "Which statement best explains why water and ethanol are completely miscible, but water and hexane are not?",
+           "A liquid has a low vapor pressure, high viscosity, and large heat of vaporization. Which conclusion is most justified?",
+           "A real gas shows Z < 1 at moderate pressure but Z > 1 at very high pressure. What does this reveal?",
+           "A student measures the boiling point of four liquids at 1 atm and observes the order: W > X > Y > Z?",
+           "Rank the following gases by increasing rate of effusion: CO_2, He, N_2"
+       ];
+
+
+       var unitThreeOptions = [
+           ["(a)London-dispersion forces", "(b)Dipole-dipole interactions", "(c)Hydrogen bonding", "Ion-dipole forces"],
+           ["(a)A, because spherical molecules rotate faster", "(b)A, because lower surface area reduces vapor pressure", "(c)B, because larger surface area reduces vapor pressure", "(d)B, because chain molecules form hydrogen bonds"],
+           ["(a)Ionic solids are always covalently bonded networks", "(b)Ionic solids are held by strong electrostatic attractions between ions", "(c)Molecular solids have higher molar masses than ionic solids", "(d)Ionic solids have weaker lattice energies"],
+           ["(a)Add the immiscible nonvolatile solute to the liquid", "(b)Increase the surface area of the liquid while keeping amount constant", "(c)Decrease the temperature of the system", "(d)Remove some vapor from the gas phase and allow system to re-equilibrate"],
+           ["(a)Gas molecules attract each other strongly at all distances", "(b)Collisions between molecules are perfectly elastic and molecules occupy negligible volume.", "(c)Gas molecules undergo only inelastic collisions and lose energy each collision", "(d)Molecules move slower at higher temperature"],
+           ["(a)Helium, because it has the smallest molar mass", "(b)Nitrogen, because it forms diatomic molecules", "(c)Carbon dioxide, because it is more polarizable and has stronger intermolecular attractions", "(d)Neon, because noble gases are always unideal"],
+           ["(a)the sum of partial pressures of individual gases", "(b)the product of partial pressures", "(c)the pressure of the most abundant gas only", "(d)the average of the partial pressure"],
+           ["(a)Chromotography", "(b)Distillation", "(c)Filtration", "(d)Centrifugation"],
+           ["(a)Increasing molar mass", "(b)Decreasing temperature", "(c)Increasing temperature", "(d)Increasing intermolecular attractions"],
+           ["(a)Increasing temperature for most gases", "(b)Decreasing pressure", "(c)Increasing pressure of the gas above the liquid", "(d)Decreasing the polarity of the solvent"],
+           ["(a)Ethanol and hexane have similar molar masses", "(b)Hexane can form hydrogen bonds with water, while hexane cannot", "(c)Hexane has stronger London dispersion forces", "(d)Water has a higher boiling point than ethanol"],
+           ["(a)The liquid has strong covalent bonds", "(b)The liquid contains ions", "(c)Intermolecular attractions between molecules are strong", "(d)The molecules are very small"],
+           ["(a)Attractive forces dominate at all pressure", "(b)Particle volume dominates at all pressures", "(c)Attractions dominate first, then repulsions and volume effects", "(d)The gas becomes ideal at high pressure",],
+           ["(a)Vapor pressure at 25 degrees C", "(b)Strneth of intermolecular forces", "(c)Diffusion of vapor", "(d)Entropy of vaporization"],
+           ["(a)CO_2 < N_2 < He", "(b)He < N_2 < CO_2", "(c)N_2 < CO_2 < He", "(d)CO_2 < He < N_2"]
+       ];
+
+       var unitThreeAnswers = [
+            "(c)Hydrogen bonding", 
+            "(c)B, because larger surface area increases dispersion forces", 
+            "(b)Ionic solids are held by strong electrostatic attractions between ions", 
+            "(d)Remove some vapor from the gas phase and allow system to re-equilibrate",
+            "(b)Collisions between molecules are perfectly elastic and molecules occupy negligible volume",
+            "(c)Carbon dioxide, because it is more polarizable and has stronger intermolecular attractions", 
+            "(a)the sum of partial pressures of individual gases", 
+            "(b)Distillation", 
+            "(c)Increasing temperature", 
+            "(c)Increasing pressure of the gas above the liquid",
+            "(b)Ethanol can form hydrogen bonds with water, while hexane cannot", 
+            "(c)Intermolecular attractions between molecules are strong",
+            "(c)Attractions dominate first, then repulsions and volume effects", 
+            "(b)Strenght of intermolecular forces", 
+            "(a)CO_2 < N_2 < He"
+       ];
+
+       var unitThreeExplanations = [
+            "HF has strong hydrogen bonding because a hydrogen atom is covalently bonded to highly electronegative fluorine. Hydrogen bonds are directional, relatively strong intermolecular attractions that occur when H is bonded to N, O, or F and interacts with lone pairs on another molecule. This network of hydrogen bonds greatly increases the energy required to seperate molecules into gas, so HF's boiling point is much higher than would be predicted by the molecular weight allone. London dispersion and dipole-dipole forces exist too, but they are weaker contributions here. Ion-dipole is not relevant for pure HF.",
+            "For nonpolar molecules, London dispersion forces dominate. Those forces increase with larger surface area and more easily polarizable electron clouds. A long-chain nonpolar molecule (B) has larger contact area and can induce larger instantaneous dipoles, so dispersion attractions between molecules are stronger. Thus B requries more energy to vaporize and has a higher boiling point. Spherical molecule (A) have smaller contact surfaces and weaker disperion attractions. Hydrogen bonding isn't applicable for purely nonpolar chains.", 
+            
+       ]
+       </script>
+   </body>
 </html>
-
