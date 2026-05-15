@@ -61,10 +61,10 @@ class CharacterScene extends Phaser.Scene {
 
         const characterPositions = [
             { key: "chick", x: 150, y: 150 },
-            { key: "blackcat", x: 250, y: 150 },
-            { key: "lightcat", x: 350, y: 150 },
-            { key: "chipmunk", x: 450, y: 150 },
-            { key: "cow", x: 550, y: 150 },
+            { key: "blackcat", x: 350, y: 150 },
+            { key: "lightcat", x: 550, y: 150 },
+            { key: "chipmunk", x: 750, y: 150 },
+            { key: "cow", x: 950, y: 150 },
             { key: "dog", x: 150, y: 290 },
             { key: "poodle", x: 250, y: 290 },
             { key: "gorilla", x: 350, y: 290 },
