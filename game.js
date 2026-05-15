@@ -28,8 +28,28 @@ class CharacterScene extends Phaser.Scene {
         this.load.image("charactersBg", "assets/peach.png"); // Load characters background
     }
     create() {
-        this.add.image(100, 150, "charactersBg").scale(500); // Set background image
-        this.add.text(25, 25, "Game Instructions", {fontFamily: 'Nunito',stroke: '#000000', strokeThickness: 1.5, fontSize: "35px", fill: "black" });
+        const bg = this.add.image(
+            this.scale.width / 2,
+            this.scale.height / 2,
+            "charactersBg"
+        );
+
+        // Auto-scale to fit screen
+        const scaleX = this.scale.width / bg.width;
+        const scaleY = this.scale.height / bg.height;
+        const scale = Math.max(scaleX, scaleY);
+        bg.setScale(scale);
+
+        bg.setDepth(0);
+
+        this.add.text(50, 50, "Game Instructions",{
+                fontFamily: "Nunito",
+                stroke: "#000000",
+                strokeThickness: 1.5,
+                fontSize: "35px",
+                fill: "black"
+            }
+        ).setDepth(1);
     }
 }
 
