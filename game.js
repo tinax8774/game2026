@@ -99,7 +99,7 @@ class CharacterScene extends Phaser.Scene {
             image.on('pointerdown', () => handleCharacterSelection(charInfo.key, image));
         });
 
-        const instructionsButton = this.add.image(350, 520, 'instructions')
+        const instructionsButton = this.add.image(395, 520, 'instructions')
             .setScale(0.350)
             .setInteractive()
             .on("pointerdown", () => {
@@ -120,15 +120,16 @@ class InstructionScene extends Phaser.Scene {
     create() {
         this.add.image(612, 598, "instructionsBg").setScale(1.5); // Set background image
         this.add.text(25, 25, "Game Instructions", {fontFamily: 'Nunito',stroke: '#000000', strokeThickness: 1.5, fontSize: "35px", fill: "black" });
-        this.add.text(40, 80, "Use arrow keys to move (up arrow to jump)", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" });
-        this.add.text(40, 130, "Solve chemistry problems to avoid obstacles", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" });
-        this.add.text(40, 180, "If you get the question wrong, you have one more try.", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" });
-        this.add.text(40, 230, "If you got your second try wrong, the correct answer and explanation will pop up. The obstacle will disappear after that.", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" });
-        this.add.text(40, 280, "Get through all the obstacles", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" });
-        this.add.text(40, 330, "Match the chemistry symbol ⚛ to win the game!", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" });
-        this.add.text(40, 380, "Good luck & have fun!", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" });
+        this.add.text(40, 100, "Use arrow keys to move (up arrow to jump)", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" });
+        this.add.text(40, 150, "Solve chemistry problems to avoid obstacles", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" });
+        this.add.text(40, 200, "If you get the question wrong, you have one more try.", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" });
+        this.add.text(40, 250, "If you got your second try wrong, the correct answer and explanation", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" });
+        this.add.text(40, 300, "will pop up. The obstacle will disappear after that.", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" });
+        this.add.text(40, 350, "Get through all the obstacles", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" });
+        this.add.text(40, 400, "Match the chemistry symbol ⚛ to win the game!", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" });
+        this.add.text(40, 450, "Good luck & have fun!", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" });
 
-        const startButton = this.add.image(110, 530, 'start')
+        const startButton = this.add.image(200, 530, 'start')
         .setScale(0.20)
             .setInteractive()
             .on("pointerdown", () => {
