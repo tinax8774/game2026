@@ -60,11 +60,11 @@ class CharacterScene extends Phaser.Scene {
         bg.setDepth(0);
 
         const characterPositions = [
-            { key: "chick", x: 100, y: 150 },
+            { key: "chick", x: 125, y: 150 },
             { key: "blackcat", x: 350, y: 150 },
-            { key: "lightcat", x: 400, y: 150 },
+            { key: "lightcat", x: 375, y: 150 },
             { key: "chipmunk", x: 500, y: 150 },
-            { key: "cow", x: 600, y: 150 },
+            { key: "cow", x: 700, y: 150 },
             { key: "dog", x: 100, y: 290 },
             { key: "poodle", x: 250, y: 290 },
             { key: "gorilla", x: 350, y: 290 },
@@ -76,7 +76,7 @@ class CharacterScene extends Phaser.Scene {
             { key: "tiger", x: 500, y: 400 }
         ];
 
-        this.add.text(370, 50, "Choose Your Character", {fontFamily: 'Nunito', stroke: '#000000', strokeThickness: 1.9, fontSize: "40px", fill: "#000000" }).setOrigin(0.5);
+        this.add.text(375, 50, "Choose Your Character", {fontFamily: 'Nunito', stroke: '#000000', strokeThickness: 1.9, fontSize: "40px", fill: "#000000" }).setOrigin(0.5);
 
         let selectedAnimalKey = null;
         let greenOutline = this.add.graphics();
