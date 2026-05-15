@@ -229,6 +229,7 @@ class CreditsScene extends Phaser.Scene {
     preload() {
         this.load.image("creditsBg", "assets/peach.png"); // Load credits background
         this.load.image("icon", "assets/atom_symbol_3d.png"); // Load button
+        this.load.image("buttonone", "assets/home.png");
     }
     create() {
         this.add.image(612, 598, "creditsBg").setScale(1); // Set background image
@@ -243,17 +244,12 @@ class CreditsScene extends Phaser.Scene {
         this.add.text(220, 250, "Nancy Chen", {fontFamily: 'Nunito', fontSize: "30px", fill: "black" });
         this.add.text(200, 350, "Tina Xiao", {fontFamily: 'Nunito', fontSize: "30px", fill: "black" });
 
-        const button = this.add.text(125, 450, 'Character Options', {
-            fontFamily: 'Nunito',
-            fontSize: '40px',
-            color: 'black',
-            backgroundColor: '#51ff4b',
-            padding: { x: 10, y: 10 }
-        })
-        .setInteractive()
-        .on('pointerdown', () => {
-            this.scene.start("CharacterScene");
-        });
+        const HomeButton = this.add.image(490, 50, 'buttonone')
+            .setScale(0.75)
+            .setInteractive()
+            .on("pointerdown", () => {
+                this.scene.start("HomeScene"); // Switch to CreditsScene
+            });
     }
 }
 
