@@ -205,14 +205,14 @@ class HomeScene extends Phaser.Scene {
 
         });
 
-        const instructionsButton = this.add.image(500, 550, 'instructions')
+        const instructionsButton = this.add.image(450, 550, 'instructions')
         .setScale(0.250)
             .setInteractive()
             .on("pointerdown", () => {
                 this.scene.start("InstructionScene");
             });
 
-        const CreditsButton = this.add.image(490, 50, 'creditbutton')
+        const CreditsButton = this.add.image(530, 50, 'creditbutton')
             .setScale(0.50)
             .setInteractive()
             .on("pointerdown", () => {
@@ -232,7 +232,7 @@ class CreditsScene extends Phaser.Scene {
         this.load.image("buttonone", "assets/home.png");
     }
     create() {
-        this.add.image(612, 598, "creditsBg").setScale(1); // Set background image
+        this.add.image(612, 598, "creditsBg").setScale(1.5); // Set background image
 
         this.add.image(180, 265, "icon").setScale(0.15);
         this.add.image(420, 265, "icon").setScale(0.15);
@@ -244,8 +244,8 @@ class CreditsScene extends Phaser.Scene {
         this.add.text(220, 250, "Nancy Chen", {fontFamily: 'Nunito', fontSize: "30px", fill: "black" });
         this.add.text(200, 350, "Tina Xiao", {fontFamily: 'Nunito', fontSize: "30px", fill: "black" });
 
-        const HomeButton = this.add.image(490, 50, 'buttonone')
-            .setScale(0.75)
+        const HomeButton = this.add.image(450, 450, 'buttonone')
+            .setScale(0.5)
             .setInteractive()
             .on("pointerdown", () => {
                 this.scene.start("HomeScene"); // Switch to CreditsScene
