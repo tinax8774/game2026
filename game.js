@@ -132,7 +132,7 @@ class InstructionScene extends Phaser.Scene {
         this.add.text(40, 525, "following the ^ is charged", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" });
         this.add.text(40, 575, "Good luck & have fun!", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" });
 
-        const startButton = this.add.image(650, 50, 'start')
+        const startButton = this.add.image(675, 75, 'start')
         .setScale(0.20)
             .setInteractive()
             .on("pointerdown", () => {
@@ -236,7 +236,7 @@ class CreditsScene extends Phaser.Scene {
     create() {
         this.add.image(612, 598, "creditsBg").setScale(1.5); // Set background image
 
-        this.add.text(350, 50, "Credits", {fontFamily: 'Nunito', stroke: '#000000', strokeThickness: 1.9, fontSize: '50px', fill: 'black'});
+        this.add.text(335, 50, "Credits", {fontFamily: 'Nunito', stroke: '#000000', strokeThickness: 1.9, fontSize: '50px', fill: 'black'});
         this.add.text(325, 150, "Made By", {fontFamily: 'Nunito', stroke: '#000000', strokeThickness: 1.9, fontSize: "40px", fill: "black" });
         this.add.text(230, 250, "⚛️ Nancy Chen ⚛️", {fontFamily: 'Nunito', fontSize: "40px", fill: "black" });
         this.add.text(240, 350, "⚛️ Tina Xiao ⚛️", {fontFamily: 'Nunito', fontSize: "40px", fill: "black" });
