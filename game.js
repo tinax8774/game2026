@@ -206,6 +206,8 @@ class HomeScene extends Phaser.Scene {
                 }
             });
 
+            var leastConfidentUnit = prompt("Which unit are you least confident with? Unit 1? Unit 2? Unit 3? Unit 4? Unit 5? Unit 6? Unit 7? Unit 8? Unit 9? Just type the unit number below.");
+            var welcomeMessage = alert("My least confident unit is " + leastConfidentUnit);
         });
 
         const instructionsButton = this.add.image(400, 550, 'instructions')
@@ -236,7 +238,7 @@ class CreditsScene extends Phaser.Scene {
     create() {
         this.add.image(612, 598, "creditsBg").setScale(1.5); // Set background image
 
-        this.add.text(335, 50, "Credits", {fontFamily: 'Nunito', stroke: '#000000', strokeThickness: 1.9, fontSize: '50px', fill: 'black'});
+        this.add.text(325, 50, "Credits", {fontFamily: 'Nunito', stroke: '#000000', strokeThickness: 1.9, fontSize: '50px', fill: 'black'});
         this.add.text(325, 150, "Made By", {fontFamily: 'Nunito', stroke: '#000000', strokeThickness: 1.9, fontSize: "40px", fill: "black" });
         this.add.text(230, 250, "⚛️ Nancy Chen ⚛️", {fontFamily: 'Nunito', fontSize: "40px", fill: "black" });
         this.add.text(240, 350, "⚛️ Tina Xiao ⚛️", {fontFamily: 'Nunito', fontSize: "40px", fill: "black" });
