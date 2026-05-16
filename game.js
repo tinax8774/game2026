@@ -129,7 +129,7 @@ class InstructionScene extends Phaser.Scene {
         this.add.text(40, 400, "Match the chemistry symbol ⚛️ to win the game!", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" });
         this.add.text(40, 450, "Good luck & have fun!", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" });
 
-        const startButton = this.add.image(130, 560, 'start')
+        const startButton = this.add.image(150, 540, 'start')
         .setScale(0.20)
             .setInteractive()
             .on("pointerdown", () => {
@@ -146,7 +146,7 @@ class HomeScene extends Phaser.Scene {
     }
     preload() {
         this.load.image("homeBg", "assets/peach.png"); // Load home background
-        this.load.image("button", "assets/creditbutton.png"); // Load button
+        this.load.image("creditbutton", "assets/creditbutton.png"); // Load button
     }
     create() {
         this.add.image(612, 598, "homeBg").setScale(1.5); // Set background image
@@ -205,15 +205,15 @@ class HomeScene extends Phaser.Scene {
 
         });
 
-        const instructionsButton = this.add.image(550, 500, 'instructions')
-        .setScale(0.150)
+        const instructionsButton = this.add.image(500, 550, 'instructions')
+        .setScale(0.250)
             .setInteractive()
             .on("pointerdown", () => {
                 this.scene.start("InstructionScene");
             });
 
-        const CreditsButton = this.add.image(490, 50, 'button')
-            .setScale(0.75)
+        const CreditsButton = this.add.image(490, 50, 'creditbutton')
+            .setScale(0.50)
             .setInteractive()
             .on("pointerdown", () => {
                 this.scene.start("CreditsScene"); // Switch to CreditsScene
