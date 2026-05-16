@@ -70,10 +70,10 @@ class CharacterScene extends Phaser.Scene {
             { key: "gorilla", x: 395, y: 290 },
             { key: "hedgehog", x: 537.5, y: 290 },
             { key: "honeybee", x: 710, y: 290 },
-            { key: "monkey", x: 185, y: 400 },
-            { key: "pig", x: 325, y: 400 },
-            { key: "rabbit", x: 475, y: 400 },
-            { key: "tiger", x: 625, y: 400 }
+            { key: "monkey", x: 185, y: 430 },
+            { key: "pig", x: 325, y: 430 },
+            { key: "rabbit", x: 475, y: 430 },
+            { key: "tiger", x: 625, y: 430 }
         ];
 
         this.add.text(400, 50, "Choose Your Character", {fontFamily: 'Nunito', stroke: '#000000', strokeThickness: 1.9, fontSize: "40px", fill: "#000000" }).setOrigin(0.5);
@@ -99,7 +99,7 @@ class CharacterScene extends Phaser.Scene {
             image.on('pointerdown', () => handleCharacterSelection(charInfo.key, image));
         });
 
-        const instructionsButton = this.add.image(395, 520, 'instructions')
+        const instructionsButton = this.add.image(395, 530, 'instructions')
             .setScale(0.350)
             .setInteractive()
             .on("pointerdown", () => {
@@ -126,10 +126,10 @@ class InstructionScene extends Phaser.Scene {
         this.add.text(40, 250, "If you got your second try wrong, the correct answer and explanation", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" });
         this.add.text(40, 300, "will pop up. The obstacle will disappear after that.", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" });
         this.add.text(40, 350, "Get through all the obstacles", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" });
-        this.add.text(40, 400, "Match the chemistry symbol ⚛ to win the game!", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" });
+        this.add.text(40, 400, "Match the chemistry symbol ⚛️ to win the game!", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" });
         this.add.text(40, 450, "Good luck & have fun!", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" });
 
-        const startButton = this.add.image(150, 530, 'start')
+        const startButton = this.add.image(130, 560, 'start')
         .setScale(0.20)
             .setInteractive()
             .on("pointerdown", () => {
