@@ -132,7 +132,7 @@ class InstructionScene extends Phaser.Scene {
         this.add.text(40, 525, "following the ^ is charged", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" });
         this.add.text(40, 575, "Good luck & have fun!", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" });
 
-        const startButton = this.add.image(650, 540, 'start')
+        const startButton = this.add.image(650, 150, 'start')
         .setScale(0.20)
             .setInteractive()
             .on("pointerdown", () => {
@@ -156,15 +156,15 @@ class HomeScene extends Phaser.Scene {
         this.add.text(25, 25, "Select a Level", {stroke: '#000000', strokeThickness: 1.9, fontFamily: 'Nunito', fontSize: "40px", fill: "black" });
 
         const levelData = [
-            { key: "Level1", x: 130, y: 180, label: "1" },
-            { key: "Level2", x: 290, y: 180, label: "2" },
-            { key: "Level3", x: 450, y: 180, label: "3" },
-            { key: "Level4", x: 130, y: 350, label: "4" },
-            { key: "Level5", x: 290, y: 350, label: "5" },
-            { key: "Level6", x: 450, y: 350, label: "6" },
-            { key: "Level7", x: 130, y: 500, label: "7" },
-            { key: "Level8", x: 290, y: 500, label: "8" },
-            { key: "Level9", x: 450, y: 500, label: "9" },
+            { key: "Level1", x: 200, y: 180, label: "1" },
+            { key: "Level2", x: 400, y: 180, label: "2" },
+            { key: "Level3", x: 600, y: 180, label: "3" },
+            { key: "Level4", x: 200, y: 300, label: "4" },
+            { key: "Level5", x: 400, y: 300, label: "5" },
+            { key: "Level6", x: 600, y: 300, label: "6" },
+            { key: "Level7", x: 200, y: 420, label: "7" },
+            { key: "Level8", x: 400, y: 420, label: "8" },
+            { key: "Level9", x: 600, y: 420, label: "9" },
         ];
 
         levelData.forEach((level) => {
@@ -208,14 +208,14 @@ class HomeScene extends Phaser.Scene {
 
         });
 
-        const instructionsButton = this.add.image(450, 550, 'instructions')
+        const instructionsButton = this.add.image(400, 550, 'instructions')
         .setScale(0.250)
             .setInteractive()
             .on("pointerdown", () => {
                 this.scene.start("InstructionScene");
             });
 
-        const CreditsButton = this.add.image(530, 50, 'creditbutton')
+        const CreditsButton = this.add.image(575, 50, 'creditbutton')
             .setScale(0.50)
             .setInteractive()
             .on("pointerdown", () => {
@@ -231,23 +231,17 @@ class CreditsScene extends Phaser.Scene {
     }
     preload() {
         this.load.image("creditsBg", "assets/peach.png"); // Load credits background
-        this.load.image("icon", "assets/atom_symbol_3d.png"); // Load button
         this.load.image("buttonone", "assets/home.png");
     }
     create() {
         this.add.image(612, 598, "creditsBg").setScale(1.5); // Set background image
 
-        this.add.image(180, 265, "icon").setScale(0.15);
-        this.add.image(420, 265, "icon").setScale(0.15);
-        this.add.image(160, 365, "icon").setScale(0.15);
-        this.add.image(440, 365, "icon").setScale(0.15);
+        this.add.text(450, 50, "Credits", {fontFamily: 'Nunito', stroke: '#000000', strokeThickness: 1.9, fontSize: '50px', fill: 'black'});
+        this.add.text(400, 150, "Made By", {fontFamily: 'Nunito', stroke: '#000000', strokeThickness: 1.9, fontSize: "40px", fill: "black" });
+        this.add.text(220, 250, "⚛️ Nancy Chen ⚛️", {fontFamily: 'Nunito', fontSize: "40px", fill: "black" });
+        this.add.text(200, 350, "⚛️ Tina Xiao ⚛️", {fontFamily: 'Nunito', fontSize: "40px", fill: "black" });
 
-        this.add.text(225, 50, "Credits", {fontFamily: 'Nunito', stroke: '#000000', strokeThickness: 1.9, fontSize: '50px', fill: 'black'});
-        this.add.text(225, 150, "Made By", {fontFamily: 'Nunito', stroke: '#000000', strokeThickness: 1.9, fontSize: "40px", fill: "black" });
-        this.add.text(220, 250, "Nancy Chen", {fontFamily: 'Nunito', fontSize: "30px", fill: "black" });
-        this.add.text(200, 350, "Tina Xiao", {fontFamily: 'Nunito', fontSize: "30px", fill: "black" });
-
-        const HomeButton = this.add.image(450, 450, 'buttonone')
+        const HomeButton = this.add.image(425, 475, 'buttonone')
             .setScale(0.5)
             .setInteractive()
             .on("pointerdown", () => {
