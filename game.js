@@ -155,8 +155,11 @@ class HomeScene extends Phaser.Scene {
         this.add.image(612, 598, "homeBg").setScale(1.5); // Set background image
         this.add.text(25, 25, "Select a Level", {stroke: '#000000', strokeThickness: 1.9, fontFamily: 'Nunito', fontSize: "40px", fill: "black" });
 
-        var leastConfidentUnit = prompt("Which unit are you least confident with? Unit 1? Unit 2? Unit 3? Unit 4? Unit 5? Unit 6? Unit 7? Unit 8? Unit 9? Just type the unit number below.");
-        var welcomeMessage = alert("My least confident unit is " + leastConfidentUnit);
+        if (!this.game.global.leastConfidentUnit) {
+            const unit = prompt("Which unit are you least confident with? Unit 1-9? Type the unit number below");
+            this.game.global.leastConfidentUnit = unit;
+            alert("My least confident unit is " + unit);
+        }
 
         const levelData = [
             { key: "Level1", x: 200, y: 180, label: "1" },
@@ -260,4 +263,7 @@ const config = {
 };
 
 const game = new Phaser.Game(config);
-game.global = { selectedCharacterKey: null };
+game.global = { 
+    selectedCharacterKey: null,
+    leastConfidentUnit: null 
+};
