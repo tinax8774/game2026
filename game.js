@@ -128,7 +128,7 @@ class InstructionScene extends Phaser.Scene {
         this.add.text(40, 325, "Get through all the obstacles", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" });
         this.add.text(40, 375, "Match the chemistry symbol ⚛️ to win the game!", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" });
         this.add.text(40, 425, "There will be subscripts and charges in some of the problems.", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" });
-        this.add.text(40, 470, "Remember: _ and a number means a subscript and then the number", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" }); 
+        this.add.text(40, 470, "Remember: _ and a number means a subscript", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" }); 
         this.add.text(40, 525, "Good luck & have fun!", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" });
 
         const startButton = this.add.image(675, 75, 'start')
