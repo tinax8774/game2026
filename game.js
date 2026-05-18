@@ -128,9 +128,8 @@ class InstructionScene extends Phaser.Scene {
         this.add.text(40, 325, "Get through all the obstacles", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" });
         this.add.text(40, 375, "Match the chemistry symbol ⚛️ to win the game!", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" });
         this.add.text(40, 425, "There will be subscripts and charges in some of the problems.", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" });
-        this.add.text(40, 470, "Remember: _ and a number means a subscript and then the number", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" }); 
-        this.add.text(40, 525, "following the ^ is charged", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" });
-        this.add.text(40, 575, "Good luck & have fun!", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" });
+        this.add.text(40, 470, "Remember: _ and a number means a subscript", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" }); 
+        this.add.text(40, 525, "Good luck & have fun!", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" });
 
         const startButton = this.add.image(675, 75, 'start')
         .setScale(0.20)
@@ -138,7 +137,6 @@ class InstructionScene extends Phaser.Scene {
             .on("pointerdown", () => {
                 this.scene.start("HomeScene");
             });
-
     }
 }
 
@@ -159,6 +157,12 @@ class HomeScene extends Phaser.Scene {
             const unit = prompt("Which unit are you least confident with? Unit 1-9? Type the unit number below");
             this.game.global.leastConfidentUnit = unit;
             alert("My least confident unit is " + unit);
+        }
+
+        if (!this.game.global.leastConfidentQuestions) {
+            const question = prompt("Multiple Choice? Free Response? Both?");
+            this.game.global.leastConfidentQuestions = question;
+            alert("My least confident type question is " + question);
         }
 
         const levelData = [
@@ -265,5 +269,6 @@ const config = {
 const game = new Phaser.Game(config);
 game.global = { 
     selectedCharacterKey: null,
-    leastConfidentUnit: null 
+    leastConfidentUnit: null,
+    leastConfidentQuestions: null 
 };
