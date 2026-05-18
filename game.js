@@ -269,5 +269,6 @@ const config = {
 const game = new Phaser.Game(config);
 game.global = { 
     selectedCharacterKey: null,
-    leastConfidentUnit: null 
+    leastConfidentUnit: null,
+    leastConfidentQuestions: null 
 };
