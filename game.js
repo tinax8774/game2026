@@ -259,121 +259,121 @@ class CreditsScene extends Phaser.Scene {
     }
 }
 
-// // Level 1 Scene
-// class Level1 extends Phaser.Scene {
-//     constructor() {
-//         super("Level1");
-//         this.score = 0; // Initialize the score
-//         this.scoreText = null; // Variable to hold the score text object
-//         this.obstacle = null; // To hold the red obstacle
-//         this.obstacleActive = true;
-//     }
-//     preload() {
-//         this.load.image("home", "assets/home.png"); // Load home button
-//         this.load.image('sky', './assets/sky.png');
-//         this.load.image('ground', './assets/platform2.jpg');
-//         this.load.image('groundOne', './assets/platform.png');
-//         this.load.image('onenote', './assets/atom_symbol_3d.png'); // Singular chem note
-//         this.load.image('redObstacle', './assets/obstacle.png'); // Load the red obstacle image
-//     }
-//     create() {
-//         this.score = 0; // Reset the score when the level starts
-//         this.obstacleActive = true; // Reset the obstacle flag
-//         this.add.sprite(0,0,'sky').setScale(2);
+// Level 1 Scene
+class Level1 extends Phaser.Scene {
+    constructor() {
+        super("Level1");
+        this.score = 0; // Initialize the score
+        this.scoreText = null; // Variable to hold the score text object
+        this.obstacle = null; // To hold the red obstacle
+        this.obstacleActive = true;
+    }
+    preload() {
+        this.load.image("home", "assets/home.png"); // Load home button
+        this.load.image('sky', './assets/sky.png');
+        this.load.image('ground', './assets/platform2.jpg');
+        this.load.image('groundOne', './assets/platform.png');
+        this.load.image('onenote', './assets/atom_symbol_3d.png'); // Singular chem note
+        this.load.image('redObstacle', './assets/obstacle.png'); // Load the red obstacle image
+    }
+    create() {
+        this.score = 0; // Reset the score when the level starts
+        this.obstacleActive = true; // Reset the obstacle flag
+        this.add.sprite(0,0,'sky').setScale(2);
 
-//         const platforms = this.physics.add.staticGroup();
-//         const floor = this.physics.add.staticGroup();
-//         const notes = this.physics.add.group(); // Create a group for the musical notes
-//         this.notes = notes; // Store the notes group in the scene
+        const platforms = this.physics.add.staticGroup();
+        const floor = this.physics.add.staticGroup();
+        const notes = this.physics.add.group(); // Create a group for the musical notes
+        this.notes = notes; // Store the notes group in the scene
 
-//         // Create the ground platforms
+        // Create the ground platforms
 
-//         // Create the green floors and place notes on them
-//         floor.create(25,175,'groundOne').setScale(1).refreshBody();
-//         this.placeNotesOnFloor(25, 175, floor);
-//         floor.create(25,325,'groundOne').setScale(1).refreshBody();
-//         this.placeNotesOnFloor(25, 325, floor);
-//         floor.create(550,100,'groundOne').setScale(1).refreshBody();
-//         this.placeNotesOnFloor(550, 100, floor);
-//         floor.create(550,250,'groundOne').setScale(1).refreshBody();
-//         this.placeNotesOnFloor(550, 250, floor);
-//         floor.create(550,400,'groundOne').setScale(1).refreshBody();
-//         this.placeNotesOnFloor(550, 400, floor);
+        // Create the green floors and place notes on them
+        floor.create(25,175,'groundOne').setScale(1).refreshBody();
+        this.placeNotesOnFloor(25, 175, floor);
+        floor.create(25,325,'groundOne').setScale(1).refreshBody();
+        this.placeNotesOnFloor(25, 325, floor);
+        floor.create(550,100,'groundOne').setScale(1).refreshBody();
+        this.placeNotesOnFloor(550, 100, floor);
+        floor.create(550,250,'groundOne').setScale(1).refreshBody();
+        this.placeNotesOnFloor(550, 250, floor);
+        floor.create(550,400,'groundOne').setScale(1).refreshBody();
+        this.placeNotesOnFloor(550, 400, floor);
 
-//         // Create the red obstacle
-//         this.obstacle = this.physics.add.sprite(285, 220, 'redObstacle').setScale(0.15,1);
-//         this.obstacle.setImmovable(true);
-//         this.obstacle.setActive(true).setVisible(true); // Ensure the obstacle is active and visible
-//         this.physics.world.enableBody(this.obstacle); // Re-enable the physics body
+        // Create the red obstacle
+        this.obstacle = this.physics.add.sprite(285, 220, 'redObstacle').setScale(0.15,1);
+        this.obstacle.setImmovable(true);
+        this.obstacle.setActive(true).setVisible(true); // Ensure the obstacle is active and visible
+        this.physics.world.enableBody(this.obstacle); // Re-enable the physics body
 
-//         const chosenAnimalKey = this.game.global.selectedCharacterKey;
-//         let player;
-//         switch (chosenAnimalKey) {
-//             case 'chick':
-//                 player = this.add.sprite(100, 300, 'chick').setScale(0.25);
-//                 player.flipX = true;
-//                 break;
-//             case 'blackcat':
-//                 player = this.add.sprite(100, 300, 'blackcat').setScale(0.25);
-//                 player.flipX = true;
-//                 break;
-//             case 'lightcat':
-//                 player = this.add.sprite(30, 465, 'lightcat').setScale(0.25);
-//                 player.flipX = true;
-//                 break;
-//             case 'chipmunk':
-//                 player = this.add.sprite(30, 465, 'chipmunk').setScale(0.25);
-//                 player.flipX = true;
-//                 break;
-//             case 'cow':
-//                 player = this.add.sprite(30, 465, 'cow').setScale(0.25);
-//                 player.flipX = true;
-//                 break;
-//             case 'dog':
-//                 player = this.add.sprite(30, 465, 'dog').setScale(0.25);
-//                 player.flipX = true;
-//                 break;
-//             case 'poodle':
-//                 player = this.add.sprite(30, 465, 'poodle').setScale(0.25);
-//                 player.flipX = true;
-//                 break;
-//             case 'gorilla':
-//                 player = this.add.sprite(30, 465, 'gorilla').setScale(0.25);
-//                 player.flipX = true;
-//                 break;
-//             case 'hedgehog':
-//                 player = this.add.sprite(30, 465, 'hedgehog').setScale(0.25);
-//                 player.flipX = true;
-//                 break;
-//             case 'honeybee':
-//                 player = this.add.sprite(30, 465, 'honeybee').setScale(0.25);
-//                 player.flipX = true;
-//                 break;
-//             case 'monkey':
-//                 player = this.add.sprite(30, 465, 'monkey').setScale(0.25);
-//                 player.flipX = true;
-//                 break;
-//             case 'pig':
-//                 player = this.add.sprite(30, 465, 'pig').setScale(0.25);
-//                 player.flipX = true;
-//                 break;
-//             case 'rabbit':
-//                 player = this.add.sprite(30, 465, 'rabbit').setScale(0.25);
-//                 player.flipX = true;
-//                 break;
-//             case 'tiger':
-//                 player = this.add.sprite(30, 465, 'tiger').setScale(0.25);
-//                 player.flipX = true;
-//                 break;
-//         }
-    
-// }
+        const chosenAnimalKey = this.game.global.selectedCharacterKey;
+        let player;
+        switch (chosenAnimalKey) {
+            case 'chick':
+                player = this.add.sprite(100, 300, 'chick').setScale(0.25);
+                player.flipX = true;
+                break;
+            case 'blackcat':
+                player = this.add.sprite(100, 300, 'blackcat').setScale(0.25);
+                player.flipX = true;
+                break;
+            case 'lightcat':
+                player = this.add.sprite(30, 465, 'lightcat').setScale(0.25);
+                player.flipX = true;
+                break;
+            case 'chipmunk':
+                player = this.add.sprite(30, 465, 'chipmunk').setScale(0.25);
+                player.flipX = true;
+                break;
+            case 'cow':
+                player = this.add.sprite(30, 465, 'cow').setScale(0.25);
+                player.flipX = true;
+                break;
+            case 'dog':
+                player = this.add.sprite(30, 465, 'dog').setScale(0.25);
+                player.flipX = true;
+                break;
+            case 'poodle':
+                player = this.add.sprite(30, 465, 'poodle').setScale(0.25);
+                player.flipX = true;
+                break;
+            case 'gorilla':
+                player = this.add.sprite(30, 465, 'gorilla').setScale(0.25);
+                player.flipX = true;
+                break;
+            case 'hedgehog':
+                player = this.add.sprite(30, 465, 'hedgehog').setScale(0.25);
+                player.flipX = true;
+                break;
+            case 'honeybee':
+                player = this.add.sprite(30, 465, 'honeybee').setScale(0.25);
+                player.flipX = true;
+                break;
+            case 'monkey':
+                player = this.add.sprite(30, 465, 'monkey').setScale(0.25);
+                player.flipX = true;
+                break;
+            case 'pig':
+                player = this.add.sprite(30, 465, 'pig').setScale(0.25);
+                player.flipX = true;
+                break;
+            case 'rabbit':
+                player = this.add.sprite(30, 465, 'rabbit').setScale(0.25);
+                player.flipX = true;
+                break;
+            case 'tiger':
+                player = this.add.sprite(30, 465, 'tiger').setScale(0.25);
+                player.flipX = true;
+                break;
+        }
+    }
+}
 
 const config = {
     type: Phaser.AUTO,
     width: 800,
     height: 636,
-    scene: [StartScene, CharacterScene, InstructionScene, HomeScene, CreditsScene],
+    scene: [StartScene, CharacterScene, InstructionScene, HomeScene, CreditsScene, Level1],
     physics: { // Add this physics configuration
         default: 'arcade', // Use the Arcade Physics system
         arcade: {
