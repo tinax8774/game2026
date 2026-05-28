@@ -277,6 +277,11 @@ class Level1 extends Phaser.Scene {
         this.load.image('redObstacle', './assets/obstacle.png'); // Load the red obstacle image
     }
     create() {
+        this.input.on('pointerdown', (pointer) => {
+            console.log(pointer.x, pointer.y);
+            this.add.circle(pointer.x, pointer.y, 5, 0xff0000);
+        });
+
         this.score = 0; // Reset the score when the level starts
         this.obstacleActive = true; // Reset the obstacle flag
         this.add.sprite(0,0,'sky').setScale(2);
