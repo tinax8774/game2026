@@ -295,15 +295,15 @@ class Level1 extends Phaser.Scene {
 
         // Create the green floors and place notes on them
         floor.create(25,175,'groundOne').setScale(1).refreshBody();
-        this.placeNotesOnFloor(25, 175, floor);
+        // this.placeNotesOnFloor(25, 175, floor);
         floor.create(25,325,'groundOne').setScale(1).refreshBody();
-        this.placeNotesOnFloor(25, 325, floor);
+        // this.placeNotesOnFloor(25, 325, floor);
         floor.create(550,100,'groundOne').setScale(1).refreshBody();
-        this.placeNotesOnFloor(550, 100, floor);
+        // this.placeNotesOnFloor(550, 100, floor);
         floor.create(550,250,'groundOne').setScale(1).refreshBody();
-        this.placeNotesOnFloor(550, 250, floor);
+        // this.placeNotesOnFloor(550, 250, floor);
         floor.create(550,400,'groundOne').setScale(1).refreshBody();
-        this.placeNotesOnFloor(550, 400, floor);
+        // this.placeNotesOnFloor(550, 400, floor);
 
         // Create the red obstacle
         this.obstacle = this.physics.add.sprite(285, 220, 'redObstacle').setScale(0.15,1);
@@ -315,7 +315,7 @@ class Level1 extends Phaser.Scene {
         let player;
         switch (chosenAnimalKey) {
             case 'chick':
-                player = this.add.sprite(100, 300, 'chick').setScale(0.25);
+                player = this.add.sprite(32, 560, 'chick').setScale(0.25);
                 player.flipX = true;
                 break;
             case 'blackcat':
