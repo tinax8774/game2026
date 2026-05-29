@@ -291,18 +291,24 @@ class Level1 extends Phaser.Scene {
         const notes = this.physics.add.group(); // Create a group for the musical notes
         this.notes = notes; // Store the notes group in the scene
 
-        // Create the ground platforms   
-        platforms.create(100,568,'ground').setScale(0.5,0.75).refreshBody();
-        platforms.create(150,568,'ground').setScale(0.5,0.75).refreshBody();
-        platforms.create(200,568,'ground').setScale(0.5,0.75).refreshBody();
-        platforms.create(250,568,'ground').setScale(0.5,0.75).refreshBody();
-        platforms.create(300,568,'ground').setScale(0.5,0.75).refreshBody();
-        platforms.create(350,568,'ground').setScale(0.5,0.75).refreshBody();
-        platforms.create(400,568,'ground').setScale(0.5,0.75).refreshBody();
-        platforms.create(450,568,'ground').setScale(0.5,0.75).refreshBody();
-        platforms.create(500,568,'ground').setScale(0.5,0.75).refreshBody();
-        platforms.create(550,568,'ground').setScale(0.5,0.75).refreshBody();
-        platforms.create(600,568,'ground').setScale(0.5,0.75).refreshBody();
+        // Create the ground platforms
+        platforms.create(50,590,'ground').setScale(0.5,0.75).refreshBody();
+        platforms.create(100,590,'ground').setScale(0.5,0.75).refreshBody();
+        platforms.create(150,590,'ground').setScale(0.5,0.75).refreshBody();
+        platforms.create(200,590,'ground').setScale(0.5,0.75).refreshBody();
+        platforms.create(250,590,'ground').setScale(0.5,0.75).refreshBody();
+        platforms.create(300,590,'ground').setScale(0.5,0.75).refreshBody();
+        platforms.create(350,590,'ground').setScale(0.5,0.75).refreshBody();
+        platforms.create(400,590,'ground').setScale(0.5,0.75).refreshBody();
+        platforms.create(450,590,'ground').setScale(0.5,0.75).refreshBody();
+        platforms.create(500,590,'ground').setScale(0.5,0.75).refreshBody();
+        platforms.create(550,590,'ground').setScale(0.5,0.75).refreshBody();
+        platforms.create(600,590,'ground').setScale(0.5,0.75).refreshBody();
+        platforms.create(650,590,'ground').setScale(0.5,0.75).refreshBody();
+        platforms.create(700,590,'ground').setScale(0.5,0.75).refreshBody();
+        platforms.create(750,590,'ground').setScale(0.5,0.75).refreshBody();
+        platforms.create(800,590,'ground').setScale(0.5,0.75).refreshBody();
+        platforms.create(850,590,'ground').setScale(0.5,0.75).refreshBody();
 
         // Create the green floors and place notes on them
         floor.create(25,175,'groundOne').setScale(1).refreshBody();
