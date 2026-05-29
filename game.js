@@ -293,22 +293,6 @@ class Level1 extends Phaser.Scene {
 
         // Create the ground platforms
         platforms.create(50,590,'ground').setScale(0.5,0.75).refreshBody();
-        platforms.create(100,590,'ground').setScale(0.5,0.75).refreshBody();
-        platforms.create(150,590,'ground').setScale(0.5,0.75).refreshBody();
-        platforms.create(200,590,'ground').setScale(0.5,0.75).refreshBody();
-        platforms.create(250,590,'ground').setScale(0.5,0.75).refreshBody();
-        platforms.create(300,590,'ground').setScale(0.5,0.75).refreshBody();
-        platforms.create(350,590,'ground').setScale(0.5,0.75).refreshBody();
-        platforms.create(400,590,'ground').setScale(0.5,0.75).refreshBody();
-        platforms.create(450,590,'ground').setScale(0.5,0.75).refreshBody();
-        platforms.create(500,590,'ground').setScale(0.5,0.75).refreshBody();
-        platforms.create(550,590,'ground').setScale(0.5,0.75).refreshBody();
-        platforms.create(600,590,'ground').setScale(0.5,0.75).refreshBody();
-        platforms.create(650,590,'ground').setScale(0.5,0.75).refreshBody();
-        platforms.create(700,590,'ground').setScale(0.5,0.75).refreshBody();
-        platforms.create(750,590,'ground').setScale(0.5,0.75).refreshBody();
-        platforms.create(800,590,'ground').setScale(0.5,0.75).refreshBody();
-        platforms.create(850,590,'ground').setScale(0.5,0.75).refreshBody();
 
         // Create the green floors and place notes on them
         floor.create(25,175,'groundOne').setScale(1).refreshBody();
@@ -331,7 +315,7 @@ class Level1 extends Phaser.Scene {
         const chosenAnimalKey = this.game.global.selectedCharacterKey;
         let player;
         switch (chosenAnimalKey) {
-            case 'chick':
+            case 'chick': 
                 player = this.add.sprite(32, 560, 'chick').setScale(0.35);
                 player.flipX = true;
                 break;
@@ -465,7 +449,7 @@ class Level1 extends Phaser.Scene {
         }
 
         // "Back to Home" button
-        const homeButton = this.add.image(300, 560, 'home')
+        const homeButton = this.add.image(415, 595, 'home') 
             .setScale(0.50)
             .setInteractive()
             .on("pointerdown", () => {
