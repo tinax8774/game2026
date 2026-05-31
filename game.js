@@ -147,13 +147,12 @@ class HomeScene extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image("homeBg", "assets/peachpuffbg.png");
-        this.load.image("settings", "assets/setting.png");
-        this.load.image("instructions", "assets/instructionsbutton.png");
+        this.load.image("homeBg", "assets/peach.png");
+        this.load.image("creditbutton", "assets/creditbutton.png"); // Load button
     }
 
     create() {
-        this.add.image(612, 598, "homeBg").setScale(1);
+        this.add.image(612, 598, "homeBg").setScale(1.5); // Set background image
 
         this.add.text(25, 25, "Select a Level", {
             stroke: '#000000',
@@ -304,7 +303,7 @@ class Level1 extends Phaser.Scene {
         this.notes = notes;
 
         // Ground platforms
-        platforms.create(90, 547, "ground").setScale(0.5, 1).refreshBody();
+        platforms.create(90, 547, "ground").setScale(0.5, 0.75).refreshBody();
         platforms.create(180, 547, "ground").setScale(0.5, 0.75).refreshBody();
         platforms.create(270, 547, "ground").setScale(0.5, 0.75).refreshBody();
         platforms.create(360, 547, "ground").setScale(0.5, 0.75).refreshBody();
