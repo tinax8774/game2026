@@ -180,9 +180,9 @@ class HomeScene extends Phaser.Scene {
             const levelNumber = parseInt(level.label);
             const isUnlocked = levelNumber <= unlocked;
 
-            const circleColor = isUnlocked ? 0x84c7ff : 0xbfbfbf;
+            const circleColor = isUnlocked ? 0x84c7ff : 0xADADAD;
 
-            const circle = this.add.circle(level.x, level.y, 50, circleColor);
+            const circle = this.add.circle(level.x, level.y, 35, circleColor);
             circle.setStrokeStyle(2, 0x000000);
             circle.alpha = isUnlocked ? 0.9 : 0.5;
 
@@ -223,7 +223,7 @@ class HomeScene extends Phaser.Scene {
             });
         });
 
-        const instructionsButton = this.add.image(300, 500, 'instructions')
+        const instructionsButton = this.add.image(400, 550, 'instructions')
             .setScale(0.350)
             .setInteractive()
             .on("pointerdown", () => {
