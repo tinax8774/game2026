@@ -128,7 +128,7 @@ class InstructionScene extends Phaser.Scene {
         this.add.text(40, 350, "Get through all the obstacles", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" });
         this.add.text(40, 400, "Match the chemistry symbol ⚛️ to win the game!", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" });
         this.add.text(40, 450, "There will be subscripts and charges in some of the problems.", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" });
-        this.add.text(40, 500, "Remember: _ and a number means a subscript", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" }); 
+        this.add.text(40, 500, "Remember: _ and a number means a subscript", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" });
         this.add.text(40, 550, "Good luck & have fun!", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" });
 
         const startButton = this.add.image(675, 75, 'start')
@@ -153,6 +153,11 @@ class HomeScene extends Phaser.Scene {
 
     create() {
         this.add.image(612, 598, "homeBg").setScale(1.5); // Set background image
+
+        if (!this.game.global.didIntroQuestions) {
+            this.askIntroQuestions();
+            this.game.global.didIntroQuestions = true;
+        }
 
         this.add.text(25, 25, "Select a Level", {
             stroke: '#000000',
@@ -183,7 +188,7 @@ class HomeScene extends Phaser.Scene {
             const circleColor = isUnlocked ? 0x84c7ff : 0xADADAD;
 
             const circle = this.add.circle(level.x, level.y, 35, circleColor);
-            circle.setStrokeStyle(2, 0x000000);
+            circle.setStrokeStyle(3, 0x000000);
             circle.alpha = isUnlocked ? 0.9 : 0.5;
 
             circle.setInteractive();
@@ -237,6 +242,11 @@ class HomeScene extends Phaser.Scene {
                 this.scene.start("CreditsScene"); // Switch to CreditsScene
             });
     }
+    askIntroQuestions() {
+        let unit = parseInt(prompt("Which AP Chemistry Unit are you least confident with? (1–9)"));
+        if (isNaN(unit) || unit < 1 || unit > 9) unit = 1;
+        this.game.global.leastConfidentUnit = unit;
+    }
 }
 
 // Credits Scene
@@ -272,8 +282,6 @@ class Level1 extends Phaser.Scene {
         this.score = 0;
         this.winningScore = 100;
         this.scoreText = null;
-        this.obstacle = null;
-        this.obstacleActive = true;
         this.firstAttemptFailed = false;
     }
 
@@ -292,10 +300,328 @@ class Level1 extends Phaser.Scene {
 
     create() {
         this.score = 0;
-        this.obstacleActive = true;
         this.firstAttemptFailed = false;
 
-        this.add.sprite(0, 0, "sky").setScale(2);
+        this.add.image(400, 318, "sky").setDisplaySize(800, 636);
+
+        // Question bank (Units 1–9)
+        this.chemQuestions = {
+            1: [
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" }
+            ],
+            2: [
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" }
+            ],
+            3: [
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" }
+            ],
+            4: [
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" }
+            ],
+            5: [
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" }
+            ],
+            6: [
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" }
+            ],
+            7: [
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" }
+            ],
+            8: [
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" }
+            ],
+            9: [
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" },
+                { q: "", a: "", exp: "" }
+            ]
+        };
 
         const platforms = this.physics.add.staticGroup();
         const floor = this.physics.add.staticGroup();
@@ -303,25 +629,44 @@ class Level1 extends Phaser.Scene {
         this.notes = notes;
 
         // Ground platforms
-        platforms.create(90, 547, "ground").setScale(0.5, 0.75).refreshBody();
-        platforms.create(180, 547, "ground").setScale(0.5, 0.75).refreshBody();
-        platforms.create(270, 547, "ground").setScale(0.5, 0.75).refreshBody();
-        platforms.create(360, 547, "ground").setScale(0.5, 0.75).refreshBody();
-        platforms.create(450, 547, "ground").setScale(0.5, 0.75).refreshBody();
-        platforms.create(540, 547, "ground").setScale(0.5, 0.75).refreshBody();
-        platforms.create(630, 547, "ground").setScale(0.5, 0.75).refreshBody();
-        platforms.create(720, 547, "ground").setScale(0.5, 0.75).refreshBody();
+        platforms.create(90, 590, "ground").setScale(0.5, 0.75).refreshBody();
+        platforms.create(180, 590, "ground").setScale(0.5, 0.75).refreshBody();
+        platforms.create(270, 590, "ground").setScale(0.5, 0.75).refreshBody();
+        platforms.create(360, 590, "ground").setScale(0.5, 0.75).refreshBody();
+        platforms.create(450, 590, "ground").setScale(0.5, 0.75).refreshBody();
+        platforms.create(540, 590, "ground").setScale(0.5, 0.75).refreshBody();
+        platforms.create(630, 590, "ground").setScale(0.5, 0.75).refreshBody();
+        platforms.create(720, 590, "ground").setScale(0.5, 0.75).refreshBody();
 
         // Floors + chemistry notes
-        this.createFloorWithNotes(floor, 25, 175);
-        this.createFloorWithNotes(floor, 25, 325);
-        this.createFloorWithNotes(floor, 600, 100);
-        this.createFloorWithNotes(floor, 600, 250);
-        this.createFloorWithNotes(floor, 600, 400);
+        this.createFloorWithNotes(floor, 130, 205, 5);
+        this.createFloorWithNotes(floor, 130, 355, 5);
+        this.createFloorWithNotes(floor, 640, 130, 5);
+        this.createFloorWithNotes(floor, 640, 280, 5);
+        this.createFloorWithNotes(floor, 640, 430, 5);
 
         // Obstacle
-        this.obstacle = this.physics.add.sprite(285, 220, "redObstacle").setScale(0.15, 1);
-        this.obstacle.setImmovable(true);
+        this.obstacles = this.physics.add.group();
+        const obstaclePositions = [
+            { x: 283, y: 147 },
+            { x: 468.80, y: 64 },
+            { x: 468.80, y: 215 },
+            { x: 468.80, y: 367 },
+            { x: 283, y: 298 }
+        ];
+
+        obstaclePositions.forEach(pos => {
+            let obs = this.obstacles.create(pos.x, pos.y, "redObstacle").setScale(0.015, 0.2);
+            obs.setImmovable(true);
+        });
+
+        // Disable obstacle collisions at start
+        this.obstaclesActive = false;
+
+        // Enable after 200ms
+        this.time.delayedCall(200, () => {
+            this.obstaclesActive = true;
+        });
 
         // Character
         const chosen = this.game.global.selectedCharacterKey;
@@ -335,7 +680,7 @@ class Level1 extends Phaser.Scene {
         this.physics.add.collider(player, platforms);
         this.physics.add.collider(player, floor);
         this.physics.add.collider(player, this.notes, this.collectNote, null, this);
-        this.physics.add.collider(player, this.obstacle, this.handleObstacleCollision, null, this);
+        this.physics.add.collider(player, this.obstacles, this.handleObstacleCollision, null, this);
 
         this.cursors = this.input.keyboard.createCursorKeys();
         this.player = player;
@@ -349,23 +694,36 @@ class Level1 extends Phaser.Scene {
         );
 
         // Home button
-        this.homeButton = this.add.image(350, 560, "home")
+        this.homeButton = this.add.image(390, 590, "home")
             .setScale(0.5)
             .setInteractive()
             .on("pointerdown", () => {
                 this.scene.start("HomeScene");
             });
+
+        this.time.delayedCall(100, () => {
+            if (
+                !this.game.global.leastConfidentUnit ||
+                !this.chemQuestions[this.game.global.leastConfidentUnit]
+            ) {
+                this.game.global.leastConfidentUnit = 1;
+            }
+
+            this.leastConfidentUnit = this.game.global.leastConfidentUnit;
+        });
     }
 
-    createFloorWithNotes(floorGroup, x, y) {
+    createFloorWithNotes(floorGroup, x, y, count) {
         floorGroup.create(x, y, "groundOne").setScale(1).refreshBody();
 
         const noteY = y - 40;
-        const spacing = 60;
+        const spacing = 50;
 
-        this.notes.create(x - spacing, noteY, "onenote").setScale(0.15);
-        this.notes.create(x, noteY, "onenote").setScale(0.15);
-        this.notes.create(x + spacing, noteY, "onenote").setScale(0.15);
+        const startX = x - ((count - 1) / 2) * spacing;
+
+        for (let i = 0; i < count; i++) {
+            this.notes.create(startX + i * spacing, noteY, "onenote").setScale(0.15);
+        }
 
         this.notes.getChildren().forEach(note => {
             note.body.setAllowGravity(false);
@@ -375,7 +733,7 @@ class Level1 extends Phaser.Scene {
 
     collectNote(player, note) {
         note.disableBody(true, true);
-        this.score += (100/13);
+        this.score += (100/25);
         this.scoreText.setText("Score: " + this.score + "/" + this.winningScore);
 
         if (this.score >= this.winningScore) {
@@ -389,37 +747,236 @@ class Level1 extends Phaser.Scene {
     }
 
     handleObstacleCollision(player, obstacle) {
-        if (!this.obstacleActive) return;
+        if (!this.obstaclesActive) return;
+        if (!obstacle.active) return;
 
-        const correctAnswer = 8;
-        const explanation = "Oxygen has 8 protons, so its atomic number is 8.";
+        let unitQuestions = this.chemQuestions[this.leastConfidentUnit];
+        if (!unitQuestions || unitQuestions.length === 0) return;
 
-        let answer = prompt("Chemistry Question:\nWhat is the atomic number of oxygen?");
-        if (answer === null) return;
+        let q = unitQuestions[Math.floor(Math.random() * unitQuestions.length)];
 
-        answer = parseInt(answer);
-
-        if (answer === correctAnswer) {
+        let answer = prompt(q.q);
+        if (answer && answer.trim().toLowerCase() === q.a.toLowerCase()) {
             obstacle.disableBody(true, true);
-            this.obstacleActive = false;
             return;
         }
 
-        if (!this.firstAttemptFailed) {
-            this.firstAttemptFailed = true;
-            alert("Sorry, the answer you gave is wrong. Try the question again. You have one more chance.");
+        alert("Wrong. Try again.");
+        let answer2 = prompt(q.q);
+
+        if (answer2 && answer2.trim().toLowerCase() === q.a.toLowerCase()) {
+            obstacle.disableBody(true, true);
             return;
         }
 
-        alert("Incorrect again.\nCorrect answer: 8\nExplanation: " + explanation);
+        alert("Correct answer: " + q.a + "\nExplanation: " + q.exp);
 
-        let finalAnswer = prompt("Please type the correct answer to continue.");
-        while (parseInt(finalAnswer) !== correctAnswer) {
-            finalAnswer = prompt("Incorrect. Please type 8 to continue.");
+        let finalAnswer = "";
+        while (finalAnswer.trim().toLowerCase() !== q.a.toLowerCase()) {
+            finalAnswer = prompt("Please enter the correct answer to continue:");
         }
 
         obstacle.disableBody(true, true);
-        this.obstacleActive = false;
+    }
+
+    update() {
+        const player = this.player;
+        if (!player) return;
+
+        player.body.velocity.x = 0;
+
+        if (this.cursors.left.isDown) {
+            player.body.velocity.x = -300;
+            player.flipX = false;
+        } else if (this.cursors.right.isDown) {
+            player.body.velocity.x = 300;
+            player.flipX = true;
+        }
+
+        if (this.cursors.up.isDown && player.body.touching.down) {
+            player.body.velocity.y = -450;
+        }
+    }
+}
+
+class Level2 extends Phaser.Scene {
+    constructor() {
+        super("Level2");
+        this.score = 0;
+        this.winningScore = 200;
+        this.scoreText = null;
+        this.obstaclesActive = false;
+    }
+
+    preload() {
+        this.load.image("home", "assets/home.png");
+        this.load.image("sky", "./assets/sky.png");
+        this.load.image("ground", "./assets/platform2.jpg");
+        this.load.image("groundOne", "./assets/platform.png");
+        this.load.image("onenote", "./assets/atom_symbol_3d.png");
+        this.load.image("redObstacle", "./assets/obstacle.png");
+    }
+
+    create() {
+        this.score = 0;
+
+        this.add.image(400, 318, "sky").setDisplaySize(800, 636);
+
+        // Question bank from Level1
+        this.chemQuestions = this.scene.get("Level1").chemQuestions;
+
+        // Ensure unit is valid
+        this.time.delayedCall(100, () => {
+            if (
+                !this.game.global.leastConfidentUnit ||
+                !this.chemQuestions[this.game.global.leastConfidentUnit]
+            ) {
+                this.game.global.leastConfidentUnit = 1;
+            }
+            this.leastConfidentUnit = this.game.global.leastConfidentUnit;
+        });
+
+        const platforms = this.physics.add.staticGroup();
+        const floor = this.physics.add.staticGroup();
+        this.notes = this.physics.add.group();
+
+        // Ground
+        const groundY = 590;
+        [90,180,270,360,450,540,630,720].forEach(x => {
+            platforms.create(x, groundY, "ground").setScale(0.5, 0.75).refreshBody();
+        });
+
+        this.createFloorWithNotes(floor, 120, 450, 5);
+        this.createFloorWithNotes(floor, 220, 350, 5);
+        this.createFloorWithNotes(floor, 320, 250, 5);
+
+        this.createFloorWithNotes(floor, 400, 150, 5);
+
+        this.createFloorWithNotes(floor, 600, 350, 5);
+        this.createFloorWithNotes(floor, 600, 200, 5);
+
+        this.createFloorWithNotes(floor, 500, 80, 5);
+
+        // Obstacles
+        this.obstacles = this.physics.add.group();
+
+        const obstaclePositions = [
+            { x: 150, y: 420 },
+            { x: 250, y: 320 },
+            { x: 350, y: 220 },
+
+            { x: 400, y: 120 },
+
+            { x: 600, y: 320 },
+            { x: 600, y: 170 },
+
+            { x: 500, y: 50 },
+
+            { x: 450, y: 260 }
+        ];
+
+        obstaclePositions.forEach(pos => {
+            let obs = this.obstacles.create(pos.x, pos.y, "redObstacle").setScale(0.015, 0.2);
+            obs.setImmovable(true);
+        });
+
+        // Delay obstacle activation
+        this.time.delayedCall(200, () => {
+            this.obstaclesActive = true;
+        });
+
+        // Character
+        const chosen = this.game.global.selectedCharacterKey;
+        let player = this.add.sprite(30, 465, chosen).setScale(0.25);
+        player.flipX = true;
+
+        this.physics.world.enable(player);
+        player.body.gravity.y = 800;
+        player.body.collideWorldBounds = true;
+
+        // Colliders
+        this.physics.add.collider(player, platforms);
+        this.physics.add.collider(player, floor);
+        this.physics.add.collider(player, this.notes, this.collectNote, null, this);
+        this.physics.add.collider(player, this.obstacles, this.handleObstacleCollision, null, this);
+
+        this.player = player;
+        this.cursors = this.input.keyboard.createCursorKeys();
+
+        // Score text
+        this.scoreText = this.add.text(
+            16, 16,
+            "Score: 0/" + this.winningScore,
+            { stroke: "#000", strokeThickness: 1.9, fontSize: "32px", fill: "#000" }
+        );
+
+        // Home button
+        this.homeButton = this.add.image(390, 590, "home")
+            .setScale(0.5)
+            .setInteractive()
+            .on("pointerdown", () => this.scene.start("HomeScene"));
+    }
+
+    createFloorWithNotes(floorGroup, x, y, count) {
+        floorGroup.create(x, y, "groundOne").setScale(1).refreshBody();
+
+        const noteY = y - 40;
+        const spacing = 50;
+        const startX = x - ((count - 1) / 2) * spacing;
+
+        for (let i = 0; i < count; i++) {
+            this.notes.create(startX + i * spacing, noteY, "onenote").setScale(0.15);
+        }
+
+        this.notes.getChildren().forEach(note => {
+            note.body.setAllowGravity(false);
+            note.body.immovable = true;
+        });
+    }
+
+    collectNote(player, note) {
+        note.disableBody(true, true);
+        this.score += (200 / 25);
+        this.scoreText.setText("Score: " + Math.floor(this.score) + "/" + this.winningScore);
+
+        if (this.score >= this.winningScore) {
+            alert("Congrats, you completed level 2! Now, level 3 is unlocked!");
+            this.game.global.unlockedLevels = 3;
+            this.homeButton.setVisible(true);
+        }
+    }
+
+    handleObstacleCollision(player, obstacle) {
+        if (!this.obstaclesActive) return;
+        if (!obstacle.active) return;
+
+        let unitQuestions = this.chemQuestions[this.leastConfidentUnit];
+        if (!unitQuestions || unitQuestions.length === 0) return;
+
+        let q = unitQuestions[Math.floor(Math.random() * unitQuestions.length)];
+
+        let answer = prompt(q.q);
+        if (answer && answer.trim().toLowerCase() === q.a.toLowerCase()) {
+            obstacle.disableBody(true, true);
+            return;
+        }
+
+        alert("Wrong. Try again.");
+        let answer2 = prompt(q.q);
+
+        if (answer2 && answer2.trim().toLowerCase() === q.a.toLowerCase()) {
+            obstacle.disableBody(true, true);
+            return;
+        }
+
+        alert("Correct answer: " + q.a + "\nExplanation: " + q.exp);
+
+        let finalAnswer = "";
+        while (finalAnswer.trim().toLowerCase() !== q.a.toLowerCase()) {
+            finalAnswer = prompt("Please enter the correct answer to continue:");
+        }
+
+        obstacle.disableBody(true, true);
     }
 
     update() {
@@ -446,7 +1003,7 @@ const config = {
     type: Phaser.AUTO,
     width: 800,
     height: 636,
-    scene: [StartScene, CharacterScene, InstructionScene, HomeScene, CreditsScene, Level1],
+    scene: [StartScene, CharacterScene, InstructionScene, HomeScene, CreditsScene, Level1, Level2],
     physics: { // Add this physics configuration
         default: 'arcade', // Use the Arcade Physics system
         arcade: {
@@ -457,7 +1014,9 @@ const config = {
 };
 
 const game = new Phaser.Game(config);
-game.global = { 
+game.global = {
     selectedCharacterKey: null,
-    unlockedLevels: 1
+    unlockedLevels: 1,
+    playerName: "",
+    leastConfidentUnit: 1
 };
