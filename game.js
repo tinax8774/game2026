@@ -349,7 +349,7 @@ class Level1 extends Phaser.Scene {
         );
 
         // Home button
-        this.homeButton = this.add.image(300, 600, "home")
+        this.homeButton = this.add.image(350, 560, "home")
             .setScale(0.5)
             .setInteractive()
             .on("pointerdown", () => {
