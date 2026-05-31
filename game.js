@@ -145,13 +145,23 @@ class HomeScene extends Phaser.Scene {
     constructor() {
         super("HomeScene");
     }
+
     preload() {
-        this.load.image("homeBg", "assets/peach.png"); // Load home background
-        this.load.image("creditbutton", "assets/creditbutton.png"); // Load button
+        this.load.image("homeBg", "assets/peachpuffbg.png");
+        this.load.image("settings", "assets/setting.png");
+        this.load.image("instructions", "assets/instructionsbutton.png");
     }
+
     create() {
-        this.add.image(612, 598, "homeBg").setScale(1.5); // Set background image
-        this.add.text(25, 25, "Select a Level", {stroke: '#000000', strokeThickness: 1.9, fontFamily: 'Nunito', fontSize: "40px", fill: "black" });
+        this.add.image(612, 598, "homeBg").setScale(1);
+
+        this.add.text(25, 25, "Select a Level", {
+            stroke: '#000000',
+            strokeThickness: 1.9,
+            fontFamily: 'Nunito',
+            fontSize: "40px",
+            fill: "black"
+        });
 
         const levelData = [
             { key: "Level1", x: 200, y: 180, label: "1" },
@@ -165,16 +175,20 @@ class HomeScene extends Phaser.Scene {
             { key: "Level9", x: 600, y: 420, label: "9" },
         ];
 
+        const unlocked = this.game.global.unlockedLevels;
+
         levelData.forEach((level) => {
-            // Create a circle for the button
-            const circle = this.add.circle(level.x, level.y, 35, 0xF6CEFC); // Example fill color
-            circle.setInteractive(); // Make it clickable
+            const levelNumber = parseInt(level.label);
+            const isUnlocked = levelNumber <= unlocked;
 
-            // Style the circle to have a black stroke (border)
-            circle.setStrokeStyle(2, 0x000000); // 2 is the thickness, 0x000000 is black
-            circle.alpha = 0.8;
+            const circleColor = isUnlocked ? 0x84c7ff : 0xbfbfbf;
 
-            // Create text for the button label
+            const circle = this.add.circle(level.x, level.y, 50, circleColor);
+            circle.setStrokeStyle(2, 0x000000);
+            circle.alpha = isUnlocked ? 0.9 : 0.5;
+
+            circle.setInteractive();
+
             const text = this.add.text(level.x, level.y, level.label, {
                 fontFamily: 'Nunito',
                 stroke: '#000000',
@@ -184,19 +198,24 @@ class HomeScene extends Phaser.Scene {
                 align: 'center',
             }).setOrigin(0.5);
 
-            // Add a glow effect on hover (optional)
             circle.on('pointerover', () => {
-                circle.setFillStyle(0x80ff75);
-                circle.alpha = 1;
+                if (isUnlocked) {
+                    circle.setFillStyle(0x80ff75);
+                    circle.alpha = 1;
+                }
             });
 
             circle.on('pointerout', () => {
-                circle.setFillStyle(0x80ff75);
-                circle.alpha = 0.8;
+                circle.setFillStyle(circleColor);
+                circle.alpha = isUnlocked ? 0.9 : 0.5;
             });
 
-            // Handle button click to start the level
             circle.on('pointerdown', () => {
+                if (!isUnlocked) {
+                    alert("This level is locked. Complete previous levels first.");
+                    return;
+                }
+
                 if (this.game.global.selectedCharacterKey) {
                     this.scene.start(level.key);
                 } else {
@@ -205,8 +224,8 @@ class HomeScene extends Phaser.Scene {
             });
         });
 
-        const instructionsButton = this.add.image(400, 550, 'instructions')
-        .setScale(0.350)
+        const instructionsButton = this.add.image(300, 500, 'instructions')
+            .setScale(0.350)
             .setInteractive()
             .on("pointerdown", () => {
                 this.scene.start("InstructionScene");
@@ -285,12 +304,14 @@ class Level1 extends Phaser.Scene {
         this.notes = notes;
 
         // Ground platforms
-        platforms.create(90, 547, "ground").setScale(0.5, 0.75).refreshBody();
+        platforms.create(90, 547, "ground").setScale(0.5, 1).refreshBody();
         platforms.create(180, 547, "ground").setScale(0.5, 0.75).refreshBody();
         platforms.create(270, 547, "ground").setScale(0.5, 0.75).refreshBody();
         platforms.create(360, 547, "ground").setScale(0.5, 0.75).refreshBody();
         platforms.create(450, 547, "ground").setScale(0.5, 0.75).refreshBody();
         platforms.create(540, 547, "ground").setScale(0.5, 0.75).refreshBody();
+        platforms.create(630, 547, "ground").setScale(0.5, 0.75).refreshBody();
+        platforms.create(720, 547, "ground").setScale(0.5, 0.75).refreshBody();
 
         // Floors + chemistry notes
         this.createFloorWithNotes(floor, 25, 175);
@@ -303,7 +324,7 @@ class Level1 extends Phaser.Scene {
         this.obstacle = this.physics.add.sprite(285, 220, "redObstacle").setScale(0.15, 1);
         this.obstacle.setImmovable(true);
 
-        // Character selection
+        // Character
         const chosen = this.game.global.selectedCharacterKey;
         let player = this.add.sprite(30, 465, chosen).setScale(0.25);
         player.flipX = true;
@@ -321,7 +342,10 @@ class Level1 extends Phaser.Scene {
         this.player = player;
 
         // Score text
-        this.scoreText = this.add.text(16, 16, "Score: 0/" + this.winningScore,
+        this.scoreText = this.add.text(
+            16,
+            16,
+            "Score: 0/" + this.winningScore,
             { stroke: "#000", strokeThickness: 1.9, fontSize: "32px", fill: "#000" }
         );
 
@@ -357,6 +381,10 @@ class Level1 extends Phaser.Scene {
 
         if (this.score >= this.winningScore) {
             alert("Congrats, you completed level 1, you can try level 2.");
+
+            // Unlock Level 2
+            this.game.global.unlockedLevels = 2;
+
             this.homeButton.setVisible(true);
         }
     }
@@ -368,7 +396,6 @@ class Level1 extends Phaser.Scene {
         const explanation = "Oxygen has 8 protons, so its atomic number is 8.";
 
         let answer = prompt("Chemistry Question:\nWhat is the atomic number of oxygen?");
-
         if (answer === null) return;
 
         answer = parseInt(answer);
@@ -379,19 +406,15 @@ class Level1 extends Phaser.Scene {
             return;
         }
 
-        // First wrong attempt
         if (!this.firstAttemptFailed) {
             this.firstAttemptFailed = true;
             alert("Sorry, the answer you gave is wrong. Try the question again. You have one more chance.");
             return;
         }
 
-        // Second wrong attempt → show explanation
         alert("Incorrect again.\nCorrect answer: 8\nExplanation: " + explanation);
 
-        // Force correct answer input
         let finalAnswer = prompt("Please type the correct answer to continue.");
-
         while (parseInt(finalAnswer) !== correctAnswer) {
             finalAnswer = prompt("Incorrect. Please type 8 to continue.");
         }
@@ -436,5 +459,6 @@ const config = {
 
 const game = new Phaser.Game(config);
 game.global = { 
-    selectedCharacterKey: null
+    selectedCharacterKey: null,
+    unlockedLevels: 1
 };
