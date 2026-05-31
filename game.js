@@ -119,16 +119,16 @@ class InstructionScene extends Phaser.Scene {
     }
     create() {
         this.add.image(612, 598, "instructionsBg").setScale(1.5); // Set background image
-        this.add.text(25, 50, "Game Instructions", {fontFamily: 'Nunito',stroke: '#000000', strokeThickness: 1.5, fontSize: "35px", fill: "black" });
-        this.add.text(40, 100, "Use arrow keys to move (up arrow to jump)", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" });
-        this.add.text(40, 150, "Solve chemistry problems to avoid obstacles", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" });
-        this.add.text(40, 200, "If you get the question wrong, you have one more try.", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" });
-        this.add.text(40, 250, "If you got your second try wrong, the correct answer and explanation", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" });
-        this.add.text(40, 300, "will pop up. The obstacle will disappear after that.", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" });
-        this.add.text(40, 350, "Get through all the obstacles", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" });
-        this.add.text(40, 400, "Match the chemistry symbol ⚛️ to win the game!", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" });
-        this.add.text(40, 450, "There will be subscripts and charges in some of the problems.", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" });
-        this.add.text(40, 500, "Remember: _ and a number means a subscript", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" }); 
+        this.add.text(25, 25, "Game Instructions", {fontFamily: 'Nunito',stroke: '#000000', strokeThickness: 1.5, fontSize: "35px", fill: "black" });
+        this.add.text(40, 75, "Use arrow keys to move (up arrow to jump)", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" });
+        this.add.text(40, 122.5, "Solve chemistry problems to avoid obstacles", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" });
+        this.add.text(40, 170, "If you get the question wrong, you have one more try.", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" });
+        this.add.text(40, 217.5, "If you got your second try wrong, the correct answer and explanation", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" });
+        this.add.text(40, 265, "will pop up. The obstacle will disappear after that.", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" });
+        this.add.text(40, 312.5, "Get through all the obstacles", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" });
+        this.add.text(40, 360, "Match the chemistry symbol ⚛️ to win the game!", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" });
+        this.add.text(40, 407.5, "There will be subscripts and charges in some of the problems.", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" });
+        this.add.text(40, 455, "Remember: _ and a number means a subscript", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" }); 
         this.add.text(40, 550, "Good luck & have fun!", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" });
 
         const startButton = this.add.image(675, 75, 'start')
@@ -152,18 +152,6 @@ class HomeScene extends Phaser.Scene {
     create() {
         this.add.image(612, 598, "homeBg").setScale(1.5); // Set background image
         this.add.text(25, 25, "Select a Level", {stroke: '#000000', strokeThickness: 1.9, fontFamily: 'Nunito', fontSize: "40px", fill: "black" });
-
-        if (!this.game.global.leastConfidentUnit) {
-            const unit = prompt("Which unit are you least confident with? Unit 1-9? Type the unit number below");
-            this.game.global.leastConfidentUnit = unit;
-            alert("My least confident unit is " + unit);
-        }
-
-        if (!this.game.global.leastConfidentQuestions) {
-            const question = prompt("Multiple Choice? Free Response? Both?");
-            this.game.global.leastConfidentQuestions = question;
-            alert("My least confident type question is " + question);
-        }
 
         const levelData = [
             { key: "Level1", x: 200, y: 180, label: "1" },
@@ -263,164 +251,171 @@ class CreditsScene extends Phaser.Scene {
 class Level1 extends Phaser.Scene {
     constructor() {
         super("Level1");
-        this.score = 0; // Initialize the score
-        this.scoreText = null; // Variable to hold the score text object
-        this.obstacle = null; // To hold the red obstacle
+        this.score = 0;
+        this.winningScore = 100; // Level 1 target score
         this.obstacleActive = true;
     }
+
     preload() {
-        this.load.image("home", "assets/home.png"); // Load home button
+        this.load.image("home", "assets/home.png");
         this.load.image('sky', './assets/sky.png');
         this.load.image('ground', './assets/platform2.jpg');
         this.load.image('groundOne', './assets/platform.png');
-        this.load.image('onenote', './assets/atom_symbol_3d.png'); // Singular note
-        this.load.image('redObstacle', './assets/obstacle.png'); // Load the red obstacle image    
+        this.load.image('onenote', './assets/atom_symbol_3d.png'); // Chemistry note
+        this.load.image('redObstacle', './assets/obstacle.png');
     }
+
     create() {
-        this.score = 0; // Reset the score when the level starts
-        this.obstacleActive = true; // Reset the obstacle flag
-        this.add.sprite(0,0,'sky').setScale(2);
+        this.add.sprite(0, 0, 'sky').setScale(2);
 
         const platforms = this.physics.add.staticGroup();
         const floor = this.physics.add.staticGroup();
-        const notes = this.physics.add.group(); // Create a group for the musical notes
-        this.notes = notes; // Store the notes group in the scene
+        this.notes = this.physics.add.group();
 
-        // Create the ground platforms
-        platforms.create(50,590,'ground').setScale(0.5,0.75).refreshBody();
+        // Ground platforms
+        platforms.create(90,547,'ground').setScale(0.5,0.75).refreshBody();
+        platforms.create(180,547,'ground').setScale(0.5,0.75).refreshBody();
+        platforms.create(270,547,'ground').setScale(0.5,0.75).refreshBody();
+        platforms.create(360,547,'ground').setScale(0.5,0.75).refreshBody();
+        platforms.create(450,547,'ground').setScale(0.5,0.75).refreshBody();
+        platforms.create(540,547,'ground').setScale(0.5,0.75).refreshBody();
 
-        // Create the green floors and place notes on them
-        floor.create(25,175,'groundOne').setScale(1).refreshBody();
-        this.placeNotesOnFloor(25, 175, floor);
-        floor.create(25,325,'groundOne').setScale(1).refreshBody();
-        this.placeNotesOnFloor(25, 325, floor);
-        floor.create(550,100,'groundOne').setScale(1).refreshBody();
-        this.placeNotesOnFloor(550, 100, floor);
-        floor.create(550,250,'groundOne').setScale(1).refreshBody();
-        this.placeNotesOnFloor(550, 250, floor);
-        floor.create(550,400,'groundOne').setScale(1).refreshBody();
-        this.placeNotesOnFloor(550, 400, floor);
+        // Floors + chemistry notes
+        this.addFloorWithNotes(floor, 25, 175);
+        this.addFloorWithNotes(floor, 25, 325);
+        this.addFloorWithNotes(floor, 550, 100);
+        this.addFloorWithNotes(floor, 550, 250);
+        this.addFloorWithNotes(floor, 550, 400);
 
-        // Create the red obstacle
+        // Obstacle
         this.obstacle = this.physics.add.sprite(285, 220, 'redObstacle').setScale(0.15,1);
         this.obstacle.setImmovable(true);
-        this.obstacle.setActive(true).setVisible(true); // Ensure the obstacle is active and visible
-        this.physics.world.enableBody(this.obstacle); // Re-enable the physics body
 
+        // Chemistry question bank
+        this.chemQuestions = [
+            {
+                question: "What is the charge of an electron?",
+                answer: "-",
+                explanation: "Electrons carry a negative charge because they have more electrons than protons."
+            },
+            {
+                question: "What is the chemical symbol for Potassium?",
+                answer: "K",
+                explanation: "Potassium's symbol is K because it comes from the Latin word 'Kalium'."
+            },
+            {
+                question: "What is the atomic number of Carbon?",
+                answer: "6",
+                explanation: "Carbon has 6 protons in its nucleus, which defines its atomic number."
+            }
+        ];
+
+        // Player
         const chosenAnimalKey = this.game.global.selectedCharacterKey;
-        let player;
-        switch (chosenAnimalKey) {
-            case 'chick': 
-                player = this.add.sprite(32, 560, 'chick').setScale(0.35);
-                player.flipX = true;
-                break;
-            case 'blackcat':
-                player = this.add.sprite(30, 560, 'blackcat').setScale(0.35);
-                player.flipX = true;
-                break;
-            case 'lightcat':
-                player = this.add.sprite(30, 560, 'lightcat').setScale(0.35);
-                player.flipX = true;
-                break;
-            case 'chipmunk':
-                player = this.add.sprite(30, 560, 'chipmunk').setScale(0.35);
-                player.flipX = true;
-                break;
-            case 'cow':
-                player = this.add.sprite(30, 560, 'cow').setScale(0.35);
-                player.flipX = true;
-                break;
-            case 'dog':
-                player = this.add.sprite(30, 560, 'dog').setScale(0.35);
-                player.flipX = true;
-                break;
-            case 'poodle':
-                player = this.add.sprite(32, 560, 'poodle').setScale(0.35);
-                player.flipX = true;
-                break;
-            case 'gorilla':
-                player = this.add.sprite(32, 560, 'gorilla').setScale(0.35);
-                player.flipX = true;
-                break;
-            case 'hedgehog':
-                player = this.add.sprite(32, 560, 'hedgehog').setScale(0.35);
-                player.flipX = true;
-                break;
-            case 'honeybee':
-                player = this.add.sprite(32, 560, 'honeybee').setScale(0.35);
-                player.flipX = true;
-                break;
-            case 'monkey':
-                player = this.add.sprite(32, 560, 'monkey').setScale(0.35);
-                player.flipX = true;
-                break;
-            case 'pig':
-                player = this.add.sprite(32, 560, 'pig').setScale(0.35);
-                player.flipX = true;
-                break;
-            case 'rabbit':
-                player = this.add.sprite(32, 560, 'rabbit').setScale(0.35);
-                player.flipX = true;
-                break;
-            case 'tiger':
-                player = this.add.sprite(32, 560, 'tiger').setScale(0.35);
-                player.flipX = true;
-                break;
-    }
+        this.player = this.physics.add.sprite(30, 465, chosenAnimalKey).setScale(0.25);
+        this.player.flipX = true;
 
-        this.physics.world.enable(player);
-        player.body.bounce.y = 0.2;
-        player.body.gravity.y = 800;
-        player.body.collideWorldBounds = true;
-        this.physics.add.collider(player, platforms);
-        this.physics.add.collider(player, floor);
-        this.physics.add.collider(player, this.notes, this.collectNote, null, this); // Add collider for notes
-        this.physics.add.collider(player, this.obstacle, this.handleObstacleCollision, null, this); // Add collider with the obstacle
+        this.player.body.bounce.y = 0.2;
+        this.player.body.gravity.y = 800;
+        this.player.body.collideWorldBounds = true;
+
+        this.physics.add.collider(this.player, platforms);
+        this.physics.add.collider(this.player, floor);
+        this.physics.add.collider(this.player, this.notes, this.collectNote, null, this);
+        this.physics.add.collider(this.player, this.obstacle, this.askChemQuestion, null, this);
+
         this.cursors = this.input.keyboard.createCursorKeys();
 
-        // Create the score text
-        this.scoreText = this.add.text(16, 16, 'Score: 0', { stroke: '#000000', strokeThickness: 1.9, fontSize: '32px', fill: '#000' });
-        this.player = player;
+        // Score text
+        this.scoreText = this.add.text(16, 16, `Score: 0/${this.winningScore}`, {
+            stroke: '#000000',
+            strokeThickness: 1.9,
+            fontSize: '32px',
+            fill: '#000'
+        });
+
+        // Home button (hidden until level complete)
+        this.homeButton = this.add.image(300, 560, 'home')
+            .setScale(0.50)
+            .setInteractive()
+            .setVisible(false)
+            .on("pointerdown", () => {
+                this.scene.start("HomeScene");
+            });
     }
 
-    placeNotesOnFloor(x, y, floorGroup) {
-        const floor = floorGroup.getChildren().find(child => child.x === x && child.y === y);
-        if (floor) {
-            const floorWidth = floor.displayWidth;
-            const noteSpacing = floorWidth / 4; // Divide into 4 sections to place 3 notes
+    addFloorWithNotes(floorGroup, x, y) {
+        floorGroup.create(x, y, 'groundOne').setScale(1).refreshBody();
 
-            const noteY = y - (floor.displayHeight / 2) - 20; // Position notes slightly above the floor
+        const noteY = y - 40;
 
-            this.notes.create(x + noteSpacing * 1 - (floorWidth / 2), noteY, 'threenotes').setScale(0.15).refreshBody(); // Musical notes
-            this.notes.create(x + noteSpacing * 2 - (floorWidth / 2), noteY, 'onenote').setScale(0.15).refreshBody();   // Musical note
-            this.notes.create(x + noteSpacing * 3 - (floorWidth / 2), noteY, 'threenotes').setScale(0.15).refreshBody(); // Musical notes
+        // Three identical chemistry notes
+        this.notes.create(x - 40, noteY, 'onenote').setScale(0.15);
+        this.notes.create(x, noteY, 'onenote').setScale(0.15);
+        this.notes.create(x + 40, noteY, 'onenote').setScale(0.15);
 
-            this.notes.getChildren().forEach(note => {
-                note.body.setAllowGravity(false); // Prevent notes from falling
-                note.body.immovable = true; // Prevent notes from being pushed by the player
-            });
-        }
+        this.notes.getChildren().forEach(note => {
+            note.body.setAllowGravity(false);
+            note.body.immovable = true;
+        });
     }
 
     collectNote(player, note) {
-        note.disableBody(true, true); // Remove the note from the physics world and hide it
-        this.score += (10) ; // Increase the score
-        this.scoreText.setText('Score: ' + this.score); // Update the score text
+        note.disableBody(true, true);
+
+        this.score += 10; // each note = 10 points
+        this.scoreText.setText("Score: " + this.score + "/" + this.winningScore);
+
+        if (this.score >= this.winningScore) {
+            this.levelComplete();
+        }
     }
 
-    handleObstacleCollision(player, obstacle) {
-        if (this.obstacleActive) {
-            const answer = prompt("Solve for x: 4x + 3 = 19");
-            if (answer !== null) {
-                const x = parseInt(answer); // parse this string and return its integer representation and save into variable x
-                if (!isNaN(x) && x === 4) { // !isNaN(x) evaluates to true if x is a valid number and false if x is NaN
-                    obstacle.disableBody(true, true); // Disappear the obstacle
-                    this.obstacleActive = false;
-                } else {
-                    alert("Sorry. The answer that you sent is wrong. Please try again.");
-                }
-            }
+    askChemQuestion(player, obstacle) {
+        if (!this.obstacleActive) return;
+
+        const q = Phaser.Math.RND.pick(this.chemQuestions);
+
+        // 1st Attempt
+        let attempt1 = prompt(q.question);
+
+        if (attempt1 && attempt1.trim().toLowerCase() === q.answer.toLowerCase()) {
+            obstacle.disableBody(true, true);
+            this.obstacleActive = false;
+            return;
         }
+
+        // 1st Wrong Answer
+        alert("Sorry, the answer you gave is wrong. Try the question again. You have one more chance.");
+
+        // 2nd Attempt
+        let attempt2 = prompt(q.question);
+
+        if (attempt2 && attempt2.trim().toLowerCase() === q.answer.toLowerCase()) {
+            obstacle.disableBody(true, true);
+            this.obstacleActive = false;
+            return;
+        }
+
+        // 2nd wrong answer => correct answer + explanation
+        alert(
+            "The correct answer is: " + q.answer +
+            "\nExplanation: " + q.explanation +
+            "\nYou must enter the correct answer to continue."
+        );
+
+        let finalAnswer = "";
+        while (finalAnswer.trim().toLowerCase() !== q.answer.toLowerCase()) {
+            finalAnswer = prompt("Please enter the correct answer to continue");
+        }
+
+        obstacle.disableBody(true, true);
+        this.obstacleActive = false;
+    }
+
+    levelComplete() {
+        alert("Congrats, you completed Level 1! You can try Level 2.");
+        this.homeButton.setVisible(true);
     }
 
     update() {
@@ -429,7 +424,6 @@ class Level1 extends Phaser.Scene {
 
         player.body.velocity.x = 0;
 
-        // Handle left and right movement
         if (this.cursors.left.isDown) {
             player.body.velocity.x = -300;
             player.flipX = false;
@@ -438,57 +432,8 @@ class Level1 extends Phaser.Scene {
             player.flipX = true;
         }
 
-        // Handle jumping
         if (this.cursors.up.isDown && player.body.touching.down) {
             player.body.velocity.y = -450;
-        }
-
-        // "Back to Home" button
-        const homeButton = this.add.image(415, 595, 'home') 
-            .setScale(0.50)
-            .setInteractive()
-            .on("pointerdown", () => {
-                this.scene.start("HomeScene");
-            });
-
-        let winningScore;
-        switch (this.scene.key) {
-            case 'Level1':
-                winningScore = 100;
-                break;
-            case 'Level2':
-                winningScore = 200;
-                break;
-            case 'Level3':
-                winningScore = 300;
-                break;
-            case 'Level4':
-                winningScore = 400;
-                break;
-            case 'Level5':
-                winningScore = 500;
-                break;
-            case 'Level6':
-                winningScore = 600;
-                break;
-            case 'Level7':
-                winningScore = 700;
-                break;
-            case 'Level8':
-                winningScore = 800;
-                break;
-            case 'Level9':
-                winningScore = 900;
-                break;
-            default:
-                winningScore = 100;
-                break;
-        }
-
-        if (this.score >= winningScore) { // Changed to >=
-            alert(`You win!`);
-            this.score = 0;
-            alert("Click HOME & choose another level & have more fun with math & music!");
         }
     }
 }
@@ -509,7 +454,5 @@ const config = {
 
 const game = new Phaser.Game(config);
 game.global = { 
-    selectedCharacterKey: null,
-    leastConfidentUnit: null,
-    leastConfidentQuestions: null 
+    selectedCharacterKey: null
 };
