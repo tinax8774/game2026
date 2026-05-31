@@ -247,13 +247,12 @@ class CreditsScene extends Phaser.Scene {
     }
 }
 
-// Level 1 Scene
 class Level1 extends Phaser.Scene {
     constructor() {
         super("Level1");
         this.score = 0;
-        this.winningScore = 100; // Level 1 target score
-        this.obstacleActive = true;
+        this.winningScore = 100;
+        this.obstacleActive = false; // start inactive to prevent early collision
     }
 
     preload() {
@@ -261,11 +260,13 @@ class Level1 extends Phaser.Scene {
         this.load.image('sky', './assets/sky.png');
         this.load.image('ground', './assets/platform2.jpg');
         this.load.image('groundOne', './assets/platform.png');
-        this.load.image('onenote', './assets/atom_symbol_3d.png'); // Chemistry note
+        this.load.image('onenote', './assets/atom_symbol_3d.png');
         this.load.image('redObstacle', './assets/obstacle.png');
     }
 
     create() {
+
+        // Prevent Level1 from loading without a character
         if (!this.game.global.selectedCharacterKey) {
             alert("Please choose a character first!");
             this.scene.start("CharacterScene");
@@ -293,7 +294,6 @@ class Level1 extends Phaser.Scene {
         this.addFloorWithNotes(floor, 550, 250);
         this.addFloorWithNotes(floor, 550, 400);
 
-        // Chemistry question bank
         this.chemQuestions = [
             {
                 question: "What is the charge of an electron?",
@@ -312,9 +312,13 @@ class Level1 extends Phaser.Scene {
             }
         ];
 
-        // Obstacle
         this.obstacle = this.physics.add.sprite(285, 220, 'redObstacle').setScale(0.15,1);
         this.obstacle.setImmovable(true);
+
+        // Delay activation so collider doesn't fire too early
+        this.time.delayedCall(50, () => {
+            this.obstacleActive = true;
+        });
 
         // Player
         const chosenAnimalKey = this.game.global.selectedCharacterKey;
@@ -325,6 +329,7 @@ class Level1 extends Phaser.Scene {
         this.player.body.gravity.y = 800;
         this.player.body.collideWorldBounds = true;
 
+        // Colliders
         this.physics.add.collider(this.player, platforms);
         this.physics.add.collider(this.player, floor);
         this.physics.add.collider(this.player, this.notes, this.collectNote, null, this);
@@ -333,7 +338,7 @@ class Level1 extends Phaser.Scene {
         this.cursors = this.input.keyboard.createCursorKeys();
 
         // Score text
-        this.scoreText = this.add.text(16, 16, `Score: 0`, {
+        this.scoreText = this.add.text(16, 16, "Score: 0/" + this.winningScore, {
             stroke: '#000000',
             strokeThickness: 1.9,
             fontSize: '32px',
@@ -355,7 +360,6 @@ class Level1 extends Phaser.Scene {
 
         const noteY = y - 40;
 
-        // Three identical chemistry notes
         this.notes.create(x - 40, noteY, 'onenote').setScale(0.15);
         this.notes.create(x, noteY, 'onenote').setScale(0.15);
         this.notes.create(x + 40, noteY, 'onenote').setScale(0.15);
@@ -369,7 +373,7 @@ class Level1 extends Phaser.Scene {
     collectNote(player, note) {
         note.disableBody(true, true);
 
-        this.score += 10; // each note = 10 points
+        this.score += 10;
         this.scoreText.setText("Score: " + this.score + "/" + this.winningScore);
 
         if (this.score >= this.winningScore) {
@@ -381,7 +385,7 @@ class Level1 extends Phaser.Scene {
         if (!this.obstacleActive) return;
 
         if (!this.chemQuestions || this.chemQuestions.length === 0) {
-            console.error("Chemistry question bank missing!");
+            console.error("chemQuestions is null or empty!");
             return;
         }
 
@@ -421,7 +425,6 @@ class Level1 extends Phaser.Scene {
         obstacle.disableBody(true, true);
         this.obstacleActive = false;
     }
-
 
     levelComplete() {
         alert("Congrats, you completed Level 1! You can try Level 2.");
