@@ -247,122 +247,102 @@ class CreditsScene extends Phaser.Scene {
     }
 }
 
+// Level 1 Scene
 class Level1 extends Phaser.Scene {
     constructor() {
         super("Level1");
         this.score = 0;
         this.winningScore = 100;
-        this.obstacleActive = false; // start inactive to prevent early collision
+        this.scoreText = null;
+        this.obstacle = null;
+        this.obstacleActive = true;
+        this.firstAttemptFailed = false;
     }
 
     preload() {
         this.load.image("home", "assets/home.png");
-        this.load.image('sky', './assets/sky.png');
-        this.load.image('ground', './assets/platform2.jpg');
-        this.load.image('groundOne', './assets/platform.png');
-        this.load.image('onenote', './assets/atom_symbol_3d.png');
-        this.load.image('redObstacle', './assets/obstacle.png');
+        this.load.image("sky", "./assets/sky.png");
+        this.load.image("ground", "./assets/platform2.jpg");
+        this.load.image("groundOne", "./assets/platform.png");
+
+        // Chemistry note
+        this.load.image("onenote", "./assets/atom_symbol_3d.png");
+
+        // Obstacle
+        this.load.image("redObstacle", "./assets/obstacle.png");
     }
 
     create() {
+        this.score = 0;
+        this.obstacleActive = true;
+        this.firstAttemptFailed = false;
 
-        // Prevent Level1 from loading without a character
-        if (!this.game.global.selectedCharacterKey) {
-            alert("Please choose a character first!");
-            this.scene.start("CharacterScene");
-            return;
-        }
-
-        this.add.sprite(0, 0, 'sky').setScale(2);
+        this.add.sprite(0, 0, "sky").setScale(2);
 
         const platforms = this.physics.add.staticGroup();
         const floor = this.physics.add.staticGroup();
-        this.notes = this.physics.add.group();
+        const notes = this.physics.add.group();
+        this.notes = notes;
 
         // Ground platforms
-        platforms.create(90,547,'ground').setScale(0.5,0.75).refreshBody();
-        platforms.create(180,547,'ground').setScale(0.5,0.75).refreshBody();
-        platforms.create(270,547,'ground').setScale(0.5,0.75).refreshBody();
-        platforms.create(360,547,'ground').setScale(0.5,0.75).refreshBody();
-        platforms.create(450,547,'ground').setScale(0.5,0.75).refreshBody();
-        platforms.create(540,547,'ground').setScale(0.5,0.75).refreshBody();
+        platforms.create(90, 547, "ground").setScale(0.5, 0.75).refreshBody();
+        platforms.create(180, 547, "ground").setScale(0.5, 0.75).refreshBody();
+        platforms.create(270, 547, "ground").setScale(0.5, 0.75).refreshBody();
+        platforms.create(360, 547, "ground").setScale(0.5, 0.75).refreshBody();
+        platforms.create(450, 547, "ground").setScale(0.5, 0.75).refreshBody();
+        platforms.create(540, 547, "ground").setScale(0.5, 0.75).refreshBody();
 
         // Floors + chemistry notes
-        this.addFloorWithNotes(floor, 25, 175);
-        this.addFloorWithNotes(floor, 25, 325);
-        this.addFloorWithNotes(floor, 550, 100);
-        this.addFloorWithNotes(floor, 550, 250);
-        this.addFloorWithNotes(floor, 550, 400);
+        this.createFloorWithNotes(floor, 25, 175);
+        this.createFloorWithNotes(floor, 25, 325);
+        this.createFloorWithNotes(floor, 550, 100);
+        this.createFloorWithNotes(floor, 550, 250);
+        this.createFloorWithNotes(floor, 550, 400);
 
-        this.chemQuestions = [
-            {
-                question: "What is the charge of an electron?",
-                answer: "-",
-                explanation: "Electrons carry a negative charge because they have more electrons than protons."
-            },
-            {
-                question: "What is the chemical symbol for Potassium?",
-                answer: "K",
-                explanation: "Potassium's symbol is K because it comes from the Latin word 'Kalium'."
-            },
-            {
-                question: "What is the atomic number of Carbon?",
-                answer: "6",
-                explanation: "Carbon has 6 protons in its nucleus, which defines its atomic number."
-            }
-        ];
-
-        this.obstacle = this.physics.add.sprite(285, 220, 'redObstacle').setScale(0.15,1);
+        // Obstacle
+        this.obstacle = this.physics.add.sprite(285, 220, "redObstacle").setScale(0.15, 1);
         this.obstacle.setImmovable(true);
 
-        // Delay activation so collider doesn't fire too early
-        this.time.delayedCall(50, () => {
-            this.obstacleActive = true;
-        });
+        // Character selection
+        const chosen = this.game.global.selectedCharacterKey;
+        let player = this.add.sprite(30, 465, chosen).setScale(0.25);
+        player.flipX = true;
 
-        // Player
-        const chosenAnimalKey = this.game.global.selectedCharacterKey;
-        this.player = this.physics.add.sprite(30, 465, chosenAnimalKey).setScale(0.25);
-        this.player.flipX = true;
+        this.physics.world.enable(player);
+        player.body.gravity.y = 800;
+        player.body.collideWorldBounds = true;
 
-        this.player.body.bounce.y = 0.2;
-        this.player.body.gravity.y = 800;
-        this.player.body.collideWorldBounds = true;
-
-        // Colliders
-        this.physics.add.collider(this.player, platforms);
-        this.physics.add.collider(this.player, floor);
-        this.physics.add.collider(this.player, this.notes, this.collectNote, null, this);
-        this.physics.add.collider(this.player, this.obstacle, this.askChemQuestion, null, this);
+        this.physics.add.collider(player, platforms);
+        this.physics.add.collider(player, floor);
+        this.physics.add.collider(player, this.notes, this.collectNote, null, this);
+        this.physics.add.collider(player, this.obstacle, this.handleObstacleCollision, null, this);
 
         this.cursors = this.input.keyboard.createCursorKeys();
+        this.player = player;
 
         // Score text
-        this.scoreText = this.add.text(16, 16, "Score: 0/" + this.winningScore, {
-            stroke: '#000000',
-            strokeThickness: 1.9,
-            fontSize: '32px',
-            fill: '#000'
-        });
+        this.scoreText = this.add.text(16, 16, "Score: 0/" + this.winningScore,
+            { stroke: "#000", strokeThickness: 1.9, fontSize: "32px", fill: "#000" }
+        );
 
-        // Home button (hidden until level complete)
-        this.homeButton = this.add.image(300, 560, 'home')
-            .setScale(0.50)
+        // Home button
+        this.homeButton = this.add.image(300, 560, "home")
+            .setScale(0.5)
             .setInteractive()
-            .setVisible(false)
             .on("pointerdown", () => {
                 this.scene.start("HomeScene");
             });
     }
 
-    addFloorWithNotes(floorGroup, x, y) {
-        floorGroup.create(x, y, 'groundOne').setScale(1).refreshBody();
+    createFloorWithNotes(floorGroup, x, y) {
+        floorGroup.create(x, y, "groundOne").setScale(1).refreshBody();
 
         const noteY = y - 40;
+        const spacing = 60;
 
-        this.notes.create(x - 40, noteY, 'onenote').setScale(0.15);
-        this.notes.create(x, noteY, 'onenote').setScale(0.15);
-        this.notes.create(x + 40, noteY, 'onenote').setScale(0.15);
+        this.notes.create(x - spacing, noteY, "onenote").setScale(0.15);
+        this.notes.create(x, noteY, "onenote").setScale(0.15);
+        this.notes.create(x + spacing, noteY, "onenote").setScale(0.15);
 
         this.notes.getChildren().forEach(note => {
             note.body.setAllowGravity(false);
@@ -372,63 +352,52 @@ class Level1 extends Phaser.Scene {
 
     collectNote(player, note) {
         note.disableBody(true, true);
-
         this.score += 10;
         this.scoreText.setText("Score: " + this.score + "/" + this.winningScore);
 
         if (this.score >= this.winningScore) {
-            this.levelComplete();
+            alert("Congrats, you completed level 1, you can try level 2.");
+            this.homeButton.setVisible(true);
         }
     }
 
-    askChemQuestion(player, obstacle) {
+    handleObstacleCollision(player, obstacle) {
         if (!this.obstacleActive) return;
 
-        if (!this.chemQuestions || this.chemQuestions.length === 0) {
-            console.error("chemQuestions is null or empty!");
-            return;
-        }
+        const correctAnswer = 8;
+        const explanation = "Oxygen has 8 protons, so its atomic number is 8.";
 
-        const q = Phaser.Math.RND.pick(this.chemQuestions);
+        let answer = prompt("Chemistry Question:\nWhat is the atomic number of oxygen?");
 
-        // 1st Attempt
-        let attempt1 = prompt(q.question);
+        if (answer === null) return;
 
-        if (attempt1 && attempt1.trim().toLowerCase() === q.answer.toLowerCase()) {
+        answer = parseInt(answer);
+
+        if (answer === correctAnswer) {
             obstacle.disableBody(true, true);
             this.obstacleActive = false;
             return;
         }
 
-        alert("Sorry, the answer you gave is wrong. Try the question again. You have one more chance.");
-
-        // 2nd Attempt
-        let attempt2 = prompt(q.question);
-
-        if (attempt2 && attempt2.trim().toLowerCase() === q.answer.toLowerCase()) {
-            obstacle.disableBody(true, true);
-            this.obstacleActive = false;
+        // First wrong attempt
+        if (!this.firstAttemptFailed) {
+            this.firstAttemptFailed = true;
+            alert("Sorry, the answer you gave is wrong. Try the question again. You have one more chance.");
             return;
         }
 
-        alert(
-            "The correct answer is: " + q.answer +
-            "\nExplanation: " + q.explanation +
-            "\nYou must enter the correct answer to continue."
-        );
+        // Second wrong attempt → show explanation
+        alert("Incorrect again.\nCorrect answer: 8\nExplanation: " + explanation);
 
-        let finalAnswer = "";
-        while (finalAnswer.trim().toLowerCase() !== q.answer.toLowerCase()) {
-            finalAnswer = prompt("Please enter the correct answer to continue");
+        // Force correct answer input
+        let finalAnswer = prompt("Please type the correct answer to continue.");
+
+        while (parseInt(finalAnswer) !== correctAnswer) {
+            finalAnswer = prompt("Incorrect. Please type 8 to continue.");
         }
 
         obstacle.disableBody(true, true);
         this.obstacleActive = false;
-    }
-
-    levelComplete() {
-        alert("Congrats, you completed Level 1! You can try Level 2.");
-        this.homeButton.setVisible(true);
     }
 
     update() {
