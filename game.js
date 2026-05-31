@@ -287,10 +287,6 @@ class Level1 extends Phaser.Scene {
         this.addFloorWithNotes(floor, 550, 250);
         this.addFloorWithNotes(floor, 550, 400);
 
-        // Obstacle
-        this.obstacle = this.physics.add.sprite(285, 220, 'redObstacle').setScale(0.15,1);
-        this.obstacle.setImmovable(true);
-
         // Chemistry question bank
         this.chemQuestions = [
             {
@@ -309,6 +305,10 @@ class Level1 extends Phaser.Scene {
                 explanation: "Carbon has 6 protons in its nucleus, which defines its atomic number."
             }
         ];
+
+        // Obstacle
+        this.obstacle = this.physics.add.sprite(285, 220, 'redObstacle').setScale(0.15,1);
+        this.obstacle.setImmovable(true);
 
         // Player
         const chosenAnimalKey = this.game.global.selectedCharacterKey;
