@@ -266,6 +266,12 @@ class Level1 extends Phaser.Scene {
     }
 
     create() {
+        if (!this.game.global.selectedCharacterKey) {
+            alert("Please choose a character first!");
+            this.scene.start("CharacterScene");
+            return;
+        }
+
         this.add.sprite(0, 0, 'sky').setScale(2);
 
         const platforms = this.physics.add.staticGroup();
@@ -374,6 +380,11 @@ class Level1 extends Phaser.Scene {
     askChemQuestion(player, obstacle) {
         if (!this.obstacleActive) return;
 
+        if (!this.chemQuestions || this.chemQuestions.length === 0) {
+            console.error("Chemistry question bank missing!");
+            return;
+        }
+
         const q = Phaser.Math.RND.pick(this.chemQuestions);
 
         // 1st Attempt
@@ -385,7 +396,6 @@ class Level1 extends Phaser.Scene {
             return;
         }
 
-        // 1st Wrong Answer
         alert("Sorry, the answer you gave is wrong. Try the question again. You have one more chance.");
 
         // 2nd Attempt
@@ -397,7 +407,6 @@ class Level1 extends Phaser.Scene {
             return;
         }
 
-        // 2nd wrong answer => correct answer + explanation
         alert(
             "The correct answer is: " + q.answer +
             "\nExplanation: " + q.explanation +
@@ -412,6 +421,7 @@ class Level1 extends Phaser.Scene {
         obstacle.disableBody(true, true);
         this.obstacleActive = false;
     }
+
 
     levelComplete() {
         alert("Congrats, you completed Level 1! You can try Level 2.");
