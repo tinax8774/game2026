@@ -327,7 +327,7 @@ class Level1 extends Phaser.Scene {
         this.cursors = this.input.keyboard.createCursorKeys();
 
         // Score text
-        this.scoreText = this.add.text(16, 16, `Score: 0/${this.winningScore}`, {
+        this.scoreText = this.add.text(16, 16, `Score: 0`, {
             stroke: '#000000',
             strokeThickness: 1.9,
             fontSize: '32px',
