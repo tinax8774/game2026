@@ -349,7 +349,7 @@ class Level1 extends Phaser.Scene {
         );
 
         // Home button
-        this.homeButton = this.add.image(300, 560, "home")
+        this.homeButton = this.add.image(300, 600, "home")
             .setScale(0.5)
             .setInteractive()
             .on("pointerdown", () => {
@@ -375,7 +375,7 @@ class Level1 extends Phaser.Scene {
 
     collectNote(player, note) {
         note.disableBody(true, true);
-        this.score += 10;
+        this.score += (100/13);
         this.scoreText.setText("Score: " + this.score + "/" + this.winningScore);
 
         if (this.score >= this.winningScore) {
