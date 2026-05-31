@@ -315,9 +315,9 @@ class Level1 extends Phaser.Scene {
         // Floors + chemistry notes
         this.createFloorWithNotes(floor, 25, 175);
         this.createFloorWithNotes(floor, 25, 325);
-        this.createFloorWithNotes(floor, 550, 100);
-        this.createFloorWithNotes(floor, 550, 250);
-        this.createFloorWithNotes(floor, 550, 400);
+        this.createFloorWithNotes(floor, 600, 100);
+        this.createFloorWithNotes(floor, 600, 250);
+        this.createFloorWithNotes(floor, 600, 400);
 
         // Obstacle
         this.obstacle = this.physics.add.sprite(285, 220, "redObstacle").setScale(0.15, 1);
