@@ -131,12 +131,23 @@ class InstructionScene extends Phaser.Scene {
         this.add.text(40, 500, "Remember: _ and a number means a subscript", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" });
         this.add.text(40, 550, "Good luck & have fun!", {fontFamily: 'Nunito', fontSize: "23px", fill: "black" });
 
-        const startButton = this.add.image(675, 75, 'start')
+        const startButton = this.add.image(650, 145, 'start')
         .setScale(0.20)
             .setInteractive()
             .on("pointerdown", () => {
                 this.scene.start("HomeScene");
             });
+        const button = this.add.text(375, 25, 'Character Options', {
+            fontFamily: 'Nunito',
+            fontSize: '40px',
+            color: 'black',
+            backgroundColor: '#51ff4b',
+            padding: { x: 10, y: 10 }
+        })
+        .setInteractive()
+        .on('pointerdown', () => {
+            this.scene.start("CharacterScene");
+        });
     }
 }
 
@@ -168,11 +179,11 @@ class HomeScene extends Phaser.Scene {
         });
 
         const levelData = [
-            { key: "Level1", x: 200, y: 200, label: "1" },
-            { key: "Level2", x: 400, y: 200, label: "2" },
-            { key: "Level3", x: 600, y: 200, label: "3" },
-            { key: "Level4", x: 300, y: 370, label: "4" },
-            { key: "Level5", x: 500, y: 370, label: "5" },
+            { key: "Level1", x: 200, y: 175, label: "1" },
+            { key: "Level2", x: 400, y: 175, label: "2" },
+            { key: "Level3", x: 600, y: 175, label: "3" },
+            { key: "Level4", x: 300, y: 320, label: "4" },
+            { key: "Level5", x: 500, y: 320, label: "5" },
         ];
 
         const unlocked = this.game.global.unlockedLevels;
@@ -224,7 +235,7 @@ class HomeScene extends Phaser.Scene {
             });
         });
 
-        const instructionsButton = this.add.image(400, 550, 'instructions')
+        const instructionsButton = this.add.image(400, 450, 'instructions')
             .setScale(0.350)
             .setInteractive()
             .on("pointerdown", () => {
@@ -237,6 +248,18 @@ class HomeScene extends Phaser.Scene {
             .on("pointerdown", () => {
                 this.scene.start("CreditsScene"); // Switch to CreditsScene
             });
+
+        const button = this.add.text(230, 520, 'Character Options', {
+            fontFamily: 'Nunito',
+            fontSize: '40px',
+            color: 'black',
+            backgroundColor: '#51ff4b',
+            padding: { x: 10, y: 10 }
+        })
+        .setInteractive()
+        .on('pointerdown', () => {
+            this.scene.start("CharacterScene");
+        });
     }
     askIntroQuestions() {
         let unit = parseInt(prompt("Which AP Chemistry Unit are you least confident with? (1–9)"));
@@ -1052,13 +1075,13 @@ class Level3 extends Phaser.Scene {
         this.obstacles = this.physics.add.group();
 
         const obstaclePositions = [
-            { x: 110, y: 490 },
-            { x: 210, y: 490 },
-            { x: 310, y: 490 },
-            { x: 410, y: 490 },
-            { x: 510, y: 490 },
-            { x: 610, y: 490 },
-            { x: 710, y: 490 }
+            { x: 110, y: 400 },
+            { x: 210, y: 400 },
+            { x: 310, y: 400 },
+            { x: 410, y: 400 },
+            { x: 510, y: 400 },
+            { x: 610, y: 400 },
+            { x: 710, y: 400 }
         ];
 
         obstaclePositions.forEach(pos => {
@@ -1103,23 +1126,6 @@ class Level3 extends Phaser.Scene {
             .on("pointerdown", () => this.scene.start("HomeScene"));
     }
 
-    createFloorWithNotes(floorGroup, x, y, count) {
-        floorGroup.create(x, y, "groundOne").setScale(1).refreshBody();
-
-        const noteY = y - 40;
-        const spacing = 50;
-        const startX = x - ((count - 1) / 2) * spacing;
-
-        for (let i = 0; i < count; i++) {
-            this.notes.create(startX + i * spacing, noteY, "onenote").setScale(0.15);
-        }
-
-        this.notes.getChildren().forEach(note => {
-            note.body.setAllowGravity(false);
-            note.body.immovable = true;
-        });
-    }
-
     collectNote(player, note) {
         note.disableBody(true, true);
         this.score += (300 / 33); // ~33 notes total
@@ -1133,6 +1139,9 @@ class Level3 extends Phaser.Scene {
     }
 
     handleObstacleCollision(player, obstacle) {
+        let noteX = obstacle.x;
+        let noteY = obstacle.y - 50;
+
         if (!this.obstaclesActive) return;
         if (!obstacle.active) return;
 
@@ -1504,7 +1513,7 @@ class Level5 extends Phaser.Scene {
         this.scoreText.setText("Score: " + Math.floor(this.score) + "/" + this.winningScore);
 
         if (this.score >= this.winningScore) {
-            alert("Congrats, you completed level 5!");
+            alert("Congrats, you completed all the levels!");
             this.homeButton.setVisible(true);
         }
     }
