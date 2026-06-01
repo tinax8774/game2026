@@ -323,7 +323,7 @@ class Level1 extends Phaser.Scene {
                 { q: "A sample of a compound that contains only the element C, H, and N is completely burned in O_2 to produce 44.0 g of CO_2, 45.0g of H_2O and some NO_2. A possible empirical formula of the compound is", a: "b", options: {a: "CH_2N", b: "CH_5N", c: "C_2H_5N", d: "C_3H_3N_2"}, exp: "When forty-four grams of carbon dioxide is produced, it contains exactly one mole of carbon atoms. When forty-five grams of water is produced, it contains exactly five moles of hydrogen atoms. This sets up a strict carbon to hydrogen ratio of one to five." },
                 { q: "A 23.0 g sample of a compound contains 12.0 g of C, 3.0 g of H, and 8.0 g of O. Which of the following is the empirical formula of the compound?", a: "b", options: {a: "CH_3O", b: "C_2H_6O", c: "C_3H_9O_2", d: "C_4H_12O_2"}, exp: "Converting the given mass to moles yields 1 mole of carbon from the 12 grams, 3 moles of hydrogen from the 3 grams, and half a mole of oxygen from the 8 grams. To find the simplest whole number ratio, you divide all of these values by the smallest number, which is half a mole. This doubles the value to give 2 carbons, 6 oxygen, resulting in the empirical formula C_2H_5O." },
                 { q: "A sample of a compound contains 3.21 g of sulfur and 11.4 g of fluorine. Which of the following represents the empirical formula of the compound?", a: "d", options: {a: "SF_2", b: "SF_3", c: "SF_4", d: "SF_6"}, exp: "Converting 3.21 grams of sulfur to moles gives roughly 0.1 moles. Converting eleven 11.4 g of fluorine to moles gives roughly 0.6 moles. Dividing both values of 0.1 shows that there are six fluorine atoms for each one sulfur atom, giving the formula SF_6." },
-                { q: "After completing an experiment to determine gravimetrically the percentage of water in a hydrate, a student reported a value of 38 percent. The correct value for the percentage of water in the hydrate is 51 percent. Which of the following is the most likely explanation for this difference?", a: "C", options: {a: "CrO", b: "CrO_2", c: "CrO_3", d: "Cr_2O"}, exp: "For the 100 gram sample of the oxide, 48 grams of oxygen and 52 grams of chromium. Dividing 48 grams of oxygen by its molar mass it gives exactly 3 moles of oxygen. Dividing 52 grams of chromium gives exactly 1 mole of chromium. This leaves a one to three ratio, making the formula CrO_3." },
+                { q: "After completing an experiment to determine gravimetrically the percentage of water in a hydrate, a student reported a value of 38 percent. The correct value for the percentage of water in the hydrate is 51 percent. Which of the following is the most likely explanation for this difference?", a: "c", options: {a: "CrO", b: "CrO_2", c: "CrO_3", d: "Cr_2O"}, exp: "For the 100 gram sample of the oxide, 48 grams of oxygen and 52 grams of chromium. Dividing 48 grams of oxygen by its molar mass it gives exactly 3 moles of oxygen. Dividing 52 grams of chromium gives exactly 1 mole of chromium. This leaves a one to three ratio, making the formula CrO_3." },
                 { q: "What is the empirical formula of an oxide of chromium that is 48 percent oxygen by mass?", a: "b", options: {a: "Strong initial heating caused some of the hydrate sample to spatter out of the crucible", b: "The dehydrated sample absorbed moisture after heating", c: "The amount of the hydrate sample used was too small", d: "The crucible was not heated to constant mass before use"}, exp: "The student calculated a water loss of 38% instead of the true value of 51%, meaning they measured less weight loss than expected. If the dry sample is allowed to sit out uncovered after heating, it will absorb moisture from the surrounding air. This increases the final weight of the sample and makes it appear as though less water evaporated during the experiment." },
                 { q: "Silicon crystals are semiconductors. Which of the following is a correct reason for the increase in the conductivity of Si crystals when a small fraction of Si atoms are replaced with those of a different element?", a: "a", options: {a: "P atoms introduce additional mobile negative charges", b: "P atoms introduce additional mobile positive charges", c: "Ge atoms have more electrons than Si atoms have", d: "Ge atoms are much smaller than Si"}, exp: "Silicon has 4 valence electrons. When a phosphorous atom replaces a silicon atom in the crystal structure, it brings five valence electrons. Four of those electrons form bonds with the surrounding silicon network, leaving the fifth electron entirely unbonded. This free electron acts as a mobile negative charge that can move through the crystal, which dramatically increases the overall conductivity of the material and creates an n-type semiconductor." },
                 { q: "A pure sample of KClO_3 is found to contain 71 grams of chlorine atoms. What is the mass of the sample?", a: "d", options: {a: "122 grams", b: "170 grams", c: "209 grams", d: "245 grams"}, exp: "To find the total mass of the potassium chlorate sample, you first determine the number of moles of chlorine atoms present. The atomic mass of chlorine is approximately 35.5 grams per mole, so dividing 71 grams by 35.5 gives exactly 2 moles of chlorine atoms. Because each formula unit of KClO_3 contains exactly one chlorine atom, having exactly 2 moles of the entire KClO_3 compound. Next, you calculate the molar mass of KClO_3 by adding the atomic masses of one potassium atom, one chlorine atom, and three oxygen atoms, which totals roughly 122.6 grams per mole. Finally, multiplying those 122.6 grams by the 2 moles gives a total sample mass of 245 grams." },
@@ -821,11 +821,6 @@ class Level2 extends Phaser.Scene {
     }
 
     create() {
-        this.input.on('pointerdown', (pointer) => {
-            console.log(pointer.x, pointer.y);
-            this.add.circle(pointer.x, pointer.y, 5, 0xff0000);
-        });
-
         this.score = 0;
 
         this.add.image(400, 318, "sky").setDisplaySize(800, 636);
@@ -1053,52 +1048,21 @@ class Level3 extends Phaser.Scene {
             platforms.create(x, groundY, "ground").setScale(0.5, 0.75).refreshBody();
         });
 
-        // Left Tower (vertical climb)
-        this.createFloorWithNotes(floor, 120, 480, 5);
-        this.createFloorWithNotes(floor, 120, 380, 5);
-        this.createFloorWithNotes(floor, 120, 280, 5);
-        this.createFloorWithNotes(floor, 120, 180, 5);
-
-        // Middle Floating Islands
-        this.createFloorWithNotes(floor, 350, 330, 4);
-        this.createFloorWithNotes(floor, 450, 230, 4);
-        this.createFloorWithNotes(floor, 350, 130, 4);
-
-        // Right Descending Platforms
-        this.createFloorWithNotes(floor, 650, 350, 5);
-        this.createFloorWithNotes(floor, 650, 250, 5);
-        this.createFloorWithNotes(floor, 650, 150, 5);
-
-        // Top Platform
-        this.createFloorWithNotes(floor, 400, 60, 5);
-
         // Obstacles
         this.obstacles = this.physics.add.group();
 
         const obstaclePositions = [
-            // Left tower
-            { x: 120, y: 450 },
-            { x: 120, y: 350 },
-            { x: 120, y: 250 },
-            { x: 120, y: 150 },
-
-            // Middle islands
-            { x: 350, y: 300 },
-            { x: 450, y: 200 },
-
-            // Right descent
-            { x: 650, y: 320 },
-            { x: 650, y: 220 },
-
-            // Top platform
-            { x: 400, y: 40 },
-
-            // Bonus floating obstacle
-            { x: 500, y: 100 }
+            { x: 110, y: 490 },
+            { x: 210, y: 490 },
+            { x: 310, y: 490 },
+            { x: 410, y: 490 },
+            { x: 510, y: 490 },
+            { x: 610, y: 490 },
+            { x: 710, y: 490 }
         ];
 
         obstaclePositions.forEach(pos => {
-            let obs = this.obstacles.create(pos.x, pos.y, "redObstacle").setScale(0.015, 0.2);
+            let obs = this.obstacles.create(pos.x, pos.y, "redObstacle").setScale(0.015, 0.5);
             obs.setImmovable(true);
         });
 
@@ -1162,7 +1126,7 @@ class Level3 extends Phaser.Scene {
         this.scoreText.setText("Score: " + Math.floor(this.score) + "/" + this.winningScore);
 
         if (this.score >= this.winningScore) {
-            alert("Amazing! Level 3 complete — Level 4 unlocked.");
+            alert("Congrats, you completed level 3! Now, level 4 is unlocked!");
             this.game.global.unlockedLevels = 4;
             this.homeButton.setVisible(true);
         }
@@ -1468,11 +1432,18 @@ class Level5 extends Phaser.Scene {
 
         this.obstacles = this.physics.add.group();
         const obstaclePositions = [
-            {x: 120, y: 450}, {x: 250, y: 350}, {x: 380, y: 250},
-            {x: 520, y: 170}, {x: 650, y: 90},
-            {x: 200, y: 480}, {x: 450, y: 300}, {x: 600, y: 200},
-            {x: 350, y: 380}, {x: 500, y: 260},
-            {x: 300, y: 200}, {x: 700, y: 150}
+            {x: 120, y: 450},
+            {x: 250, y: 350},
+            {x: 380, y: 250},
+            {x: 520, y: 170},
+            {x: 650, y: 90},
+            {x: 200, y: 480},
+            {x: 450, y: 300},
+            {x: 600, y: 200},
+            {x: 350, y: 380},
+            {x: 500, y: 260},
+            {x: 300, y: 200},
+            {x: 700, y: 150}
         ];
 
         obstaclePositions.forEach(pos => {
@@ -1533,8 +1504,7 @@ class Level5 extends Phaser.Scene {
         this.scoreText.setText("Score: " + Math.floor(this.score) + "/" + this.winningScore);
 
         if (this.score >= this.winningScore) {
-            alert("Amazing! Level 5 complete — Level 6 unlocked.");
-            this.game.global.unlockedLevels = 6;
+            alert("Congrats, you completed level 5!");
             this.homeButton.setVisible(true);
         }
     }
