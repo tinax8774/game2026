@@ -1257,11 +1257,6 @@ class Level4 extends Phaser.Scene {
     }
 
     create() {
-        this.input.on('pointerdown', (pointer) => {
-            console.log(pointer.x, pointer.y);
-            this.add.circle(pointer.x, pointer.y, 5, 0xff0000);
-        });
-
         this.score = 0;
 
         this.add.image(400, 318, "sky").setDisplaySize(800, 636);
