@@ -179,11 +179,10 @@ class HomeScene extends Phaser.Scene {
         });
 
         const levelData = [
-            { key: "Level1", x: 200, y: 175, label: "1" },
-            { key: "Level2", x: 400, y: 175, label: "2" },
-            { key: "Level3", x: 600, y: 175, label: "3" },
-            { key: "Level4", x: 300, y: 320, label: "4" },
-            { key: "Level5", x: 500, y: 320, label: "5" },
+            { key: "Level1", x: 300, y: 175, label: "1" },
+            { key: "Level2", x: 500, y: 175, label: "2" },
+            { key: "Level3", x: 300, y: 320, label: "3" },
+            { key: "Level4", x: 500, y: 320, label: "4" },
         ];
 
         const unlocked = this.game.global.unlockedLevels;
@@ -455,7 +454,7 @@ class Level1 extends Phaser.Scene {
                 { q: "How many moles of CO_2 form when 5.0 moles of C_3 H_8 combust? C_3 H_8+5O_2->3CO_2+4H_2O?", a: "d", options: {a: "5.0", b: "10.0", c: "12.0", d: "15.0"}, exp: "The mole ratio from the balanced equation is 3 mol of CO_2 per 1 mol of C_3H_8. 5.0 mol C_3H_8*3=15.0 mol CO_2. This is a direct mole-to-mole stoichiometry problem." },
                 { q: "How many grams of NaCl are produced when 2.0 moles of NaOH react? HCl+NaOH->NaCl+H_2O?", a: "c", options: {a: "58 g", b: "94 g", c: "117 g", d: "234 g"}, exp: "The mole ratio is 1:1, so 2.0 moles NaOH produce 2.0 moles NaCl. The molar mass of NaCCl is about 58.5 g/mol. 2.0*58.5=117 g. Always convert moles to mass at the final step." },
                 { q: "When 6.0 g of H_2 reacts with reactant is it limiting? 2H_2+O_2->2H_2O?", a: "a", options: {a: "H_2", b: "O_2", c: "Neither", d: "Cannot be determined"}, exp: "Convert to moles: H_2: 6.0g /2.0g/mol=3.0 mol  O_2: 64.0g /32 g/mol=2.0 mole The ratio requires 2 mole of H_2 per 1 mole of O_2. 2.0 mol O_2 would need 4.0 mol of H_2, but only 3.0 mol are available, so H_2 is limiting." },
-                { q: "When 10.0 g of Al reacts with 35.0 g of O_2, which reactant is limiting? 4Al+3O_2->2Al_2O_3?", a: "a", options: , exp: "Convert to moles: Al: 10.0g/27.0 is about 0.370 mol, O_2: 35.0g/32.0 is about 1.09 mol The ratio requires 4 mol of H_2 per 3 mol of O_2. 0.370 mol Al needs only  0.278 mol of O_2, so Al is limiting." },
+                { q: "When 10.0 g of Al reacts with 35.0 g of O_2, which reactant is limiting? 4Al+3O_2->2Al_2O_3?", a: "a", options: {a: "Al", b: "O_2", c: "Neither", d: "Cannot be determined"}, exp: "Convert to moles: Al: 10.0g/27.0 is about 0.370 mol, O_2: 35.0g/32.0 is about 1.09 mol The ratio requires 4 mol of H_2 per 3 mol of O_2. 0.370 mol Al needs only  0.278 mol of O_2, so Al is limiting." },
                 { q: "What does the theoretical yield of a reaction represent?", a: "b", options: {a: "The amount of product actually collected", b: "The maximum possible product from the limiting reactant", c: "The average experimental result", d: "The product formed after purification"}, exp: "The theoretical yield is the maximum amount of product that can form if the reaction goes perfectly according to stoichiometry and the limiting reactant is completely consumed. It is calculated, not measured, and serves as a benchmark for evaluating experimental efficiency." },
                 { q: "A reaction has a theoretical yield of 40.0 g and an actual yield of 30.0 g. What is the percent yield?", a: "c", options: {a: "60%", b: "70%", c: "75%", d: "80%"}, exp: "Percent yield=(actual yield/theoretical yield)*100 = (30.0/40.0)*100=75%. This calculation compares experimental results to the ideal maximum." },
                 { q: "A reaction has a theoretical yield of 80.0 g but produces 56.0 g of product. What is the percent yield?", a: "c", options: {a: "60%", b: "65%", c: "70%", d: "75%"}, exp: "Percent yield is calculated using the ratio of actual yield to theoretical yield (56.0/80.0)*100=70%. This value indicates that 70% of the maximum possible product was successfully obtained under the experimental conditions." },
@@ -676,15 +675,23 @@ class Level1 extends Phaser.Scene {
         // Obstacle
         this.obstacles = this.physics.add.group();
         const obstaclePositions = [
-            { x: 283, y: 147 },
             { x: 468.80, y: 64 },
             { x: 468.80, y: 215 },
             { x: 468.80, y: 367 },
             { x: 283, y: 298 }
         ];
 
+        const obstacleOnePositions = [
+            { x: 283, y: 135 }
+        ];
+
         obstaclePositions.forEach(pos => {
             let obs = this.obstacles.create(pos.x, pos.y, "redObstacle").setScale(0.015, 0.2);
+            obs.setImmovable(true);
+        });
+
+        obstacleOnePositions.forEach(pos => {
+            let obs = this.obstacles.create(pos.x, pos.y, "redObstacle").setScale(0.015, 0.25);
             obs.setImmovable(true);
         });
 
@@ -1052,11 +1059,6 @@ class Level3 extends Phaser.Scene {
     }
 
     create() {
-        this.input.on('pointerdown', (pointer) => {
-            console.log(pointer.x, pointer.y);
-            this.add.circle(pointer.x, pointer.y, 5, 0xff0000);
-        });
-
         this.score = 0;
 
         this.add.image(400, 318, "sky").setDisplaySize(800, 636);
@@ -1168,7 +1170,7 @@ class Level3 extends Phaser.Scene {
         this.scoreText.setText("Score: " + Math.floor(this.score) + "/" + this.winningScore);
 
         if (this.score >= this.winningScore) {
-            alert("Congrats, you completed level 3! Now, level 4 is unlocked!");
+            alert("Congrats, you completed level 3! Now, the final level: level 4 is unlocked!");
             this.game.global.unlockedLevels = 4;
             this.homeButton.setVisible(true);
         }
@@ -1255,6 +1257,11 @@ class Level4 extends Phaser.Scene {
     }
 
     create() {
+        this.input.on('pointerdown', (pointer) => {
+            console.log(pointer.x, pointer.y);
+            this.add.circle(pointer.x, pointer.y, 5, 0xff0000);
+        });
+
         this.score = 0;
 
         this.add.image(400, 318, "sky").setDisplaySize(800, 636);
@@ -1278,23 +1285,62 @@ class Level4 extends Phaser.Scene {
             platforms.create(x, groundY, "ground").setScale(0.5, 0.75).refreshBody();
         });
 
-        this.createFloorWithNotes(floor, 120, 440, 5);
-        this.createFloorWithNotes(floor, 300, 360, 5);
-        this.createFloorWithNotes(floor, 380, 280, 5);
-        this.createFloorWithNotes(floor, 520, 200, 5);
-        this.createFloorWithNotes(floor, 650, 120, 5);
+        this.createFloorWithNotes(floor, 130, 140, 5);
+        this.createFloorWithNotes(floor, 650, 140, 5);
 
-        // let wall1 = floor.create(420, 370, "groundOne").setScale(0.15, 3).refreshBody();
-        // let wall2 = floor.create(520, 300, "groundOne").setScale(0.15, 3).refreshBody();
-        // let wall3 = floor.create(660, 170, "groundOne").setScale(0.15, 3).refreshBody();
+        this.createFloorWithNotes(floor, 300, 450, 5);
+        this.createFloorWithNotes(floor, 380, 350, 5);
+        this.createFloorWithNotes(floor, 520, 250, 5);
+
+        const bottomY = 540;
+        const bottomStartX = 100;
+        const bottomSpacing = 70;
+
+        for (let i = 0; i < 10; i++) {
+            let note = this.notes.create(bottomStartX + i * bottomSpacing, bottomY, "onenote").setScale(0.18);
+            note.body.setAllowGravity(false);
+            note.body.immovable = true;
+        }
+
+        const rightColumns = 5;
+        const rightSpacing = 60;
+        const rightCenterX = 650;    
+        const rightStartX = rightCenterX - ((rightColumns - 1) * rightSpacing) / 2;
+
+        const rightY = 250;
+
+        for (let i = 0; i < rightColumns; i++) {
+            let note = this.notes.create(rightStartX + i * rightSpacing, rightY, "onenote").setScale(0.18);
+            note.body.setAllowGravity(false);
+            note.body.immovable = true;
+        }
+
+        let wall1 = floor.create(470, 390, "groundOne").setScale(0.15, 3).refreshBody();
+        let wall2 = floor.create(550, 300, "groundOne").setScale(0.15, 3).refreshBody();
+        let wall3 = floor.create(710, 380, "groundOne").setScale(0.05, 10).refreshBody();
 
         this.obstacles = this.physics.add.group();
         const obstaclePositions = [
-            {x: 120, y: 450},
+            {x: 170, y: 395},
+
+            {x: 327, y: 190},
+            {x: 680, y: 190},
+
+            {x: 290, y: 75},
+            {x: 485, y: 75}
+        ];
+
+        const obstacleTwoPositions = [
+            {x: 195, y: 240}
         ];
 
         obstaclePositions.forEach(pos => {
             let obs = this.obstacles.create(pos.x, pos.y, "redObstacle").setScale(0.015, 0.2);
+            obs.setImmovable(true);
+        });
+
+        obstacleTwoPositions.forEach(pos => {
+            let obs = this.obstacles.create(pos.x, pos.y, "redObstacle").setScale(0.015, 0.35);
             obs.setImmovable(true);
         });
 
@@ -1347,197 +1393,7 @@ class Level4 extends Phaser.Scene {
 
     collectNote(player, note) {
         note.disableBody(true, true);
-        this.score += (400 / 20);
-        this.scoreText.setText("Score: " + Math.floor(this.score) + "/" + this.winningScore);
-
-        if (this.score >= this.winningScore) {
-            alert("Congrats, you completed level 4! Now, the final level: level 5 is unlocked!");
-            this.game.global.unlockedLevels = 5;
-            this.homeButton.setVisible(true);
-        }
-    }
-
-    handleObstacleCollision(player, obstacle) {
-        if (!this.obstaclesActive || !obstacle.active) return;
-
-        let unitQuestions = this.chemQuestions[this.leastConfidentUnit];
-        if (!unitQuestions || unitQuestions.length === 0) return;
-
-        let q = unitQuestions[Math.floor(Math.random() * unitQuestions.length)];
-
-        let promptText =
-            q.q + "\n\n" +
-            "A. " + q.options.a + "\n" +
-            "B. " + q.options.b + "\n" +
-            "C. " + q.options.c + "\n" +
-            "D. " + q.options.d;
-
-        let answer = prompt(promptText);
-        if (answer && answer.trim().toLowerCase() === q.a.toLowerCase()) {
-            obstacle.disableBody(true, true);
-            return;
-        }
-
-        alert("Wrong. Try again.");
-        let answer2 = prompt(promptText);
-        if (answer2 && answer2.trim().toLowerCase() === q.a.toLowerCase()) {
-            obstacle.disableBody(true, true);
-            return;
-        }
-
-        alert("Correct answer: " + q.options[q.a] + "\nExplanation: " + q.exp);
-
-        let finalAnswer = "";
-        while (finalAnswer.trim().toLowerCase() !== q.a.toLowerCase()) {
-            finalAnswer = prompt(promptText + "\n\nPlease enter the correct letter:");
-        }
-
-        obstacle.disableBody(true, true);
-    }
-
-    update() {
-        const player = this.player;
-        if (!player) return;
-
-        player.body.velocity.x = 0;
-
-        if (this.cursors.left.isDown) {
-            player.body.velocity.x = -300;
-            player.flipX = false;
-        } else if (this.cursors.right.isDown) {
-            player.body.velocity.x = 300;
-            player.flipX = true;
-        }
-
-        if (this.cursors.up.isDown && player.body.touching.down) {
-            player.body.velocity.y = -450;
-        }
-    }
-}
-
-class Level5 extends Phaser.Scene {
-    constructor() {
-        super("Level5");
-        this.score = 0;
-        this.winningScore = 500;
-        this.scoreText = null;
-        this.obstaclesActive = false;
-    }
-
-    preload() {
-        this.load.image("home", "assets/home.png");
-        this.load.image("sky", "./assets/sky.png");
-        this.load.image("ground", "./assets/platform2.jpg");
-        this.load.image("groundOne", "./assets/platform.png");
-        this.load.image("onenote", "./assets/atom_symbol_3d.png");
-        this.load.image("redObstacle", "./assets/obstacle.png");
-    }
-
-    create() {
-        this.score = 0;
-
-        this.add.image(400, 318, "sky").setDisplaySize(800, 636);
-
-        this.chemQuestions = this.scene.get("Level1").chemQuestions;
-
-        this.time.delayedCall(100, () => {
-            if (!this.game.global.leastConfidentUnit ||
-                !this.chemQuestions[this.game.global.leastConfidentUnit]) {
-                this.game.global.leastConfidentUnit = 1;
-            }
-            this.leastConfidentUnit = this.game.global.leastConfidentUnit;
-        });
-
-        const platforms = this.physics.add.staticGroup();
-        const floor = this.physics.add.staticGroup();
-        this.notes = this.physics.add.group();
-
-        const groundY = 590;
-        [90,180,270,360,450,540,630,720].forEach(x => {
-            platforms.create(x, groundY, "ground").setScale(0.5, 0.75).refreshBody();
-        });
-
-        this.createFloorWithNotes(floor, 120, 480, 5);
-        this.createFloorWithNotes(floor, 250, 380, 5);
-        this.createFloorWithNotes(floor, 380, 280, 5);
-        this.createFloorWithNotes(floor, 520, 200, 5);
-        this.createFloorWithNotes(floor, 650, 120, 5);
-
-        let wall1 = floor.create(200, 300, "groundOne").setScale(0.15, 3).refreshBody();
-        let wall2 = floor.create(500, 250, "groundOne").setScale(0.15, 3).refreshBody();
-        let wall3 = floor.create(700, 200, "groundOne").setScale(0.15, 3).refreshBody();
-
-        this.obstacles = this.physics.add.group();
-        const obstaclePositions = [
-            {x: 120, y: 450},
-            {x: 250, y: 350},
-            {x: 380, y: 250},
-            {x: 520, y: 170},
-            {x: 650, y: 90},
-            {x: 200, y: 480},
-            {x: 450, y: 300},
-            {x: 600, y: 200},
-            {x: 350, y: 380},
-            {x: 500, y: 260},
-            {x: 300, y: 200},
-            {x: 700, y: 150}
-        ];
-
-        obstaclePositions.forEach(pos => {
-            let obs = this.obstacles.create(pos.x, pos.y, "redObstacle").setScale(0.015, 0.2);
-            obs.setImmovable(true);
-        });
-
-        this.time.delayedCall(200, () => this.obstaclesActive = true);
-
-        const chosen = this.game.global.selectedCharacterKey;
-        let player = this.add.sprite(30, 465, chosen).setScale(0.25);
-        player.flipX = true;
-
-        this.physics.world.enable(player);
-        player.body.gravity.y = 800;
-        player.body.collideWorldBounds = true;
-
-        this.physics.add.collider(player, platforms);
-        this.physics.add.collider(player, floor);
-        this.physics.add.collider(player, this.notes, this.collectNote, null, this);
-        this.physics.add.collider(player, this.obstacles, this.handleObstacleCollision, null, this);
-
-        this.player = player;
-        this.cursors = this.input.keyboard.createCursorKeys();
-
-        this.scoreText = this.add.text(
-            16, 16,
-            "Score: 0/" + this.winningScore,
-            { stroke: "#000", strokeThickness: 1.9, fontSize: "32px", fill: "#000" }
-        );
-
-        this.homeButton = this.add.image(390, 590, "home")
-            .setScale(0.5)
-            .setInteractive()
-            .on("pointerdown", () => this.scene.start("HomeScene"));
-    }
-
-    createFloorWithNotes(floorGroup, x, y, count) {
-        floorGroup.create(x, y, "groundOne").setScale(1).refreshBody();
-
-        const noteY = y - 40;
-        const spacing = 50;
-        const startX = x - ((count - 1) / 2) * spacing;
-
-        for (let i = 0; i < count; i++) {
-            this.notes.create(startX + i * spacing, noteY, "onenote").setScale(0.15);
-        }
-
-        this.notes.getChildren().forEach(note => {
-            note.body.setAllowGravity(false);
-            note.body.immovable = true;
-        });
-    }
-
-    collectNote(player, note) {
-        note.disableBody(true, true);
-        this.score += (500 / 40);
+        this.score += (400 / 40);
         this.scoreText.setText("Score: " + Math.floor(this.score) + "/" + this.winningScore);
 
         if (this.score >= this.winningScore) {
@@ -1608,7 +1464,7 @@ const config = {
     type: Phaser.AUTO,
     width: 800,
     height: 636,
-    scene: [StartScene, CharacterScene, InstructionScene, HomeScene, CreditsScene, Level1, Level2, Level3, Level4, Level5],
+    scene: [StartScene, CharacterScene, InstructionScene, HomeScene, CreditsScene, Level1, Level2, Level3, Level4],
     physics: { // Add this physics configuration
         default: 'arcade', // Use the Arcade Physics system
         arcade: {
