@@ -541,40 +541,40 @@ class Level1 extends Phaser.Scene {
                 { q: "", a: "", options: {a: "", b: "", c: "", d: ""}, exp: "" }
             ],
             7: [
-                { q: "", a: "", options: {a: "", b: "", c: "", d: ""}, exp: "" },
-                { q: "", a: "", options: {a: "", b: "", c: "", d: ""}, exp: "" },
-                { q: "", a: "", options: {a: "", b: "", c: "", d: ""}, exp: "" },
-                { q: "", a: "", options: {a: "", b: "", c: "", d: ""}, exp: "" },
-                { q: "", a: "", options: {a: "", b: "", c: "", d: ""}, exp: "" },
-                { q: "", a: "", options: {a: "", b: "", c: "", d: ""}, exp: "" },
-                { q: "", a: "", options: {a: "", b: "", c: "", d: ""}, exp: "" },
-                { q: "", a: "", options: {a: "", b: "", c: "", d: ""}, exp: "" },
-                { q: "", a: "", options: {a: "", b: "", c: "", d: ""}, exp: "" },
-                { q: "", a: "", options: {a: "", b: "", c: "", d: ""}, exp: "" },
-                { q: "", a: "", options: {a: "", b: "", c: "", d: ""}, exp: "" },
-                { q: "", a: "", options: {a: "", b: "", c: "", d: ""}, exp: "" },
-                { q: "", a: "", options: {a: "", b: "", c: "", d: ""}, exp: "" },
-                { q: "", a: "", options: {a: "", b: "", c: "", d: ""}, exp: "" },
-                { q: "", a: "", options: {a: "", b: "", c: "", d: ""}, exp: "" },
-                { q: "", a: "", options: {a: "", b: "", c: "", d: ""}, exp: "" },
-                { q: "", a: "", options: {a: "", b: "", c: "", d: ""}, exp: "" },
-                { q: "", a: "", options: {a: "", b: "", c: "", d: ""}, exp: "" },
-                { q: "", a: "", options: {a: "", b: "", c: "", d: ""}, exp: "" },
-                { q: "", a: "", options: {a: "", b: "", c: "", d: ""}, exp: "" },
-                { q: "", a: "", options: {a: "", b: "", c: "", d: ""}, exp: "" },
-                { q: "", a: "", options: {a: "", b: "", c: "", d: ""}, exp: "" },
-                { q: "", a: "", options: {a: "", b: "", c: "", d: ""}, exp: "" },
-                { q: "", a: "", options: {a: "", b: "", c: "", d: ""}, exp: "" },
-                { q: "", a: "", options: {a: "", b: "", c: "", d: ""}, exp: "" },
-                { q: "", a: "", options: {a: "", b: "", c: "", d: ""}, exp: "" },
-                { q: "", a: "", options: {a: "", b: "", c: "", d: ""}, exp: "" },
-                { q: "", a: "", options: {a: "", b: "", c: "", d: ""}, exp: "" },
-                { q: "", a: "", options: {a: "", b: "", c: "", d: ""}, exp: "" },
-                { q: "", a: "", options: {a: "", b: "", c: "", d: ""}, exp: "" },
-                { q: "", a: "", options: {a: "", b: "", c: "", d: ""}, exp: "" },
-                { q: "", a: "", options: {a: "", b: "", c: "", d: ""}, exp: "" },
-                { q: "", a: "", options: {a: "", b: "", c: "", d: ""}, exp: "" },
-                { q: "", a: "", options: {a: "", b: "", c: "", d: ""}, exp: "" }
+                { q: "Chemical equilibrium is most likely analogous to which physical situation?", a: "c", options: {a: "", b: "", c: "", d: ""}, exp: "" },
+                { q: "A system at equilibrium is disturbed, and both forward and reverse reaction rates increase, yet equilibrium position does not change. Why does this not violate Le Chatelier's principle?", a: "c", options: {a: "", b: "", c: "", d: ""}, exp: "" },
+                { q: "A reaction has a very small K, yet the product concentration is nonzero at equilibrium. Which statement best explains this?", a: "b", options: {a: "", b: "", c: "", d: ""}, exp: "" },
+                { q: "A reaction mixture is at equilibrium. A student removes a small amount of product, but the measured equilibrium concentrations after re-equilibration are numerically identical to before. Which conclusion is valid?", a: "c", options: {a: "", b: "", c: "", d: ""}, exp: "" },
+                { q: "A student observes that Q = K at a single instant. What can be concluded with certainty?", a: "c", options: {a: "", b: "", c: "", d: ""}, exp: "" },
+                { q: "A system is at equilibrium. Reactants are added, but equilibrium concentrations of both reactants and products increase after re-equilibration. Which conclusion is logically valid?", a: "d", options: {a: "", b: "", c: "", d: ""}, exp: "" },
+                { q: "A reaction has K=1.0*10^-3 at 25°C. Which statement must be true?", a: "b", options: {a: "", b: "", c: "", d: ""}, exp: "" },
+                { q: "Which conclusion can be drawn if a reaction reaches the same equilibrium composition from three different starting mixtures?", a: "d", options: {a: "", b: "", c: "", d: ""}, exp: "" },
+                { q: "A system is at equilibrium. A student adds reactant and immediately measures concentrations before any shift occurs. Which statement must be true at that instant?", a: "b", options: {a: "", b: "", c: "", d: ""}, exp: "" },
+                { q: "Two experiments of the same reaction are conducted at the same temperature. Both reach equilibrium, but Experiment 1 has a larger product-to-reactant ratio than Experiment 2. Which conclusion is valid?", a: "d", options: {a: "", b: "", c: "", d: ""}, exp: "" },
+                { q: "A concentration-time graph shows reactant concentration decreasing smoothly and then becoming constant, while product reactant increases and then becomes constant. What does the flat portion of both curves  indicate?", a: "c", options: {a: "", b: "", c: "", d: ""}, exp: "" },
+                { q: "Which change causes an equilibrium shift only because concentrations change, not because pressure changes?", a: "d", options: {a: "", b: "", c: "", d: ""}, exp: "" },
+                { q: "A reaction mixture is prepared with reactants only and then sealed at constant temperature. Which statement must be true before equilibrium is reached?", a: "c", options: {a: "", b: "", c: "", d: ""}, exp: "" },
+                { q: "Which change will increase the value of KKK for an endothermic reaction?", a: "b", options: {a: "", b: "", c: "", d: ""}, exp: "" },
+                { q: "If a reaction mixture has Q=4.5Q=4.5Q=4.5 and K=1.2K=1.2K=1.2, what will occur?", a: "b", options: {a: "", b: "", c: "", d: ""}, exp: "" },
+                { q: "Which change will not shift the equilibrium position of a system?", a: "c", options: {a: "", b: "", c: "", d: ""}, exp: "" },
+                { q: "What does it mean for a chemical reaction to be at dynamic equilibrium?", a: "b", options: {a: "", b: "", c: "", d: ""}, exp: "" },
+                { q: "Which observation indicates that a chemical system has reached equilibrium?", a: "c", options: {a: "", b: "", c: "", d: ""}, exp: "" },
+                { q: "For the reaction: N_2(g)+3H_2(g)<-->2NH_3(g)+heat  Which change will shift the equilibrium to the right?", a: "b", options: {a: "", b: "", c: "", d: ""}, exp: "" },
+                { q: "In the exothermic reaction: 2NO(g)+O_2(g)<-->2NO-2(g), which happens if temperature is increased?", a: "c", options: {a: "", b: "", c: "", d: ""}, exp: "" },
+                { q: "A student says that increasing pressure always favors the product side. Is this true?", a: "c", options: {a: "", b: "", c: "", d: ""}, exp: "" },
+                { q: "N_2(g)+3H_2(g)<-->2NH_3(g), Give the reaction above, what is the equilibrium constant, Kc?", a: "c", options: {a: "", b: "", c: "", d: ""}, exp: "" },
+                { q: "At a constant temperature, which of the following reactions would be affected from a change in pressure?", a: "a", options: {a: "", b: "", c: "", d: ""}, exp: "" },
+                { q: "At a constant temperature, an increase in pressure would lead to an increase in product for which of the following reactions?", a: "c", options: {a: "", b: "", c: "", d: ""}, exp: "" },
+                { q: "CaCO_3(g)+energy<-->CaO(s)+CO_2(g), The given reaction above takes place in a container. Given the reaction, which of the following changes would lead to an increase in the concentration of CO_2(g)?", a: "a", options: {a: "", b: "", c: "", d: ""}, exp: "" },
+                { q: "H_2(g)+I_2(g)<-->2HI ΔH=58 kJ/mol, The reaction provided is in an equilibrium at 25°C. What is the expression of the equilibrium constant for the reaction?", a: "a", options: {a: "", b: "", c: "", d: ""}, exp: "" },
+                { q: "Which of the following changes would affect the reverse reaction to speed up?", a: "b", options: {a: "", b: "", c: "", d: ""}, exp: "" },
+                { q: "Which of the following would lead to a reduction in the value of the equilibrium constant?", a: "a", options: {a: "", b: "", c: "", d: ""}, exp: "" },
+                { q: "The value of the Kc is 5.0. Which of the following would result in order to reach equilibrium if the initial concentration of all three species is 3.0?", a: "b", options: {a: "", b: "", c: "", d: ""}, exp: "" },
+                { q: "2NO(g)<-->N_2(g)+O_2(g) From the reaction given above, what is the expression of the equilibrium constant, Kp?", a: "a", options: {a: "", b: "", c: "", d: ""}, exp: "" },
+                { q: "The reaction provided above has reached equilibrium at a certain temperature. During that time, the partial pressure due to No has 3 atmospheres, the partial pressure due to N_2 has 2 atmospheres, and the partial pressure due to O_2 was 3 atmospheres. What is the value of the equilibrium constant, Kp?", a: "b", options: {a: "", b: "", c: "", d: ""}, exp: "" },
+                { q: "The Ksp value of AgBr is 7.7*10^-13. Which of the following is equal to the solubility of AgBr?", a: "c", options: {a: "", b: "", c: "", d: ""}, exp: "" },
+                { q: "Pb 2+(aq)+Zn 2+(s) <-->Pb(s)+Zn 2+(aq) Keq=3*10^30. A student performed an experiment where he put a 0.20 mol sample of solid zinc into a 500mL solution of 1.0M PbSO_3(aq). After a long period of time, what would be a possible result?", a: "d", options: {a: "", b: "", c: "", d: ""}, exp: "" },
+                { q: "The solubility of AgI is 8.0*10^-17. What is the solubility product constant Ksp, for AgI?", a: "d", options: {a: "", b: "", c: "", d: ""}, exp: "" }
             ],
             8: [
                 { q: "", a: "", options: {a: "", b: "", c: "", d: ""}, exp: "" },
@@ -1257,11 +1257,6 @@ class Level4 extends Phaser.Scene {
     }
 
     create() {
-        this.input.on('pointerdown', (pointer) => {
-            console.log(pointer.x, pointer.y);
-            this.add.circle(pointer.x, pointer.y, 5, 0xff0000);
-        });
-
         this.score = 0;
 
         this.add.image(400, 318, "sky").setDisplaySize(800, 636);
