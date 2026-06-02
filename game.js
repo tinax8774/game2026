@@ -1292,9 +1292,9 @@ class Level4 extends Phaser.Scene {
         this.createFloorWithNotes(floor, 380, 350, 5);
         this.createFloorWithNotes(floor, 520, 250, 5);
 
-        const bottomY = 540;
-        const bottomStartX = 100;
-        const bottomSpacing = 70;
+        const bottomY = 500;
+        const bottomStartX = 130;
+        const bottomSpacing = 60;
 
         for (let i = 0; i < 10; i++) {
             let note = this.notes.create(bottomStartX + i * bottomSpacing, bottomY, "onenote").setScale(0.18);
@@ -1307,12 +1307,17 @@ class Level4 extends Phaser.Scene {
         const rightCenterX = 650;
         const rightStartX = rightCenterX - ((rightColumns - 1) * rightSpacing) / 2;
 
-        const rightY = 250;
+        const startY = 190;
 
-        for (let i = 0; i < rightColumns; i++) {
-            let note = this.notes.create(rightStartX + i * rightSpacing, rightY, "onenote").setScale(0.18);
-            note.body.setAllowGravity(false);
-            note.body.immovable = true;
+        for (let col = 0; col < columns; col++) {
+            for (let row = 0; row < notesPerColumn; row++) {
+                let x = startX + col * columnSpacing;
+                let y = startY + row * rowSpacing;
+
+                let note = this.notes.create(x, y, "onenote").setScale(0.18);
+                note.body.setAllowGravity(false);
+                note.body.immovable = true;
+            }
         }
 
         let wall1 = floor.create(470, 390, "groundOne").setScale(0.15, 3).refreshBody();
