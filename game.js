@@ -469,25 +469,25 @@ class Level1 extends Phaser.Scene {
                 { q: "A student combines solutions of silver nitrate and sodium chloride, and a while precipitate forms. What type of reaction occurred?", a: "c", options: {a: "Synthesis", b: "Decomposition", c: "Double replacement", d: "Combustion"}, exp: "This is a double replacement reaction as it forms AgCl (precipitate) and NaNO_3 in solution." }
             ],
             5: [
-                { q: "Which statement best describes a reversible reaction at equilibrium?", a: "", options: {a: "", b: "", c: "", d: ""}, exp: "" },
-                { q: "In a system at dynamic equilibrium, which of the following is true?", a: "", options: {a: "", b: "", c: "", d: ""}, exp: "" },
-                { q: "Which reaction is most clearly an example of a reversible chemical equilibrium?", a: "", options: {a: "", b: "", c: "", d: ""}, exp: "" },
-                { q: "What does the equilibrium constant (K) primarily indicate about a reaction?", a: "", options: {a: "", b: "", c: "", d: ""}, exp: "" },
-                { q: "Which statement about the equilibrium constant K is always true?", a: "", options: {a: "", b: "", c: "", d: ""}, exp: "" },
-                { q: "For the reaction 2NO_2(g)<->N_2O_4(g) Which is the correct Kc expression?", a: "", options: {a: "", b: "", c: "", d: ""}, exp: "" },
-                { q: "What does the equilibrium constant mathematically represent?", a: "", options: {a: "", b: "", c: "", d: ""}, exp: "" },
-                { q: "Why are ICE tables useful when working with equilibrium constants?", a: "", options: {a: "", b: "", c: "", d: ""}, exp: "" },
-                { q: "What is the primary purpose of an ICE table when calculating equilibrium concentrations?", a: "", options: {a: "", b: "", c: "", d: ""}, exp: "" },
-                { q: "A reaction has only reactants present initially. What can be concluded before calculation?", a: "", options: {a: "", b: "", c: "", d: ""}, exp: "" },
-                { q: "What does Le Chatelier's principle state?", a: "", options: {a: "", b: "", c: "", d: ""}, exp: "" },
-                { q: "What is the correct order of steps when solving equilibrium concentration problems?", a: "", options: {a: "", b: "", c: "", d: ""}, exp: "" },
-                { q: "What is the reaction quotient (Q)?", a: "", options: {a: "", b: "", c: "", d: ""}, exp: "" },
-                { q: "How does the expression for Q compare to the expression for K?", a: "", options: {a: "", b: "", c: "", d: ""}, exp: "" },
-                { q: "Q=K, what can be concluded?", a: "", options: {a: "", b: "", c: "", d: ""}, exp: "" },
-                { q: "Which statement correctly describes Q immediately after a reactant is added to a system at equilibrium?", a: "", options: {a: "", b: "", c: "", d: ""}, exp: "" },
-                { q: "A system at equilibrium has additional reactants added. What is the immediate effect?", a: "", options: {a: "", b: "", c: "", d: ""}, exp: "" },
-                { q: "For a gas-phase equilibrium, increasing pressure favors which side?", a: "", options: {a: "", b: "", c: "", d: ""}, exp: "" },
-                { q: "For an endothermic reaction, increasing temperature causes the system to:", a: "", options: {a: "", b: "", c: "", d: ""}, exp: "" },
+                { q: "Which statement best describes a reversible reaction at equilibrium?", a: "", options: {a: "The reaction has stopped completely", b: "The concentrations has stopped completely", c: "The forward and reverse reactions occur at the same rate", d: "All reactants have been converted into products"}, exp: "" },
+                { q: "In a system at dynamic equilibrium, which of the following is true?", a: "", options: {a: "No molecular motion occurs", b: "Forward and reverse reaction rates are zero", c: "Molecular collisions continue to occur", d: "Products are no longer reacting"}, exp: "" },
+                { q: "Which reaction is most clearly an example of a reversible chemical equilibrium?", a: "", options: {a: "Combustion of gasoline", b: "Rusting of iron", c: "Formation of ammonia in the Haber process", d: "Burning magnesium ribbon"}, exp: "" },
+                { q: "What does the equilibrium constant (K) primarily indicate about a reaction?", a: "", options: {a: "The speed of the reaction", b: "The time required to reach equilibrium", c: "The relative amounts of products and reactants at equilibrium", d: "The activation energy of the reaction"}, exp: "" },
+                { q: "Which statement about the equilibrium constant K is always true?", a: "", options: {a: "It changes as concentrations change", b: "It is equal to the reaction rate", c: "It depends on the temperature", d: "It must be greater than 1"}, exp: "" },
+                { q: "For the reaction 2NO_2(g)<->N_2O_4(g) Which is the correct Kc expression?", a: "", options: {a: "[NO_2]^2/[N_2O_4]", b: "[N_2O_4]/[NO_2]^2", c: "[NO_2]/[N_2O_4]", d: "[N_2O_4]^2/[NO_2]^2"}, exp: "" },
+                { q: "What does the equilibrium constant mathematically represent?", a: "", options: {a: "The ratio of reaction rates", b: "The ratio of product and reactant concentrations at equilibrium", c: "The amount of reactant consumed", d: "The speed of equilibrium establishment"}, exp: "" },
+                { q: "Why are ICE tables useful when working with equilibrium constants?", a: "", options: {a: "They calculate reaction rates", b: "They track concentration changes from initial to equilibrium", c: "They determine activation energy", d: "They predict temperature effects"}, exp: "" },
+                { q: "What is the primary purpose of an ICE table when calculating equilibrium concentrations?", a: "", options: {a: "To determine reaction rate", b: "To organize concentration changes logically", c: "To eliminate algebra", d: "To calculate temperature effects"}, exp: "" },
+                { q: "A reaction has only reactants present initially. What can be concluded before calculation?", a: "", options: {a: "The reaction is already at equilibrium", b: "Q>K", c: "Q=K", d: "Q<K"}, exp: "" },
+                { q: "What does Le Chatelier's principle state?", a: "", options: {a: "Systems always favors products", b: "Reactions proceed to completion", c: "A system at equilibrium responds to stress by counteracting it", d: "Equilibrium constants change to reduce stress"}, exp: "" },
+                { q: "What is the correct order of steps when solving equilibrium concentration problems?", a: "", options: {a: "Write ICE->calculate x->compare Q and K", b: "Compare Q and K->write ICE->solve->validate", c: "Solve for x->Write ICE->validate", d: "Write K->calculate equilibrium->Check Q"}, exp: "" },
+                { q: "What is the reaction quotient (Q)?", a: "", options: {a: "The equilibrium constant at equilibrium", b: "A ratio using equilibrium concentrations only", c: "A ratio using current concentrations at any time", d: "A measure of reaction speed"}, exp: "" },
+                { q: "How does the expression for Q compare to the expression for K?", a: "", options: {a: "Q includes solids while K does not", b: "Q uses different exponents", c: "Q uses the same mathematical format as K", d: "Q is written only for gases"}, exp: "" },
+                { q: "Q=K, what can be concluded?", a: "", options: {a: "The reaction has stopped", b: "The reaction is at equilibrium", c: "The reaction is irreversible", d: "Concentrations are equal"}, exp: "" },
+                { q: "Which statement correctly describes Q immediately after a reactant is added to a system at equilibrium?", a: "", options: {a: "Q remains equal to K", b: "Q decreases or increases depending on the reactant added", c: "Q changes only after the system shifts", d: "Q becomes 0"}, exp: "" },
+                { q: "A system at equilibrium has additional reactants added. What is the immediate effect?", a: "", options: {a: "The equilibrium constant increases", b: "The system shifts to consume the added reactant", c: "The reaction stops temporarily", d: "The temperature increases"}, exp: "" },
+                { q: "For a gas-phase equilibrium, increasing pressure favors which side?", a: "", options: {a: "The side with more gas moles", b: "The side with fewer gas moles", c: "The side with higher molar mass", d: "The side with solids"}, exp: "" },
+                { q: "For an endothermic reaction, increasing temperature causes the system to:", a: "", options: {a: "Shifts toward reactants", b: "Shift towards products", c: "Remain unchanged", d: "Increase pressure"}, exp: "" },
                 { q: "What is the single most important rule for Le Chatelier questions?", a: "", options: {a: "", b: "", c: "", d: ""}, exp: "" },
                 { q: "A system at equilibrium has its reactant concentration doubled. What happens next?", a: "", options: {a: "", b: "", c: "", d: ""}, exp: "" },
                 { q: "What does an energy diagram for a reversible reaction primarily illustrate?", a: "", options: {a: "", b: "", c: "", d: ""}, exp: "" },
@@ -1304,7 +1304,7 @@ class Level4 extends Phaser.Scene {
 
         const rightColumns = 5;
         const rightSpacing = 60;
-        const rightCenterX = 650;    
+        const rightCenterX = 650;
         const rightStartX = rightCenterX - ((rightColumns - 1) * rightSpacing) / 2;
 
         const rightY = 250;
