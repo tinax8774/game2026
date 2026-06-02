@@ -1052,9 +1052,38 @@ class Level3 extends Phaser.Scene {
     }
 
     create() {
+        this.input.on('pointerdown', (pointer) => {
+            console.log(pointer.x, pointer.y);
+            this.add.circle(pointer.x, pointer.y, 5, 0xff0000);
+        });
+
         this.score = 0;
 
         this.add.image(400, 318, "sky").setDisplaySize(800, 636);
+
+        this.notes = this.physics.add.group();
+
+        const columns = 8;
+        const notesPerColumn = 3;
+
+        const columnSpacing = 100;
+        const rowSpacing = 80;
+
+        const centerX = 400;
+        const startX = centerX - ((columns - 1) * columnSpacing) / 2;
+
+        const startY = 200;
+
+        for (let col = 0; col < columns; col++) {
+            for (let row = 0; row < notesPerColumn; row++) {
+                let x = startX + col * columnSpacing;
+                let y = startY + row * rowSpacing;
+
+                let note = this.notes.create(x, y, "onenote").setScale(0.18);
+                note.body.setAllowGravity(false);
+                note.body.immovable = true;
+            }
+        }
 
         this.chemQuestions = this.scene.get("Level1").chemQuestions;
 
@@ -1071,7 +1100,6 @@ class Level3 extends Phaser.Scene {
 
         const platforms = this.physics.add.staticGroup();
         const floor = this.physics.add.staticGroup();
-        this.notes = this.physics.add.group();
 
         // Ground
         const groundY = 590;
@@ -1083,17 +1111,17 @@ class Level3 extends Phaser.Scene {
         this.obstacles = this.physics.add.group();
 
         const obstaclePositions = [
-            { x: 110, y: 400 },
-            { x: 210, y: 400 },
-            { x: 310, y: 400 },
-            { x: 410, y: 400 },
-            { x: 510, y: 400 },
-            { x: 610, y: 400 },
-            { x: 710, y: 400 }
+            { x: 110, y: 330 },
+            { x: 210, y: 330 },
+            { x: 310, y: 330 },
+            { x: 410, y: 330 },
+            { x: 510, y: 330 },
+            { x: 610, y: 330 },
+            { x: 710, y: 330 }
         ];
 
         obstaclePositions.forEach(pos => {
-            let obs = this.obstacles.create(pos.x, pos.y, "redObstacle").setScale(0.015, 0.5);
+            let obs = this.obstacles.create(pos.x, pos.y, "redObstacle").setScale(0.015, 0.75);
             obs.setImmovable(true);
         });
 
@@ -1136,7 +1164,7 @@ class Level3 extends Phaser.Scene {
 
     collectNote(player, note) {
         note.disableBody(true, true);
-        this.score += (300 / 33); // ~33 notes total
+        this.score += (300 / 24);
         this.scoreText.setText("Score: " + Math.floor(this.score) + "/" + this.winningScore);
 
         if (this.score >= this.winningScore) {
@@ -1203,7 +1231,7 @@ class Level3 extends Phaser.Scene {
         }
 
         if (this.cursors.up.isDown && player.body.touching.down) {
-            player.body.velocity.y = -450;
+            player.body.velocity.y = -700;
         }
     }
 }
@@ -1250,27 +1278,19 @@ class Level4 extends Phaser.Scene {
             platforms.create(x, groundY, "ground").setScale(0.5, 0.75).refreshBody();
         });
 
-        this.createFloorWithNotes(floor, 120, 480, 5);
-        this.createFloorWithNotes(floor, 250, 380, 4);
-        this.createFloorWithNotes(floor, 380, 300, 4);
-        this.createFloorWithNotes(floor, 520, 220, 5);
-        this.createFloorWithNotes(floor, 650, 150, 5);
+        this.createFloorWithNotes(floor, 120, 440, 5);
+        this.createFloorWithNotes(floor, 300, 360, 5);
+        this.createFloorWithNotes(floor, 380, 280, 5);
+        this.createFloorWithNotes(floor, 520, 200, 5);
+        this.createFloorWithNotes(floor, 650, 120, 5);
 
-        let wall1 = floor.create(300, 200, "groundOne").setScale(0.15, 3).refreshBody();
-        let wall2 = floor.create(600, 350, "groundOne").setScale(0.15, 3).refreshBody();
+        // let wall1 = floor.create(420, 370, "groundOne").setScale(0.15, 3).refreshBody();
+        // let wall2 = floor.create(520, 300, "groundOne").setScale(0.15, 3).refreshBody();
+        // let wall3 = floor.create(660, 170, "groundOne").setScale(0.15, 3).refreshBody();
 
         this.obstacles = this.physics.add.group();
         const obstaclePositions = [
             {x: 120, y: 450},
-            {x: 250, y: 350},
-            {x: 380, y: 270},
-            {x: 520, y: 190},
-            {x: 650, y: 120},
-            {x: 200, y: 480},
-            {x: 450, y: 300},
-            {x: 600, y: 200},
-            {x: 350, y: 380},
-            {x: 500, y: 260}
         ];
 
         obstaclePositions.forEach(pos => {
@@ -1327,11 +1347,11 @@ class Level4 extends Phaser.Scene {
 
     collectNote(player, note) {
         note.disableBody(true, true);
-        this.score += (400 / 35);
+        this.score += (400 / 20);
         this.scoreText.setText("Score: " + Math.floor(this.score) + "/" + this.winningScore);
 
         if (this.score >= this.winningScore) {
-            alert("Great job! Level 4 complete — Level 5 unlocked.");
+            alert("Congrats, you completed level 4! Now, the final level: level 5 is unlocked!");
             this.game.global.unlockedLevels = 5;
             this.homeButton.setVisible(true);
         }
