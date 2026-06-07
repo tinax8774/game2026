@@ -43,6 +43,7 @@ class CharacterScene extends Phaser.Scene {
         this.load.image("pig", "assets/pig_3d.png");
         this.load.image("rabbit", "assets/rabbit_3d.png");
         this.load.image("tiger", "assets/tiger_3d.png");
+        this.load.image("leopard", "assets/leopard_3d.png");
     }
     create() {
         const bg = this.add.image(
@@ -70,10 +71,11 @@ class CharacterScene extends Phaser.Scene {
             { key: "gorilla", x: 395, y: 290 },
             { key: "hedgehog", x: 537.5, y: 290 },
             { key: "honeybee", x: 710, y: 290 },
-            { key: "monkey", x: 185, y: 430 },
-            { key: "pig", x: 325, y: 430 },
-            { key: "rabbit", x: 475, y: 430 },
-            { key: "tiger", x: 625, y: 430 }
+            { key: "monkey", x: 100, y: 430 },
+            { key: "pig", x: 250, y: 430 },
+            { key: "rabbit", x: 395, y: 430 },
+            { key: "tiger", x: 537.5, y: 430 },
+            { key: "leopard", x: 700, y: 430 }
         ];
 
         this.add.text(400, 50, "Choose Your Character", {fontFamily: 'Nunito', stroke: '#000000', strokeThickness: 1.9, fontSize: "40px", fill: "#000000" }).setOrigin(0.5);
@@ -264,6 +266,7 @@ class HomeScene extends Phaser.Scene {
         let unit = parseInt(prompt("Which AP Chemistry Unit are you least confident with? (1–9)"));
         if (isNaN(unit) || unit < 1 || unit > 9) unit = 1;
         this.game.global.leastConfidentUnit = unit;
+        console.log('Selected Least Confident Unit:', this.game.global.leastConfidentUnit);
     }
 }
 
@@ -787,14 +790,19 @@ class Level1 extends Phaser.Scene {
             "D. " + q.options.d;
 
         let answer = prompt(promptText);
-        if (answer && answer.trim().toLowerCase() === q.a.toLowerCase()) {
+
+        if (answer === null) return;
+
+        if (answer.trim().toLowerCase() === q.a.toLowerCase()) {
             obstacle.disableBody(true, true);
             return;
         }
 
         alert("Wrong. Try again.");
         let answer2 = prompt(promptText);
-        if (answer2 && answer2.trim().toLowerCase() === q.a.toLowerCase()) {
+        if (answer2 === null) return;
+
+        if (answer2.trim().toLowerCase() === q.a.toLowerCase()) {
             obstacle.disableBody(true, true);
             return;
         }
@@ -804,6 +812,9 @@ class Level1 extends Phaser.Scene {
         let finalAnswer = "";
         while (finalAnswer.trim().toLowerCase() !== q.a.toLowerCase()) {
             finalAnswer = prompt(promptText + "\n\nPlease enter the correct letter:");
+            if (finalAnswer === null) return;
+
+            if (finalAnswer.trim().toLowerCase() === q.a.toLowerCase()) break;
         }
 
         obstacle.disableBody(true, true);
@@ -987,14 +998,19 @@ class Level2 extends Phaser.Scene {
             "D. " + q.options.d;
 
         let answer = prompt(promptText);
-        if (answer && answer.trim().toLowerCase() === q.a.toLowerCase()) {
+
+        if (answer === null) return;
+
+        if (answer.trim().toLowerCase() === q.a.toLowerCase()) {
             obstacle.disableBody(true, true);
             return;
         }
 
         alert("Wrong. Try again.");
         let answer2 = prompt(promptText);
-        if (answer2 && answer2.trim().toLowerCase() === q.a.toLowerCase()) {
+        if (answer2 === null) return;
+
+        if (answer2.trim().toLowerCase() === q.a.toLowerCase()) {
             obstacle.disableBody(true, true);
             return;
         }
@@ -1004,6 +1020,9 @@ class Level2 extends Phaser.Scene {
         let finalAnswer = "";
         while (finalAnswer.trim().toLowerCase() !== q.a.toLowerCase()) {
             finalAnswer = prompt(promptText + "\n\nPlease enter the correct letter:");
+            if (finalAnswer === null) return;
+
+            if (finalAnswer.trim().toLowerCase() === q.a.toLowerCase()) break;
         }
 
         obstacle.disableBody(true, true);
@@ -1185,14 +1204,19 @@ class Level3 extends Phaser.Scene {
             "D. " + q.options.d;
 
         let answer = prompt(promptText);
-        if (answer && answer.trim().toLowerCase() === q.a.toLowerCase()) {
+
+        if (answer === null) return;
+
+        if (answer.trim().toLowerCase() === q.a.toLowerCase()) {
             obstacle.disableBody(true, true);
             return;
         }
 
         alert("Wrong. Try again.");
         let answer2 = prompt(promptText);
-        if (answer2 && answer2.trim().toLowerCase() === q.a.toLowerCase()) {
+        if (answer2 === null) return;
+
+        if (answer2.trim().toLowerCase() === q.a.toLowerCase()) {
             obstacle.disableBody(true, true);
             return;
         }
@@ -1202,6 +1226,9 @@ class Level3 extends Phaser.Scene {
         let finalAnswer = "";
         while (finalAnswer.trim().toLowerCase() !== q.a.toLowerCase()) {
             finalAnswer = prompt(promptText + "\n\nPlease enter the correct letter:");
+            if (finalAnswer === null) return;
+
+            if (finalAnswer.trim().toLowerCase() === q.a.toLowerCase()) break;
         }
 
         obstacle.disableBody(true, true);
@@ -1407,14 +1434,19 @@ class Level4 extends Phaser.Scene {
             "D. " + q.options.d;
 
         let answer = prompt(promptText);
-        if (answer && answer.trim().toLowerCase() === q.a.toLowerCase()) {
+
+        if (answer === null) return;
+
+        if (answer.trim().toLowerCase() === q.a.toLowerCase()) {
             obstacle.disableBody(true, true);
             return;
         }
 
         alert("Wrong. Try again.");
         let answer2 = prompt(promptText);
-        if (answer2 && answer2.trim().toLowerCase() === q.a.toLowerCase()) {
+        if (answer2 === null) return;
+
+        if (answer2.trim().toLowerCase() === q.a.toLowerCase()) {
             obstacle.disableBody(true, true);
             return;
         }
@@ -1424,6 +1456,9 @@ class Level4 extends Phaser.Scene {
         let finalAnswer = "";
         while (finalAnswer.trim().toLowerCase() !== q.a.toLowerCase()) {
             finalAnswer = prompt(promptText + "\n\nPlease enter the correct letter:");
+            if (finalAnswer === null) return;
+
+            if (finalAnswer.trim().toLowerCase() === q.a.toLowerCase()) break;
         }
 
         obstacle.disableBody(true, true);
